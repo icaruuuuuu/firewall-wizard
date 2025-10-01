@@ -1,8 +1,4 @@
-
-
-<!--
-
-.sidebar { 
+/* .sidebar { 
     background: #0d6efd; 
     color: white; 
     padding: 1rem; }
@@ -13,13 +9,18 @@
 .sidebar .nav-link.active { 
     background: rgba(255,255,255,0.08); 
     border-radius: 8px; 
-    color: white; }
+    color: white; } */
 
--->
+body {
+    background-color: #f7f3ff; }
 
 /* Log */
 
-.table-striped>thead>tr:nth-of-type(odd)>th {
+.table-sm {
+    background-color: #f7f3ff;
+}
+
+/* .table-striped>thead>tr:nth-of-type(odd)>th {
     background-color: #bda6f5; 
     color: #2d1b52;           
 }
@@ -32,4 +33,4 @@
 .table-striped>tbody>tr:nth-of-type(even)>th,
 .table-striped>tbody>tr:nth-child(even)>td {
     background-color: #f7f3ff;
-}
+} */
