@@ -5,55 +5,63 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Bootstrap demo</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/config.css">
 </head>
-<body>
-	<h3>Config</h3>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-	
-	<div class="from-check form-switch">
-		<input type="checkbox" role="switch" class="form-check-input" id="switchCheckDefault">
-		<label class="form-check-label"for="switchCheckDefault">Turn the firewall on or off</label>
+<body class="pad">
+<div class="row">
+	<div class="col-6 wrap">
+		<h3 class="display-6">Config</h3>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+		<div class="pad">	
+		<div class="row">
+			<div class="col-6">
+				<h5 name="state">Firewall State</h5>
+				<p class="text-secondary">Turn the firewall on or off</p>
+			</div>
+			<div class="col-6 text-end">
+				<div class="from-check form-switch">
+				<input type="checkbox" role="switch" class="form-check-input" id="switchCheckDefault">
+				</div>
+			</div>
+		<hr/>
+		</div>
+		</div>
+
+		<div class="pad">
+		<h4>Firewall Behaviour</h4>
+		<select class="form-select form-select-md">
+			<option value="deny">Deny all except rules</option>
+			<option value="allow">Allow all except rules</option>
+			<option value="register">Register only</option>
+		</select>
+		<p class="text-secondary">Default behaviour for firewall to handle connections</p>
+		</div>
+
+
+		<div class="pad">
+		<h4>Rules</h4>
+		<ul class="list-group">
+			<li class="list-group-item">
+				ALLOW TCP 443 -&gt; 142.251.201.246
+				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
+				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
+			</li>
+			<li class="list-group-item">
+				DENY TCP 443 -&gt; 200.100.50.2
+				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
+				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
+			</li>
+		</ul>
+		<input type=button onclick="alert('este botão não funciona')" value="Add rule" class="btn btn-primary">
+		</div>
 	</div>
 
-	<hr/>
-
-	<h4>Firewall Behaviour</h4>
-	<select class="form-select form-select-md">
-		<option value="deny">Deny all except rules</option>
-		<option value="allow">Allow all except rules</option>
-		<option value="register">Register only</option>
-	</select>
-	<label>Default behaviour for firewall to handle connections</label>
-	<br>
-
-	<br>
-	<h4>Add ports to contradict default behaviour</h4>
-	<input type=number/>
-	<br>
-
-	<br>
-	<h6>Added ports: </h6>
-	<ul class="list-group list-group-horizontal">
-		<li class="list-group-item">80</li>
-		<li class="list-group-item">443</li>
-		<li class="list-group-item">8080</li>
-		<li class="list-group-item">7777</li>
-	</ul>
-	<br>
-	<h4>Rules</h4>
-	<ul class="list-group">
-		<li class="list-group-item">
-			ALLOW TCP 443 -&gt; 142.251.201.246
-			<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
-			<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
-		</li>
-		<li class="list-group-item">
-			DENY TCP 443 -&gt; 200.100.50.2
-			<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
-			<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
-		</li>
-	</ul>
-
-
+	<div class="col-1">
+		<p></p>
+	</div>
+	<div class="col-5 wrap">
+		<h1>teste</h1>
+	</div>
+</div>
 </body>
 </html>
