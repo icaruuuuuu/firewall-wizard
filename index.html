@@ -1,40 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Firewall Wizard</title>
-    <link rel="icon" type="image/png" href="imgs/Firewall_Wizard_Hat.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<title>Firewall Wizard</title>
+<link rel="icon" type="image/png" href="imgs/Firewall_Wizard_Hat.png">
+<style>
+  body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .navbar {
+    background-color: #fcf5fc;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .navbar-brand img {
+    width: 60px; 
+    height: 60px;
+    object-fit: contain;
+  }
+
+  .navbar-nav .nav-link {
+    margin-left: 10px;
+  }
+
+</style>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <h1>Teste!!!</h1>
 
-    <aside class="sidebar d-flex flex-column">
-      <div class="brand">
-        <span class="logo" aria-hidden="true"></span>
-        <div>
-          <div style="font-size:1rem">FIREWALL.UI</div>
-          <div class="small-muted" style="font-size:.78rem">painel web</div>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+  <div class="container-fluid px-5">
+    
+    
+    <a class="navbar-brand" href="#">
+      <img src="imgs/Firewall_Wizard_Hat_NoBackground.png" alt="Logo">
+    </a>
 
-      <!-- Menu: adicionar itens aqui. data-component deve corresponder ao id do "panel" -->
-      <nav class="nav flex-column mb-3" id="appMenu" role="tablist" aria-label="Navegação do painel">
-        <a class="nav-link active" href="#" data-component="settings" role="tab">⚙️ Configurações</a>
-        <a class="nav-link" href="#" data-component="logs" role="tab">📜 Logs</a>
-        <!-- Exemplo: para adicionar outra opção, coloque:
-             <a class="nav-link" href="#" data-component="novaOpcao">🔋 Nova Opção</a>
-             e crie um <section id="panel-novaOpcao" ...> abaixo -->
-      </nav>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar" aria-controls="menuNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="mt-auto small-muted">
-        Versão <span class="mono">1.0.0</span><br>
-        conectado como <span class="mono">admin@empresa.local</span>
-      </div>
-    </aside>
+    
+    <div class="collapse navbar-collapse" id="menuNavbar">
+      <ul class="navbar-nav ms-2">
+        <li class="nav-item">
+          <a class="btn btn-primary me-2" href="config.html" target="content">Config</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="log.html" target="content">Log</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+<div class="container fluid" style="margin-top: 100px;">
+	<iframe name="content" src="config.html" width="100%" height="100%">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
