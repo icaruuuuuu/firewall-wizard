@@ -16,3 +16,20 @@
     color: white; }
 
 -->
+
+/* Log */
+
+.table-striped>thead>tr:nth-of-type(odd)>th {
+    background-color: #bda6f5; 
+    color: #2d1b52;           
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>th,
+.table-striped>tbody>tr:nth-of-type(odd)>td {
+    background-color: #ede4ff;
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>th,
+.table-striped>tbody>tr:nth-child(even)>td {
+    background-color: #f7f3ff;
+}
