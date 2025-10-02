@@ -1,8 +1,16 @@
+.pad-body {
+	display: flex;
+	flex-direction: row;
+	padding: 12px 24px 12px 24px;
+}
+
 .pad {
 	padding: 12px 24px 12px 24px;
 }
 
 .wrap {
+	flex: 1;
+	margin: 12px;
 	border-radius: 5px;
-	border: 1px solid #6f7a7f;
+	border: 1px solid #e0e0e0;
 }
