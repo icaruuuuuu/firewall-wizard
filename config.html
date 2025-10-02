@@ -14,7 +14,7 @@
 		<div class="pad">	
 		<div class="row">
 			<div class="col-6">
-				<h5 name="state">Firewall State</h5>
+				<h6 name="state">Firewall State</h6>
 				<p class="text-secondary">Turn the firewall on or off</p>
 			</div>
 			<div class="col-6 text-end">
@@ -22,12 +22,12 @@
 				<input type="checkbox" role="switch" class="form-check-input" id="switchCheckDefault">
 				</div>
 			</div>
-		<hr/>
+			<hr/>
 		</div>
 		</div>
 
 		<div class="pad">
-		<h4>Firewall Behaviour</h4>
+		<h5>Firewall Behaviour</h5>
 		<select class="form-select form-select-md">
 			<option value="deny">Deny all except rules</option>
 			<option value="allow">Allow all except rules</option>
@@ -38,20 +38,22 @@
 
 
 		<div class="pad">
-		<h4>Rules</h4>
+		<h5>Rules</h5>
 		<ul class="list-group">
 			<li class="list-group-item">
 				ALLOW TCP 443 -&gt; 142.251.201.246
-				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
-				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
+				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light btn-sm"/>
+				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger btn-sm"/>
 			</li>
 			<li class="list-group-item">
 				DENY TCP 443 -&gt; 200.100.50.2
-				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light"/>
-				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger"/>
+				<input type=button onclick="alert('oi')" value="Edit" class="btn btn-light btn-sm"/>
+				<input type=button onclick="alert('oi')" value="Remove" class="btn btn-danger btn-sm"/>
 			</li>
 		</ul>
-		<input type=button onclick="alert('este botão não funciona')" value="Add rule" class="btn btn-primary">
+		<div class="pad">
+		<input type=button onclick="alert('este botão não funciona')" value="Add rule" class="btn btn-primary btn-sm">
+		</div>
 		</div>
 	</div>
 
