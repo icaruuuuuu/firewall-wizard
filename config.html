@@ -14,7 +14,7 @@
 		<div class="pad">	
 		<div class="row">
 			<div class="col-6">
-				<h6 name="state">Firewall State</h6>
+				<h6 name="state"><b>Firewall State</b></h6>
 				<p class="text-secondary">Turn the firewall on or off</p>
 			</div>
 			<div class="col-6 text-end">
@@ -27,18 +27,21 @@
 		</div>
 
 		<div class="pad">
-		<h5>Firewall Behaviour</h5>
+		<h6><b>Firewall Behaviour</b></h6>
+		
+		<p class="text-secondary" style="margin-top: 12px;">Default behaviour for firewall to handle connections</p>
 		<select class="form-select form-select-md">
 			<option value="deny">Deny all except rules</option>
 			<option value="allow">Allow all except rules</option>
 			<option value="register">Register only</option>
 		</select>
-		<p class="text-secondary" style="margin-top: 12px;">Default behaviour for firewall to handle connections</p>
+
 		<hr/>
 		</div>
 
 		<div class="pad">
-		<h5>Rules</h5>
+		<h6><b>Rules</b></h6>
+		<p class="text-secondary">Specific allow or deny conditions for network connections</p>
 		<ul class="list-group">
 			<li class="list-group-item">
 				ALLOW TCP 443 -&gt; 142.251.201.246
@@ -60,12 +63,12 @@
 		<h3 class="mb-4" style="text-align: center;"><b>Resume & Stats</b></h5>
 		<div class="d-flex justify-content-between align-items-center">
 			<div>
-				<p class="mb-1 text-secondary">Active connections</p>
+				<p class="text-secondary mb-1">Active connections</p>
 				<b style="font-size: xx-large;">14</b>
 			</div>
 
 			<div>
-				<p class="mb-1">Alertas hoje</p>
+				<p class=" textsecondary mb-1">Today's alerts</p>
 				<b style="font-size: xx-large;">1</b>
 			</div>
 		</div>
