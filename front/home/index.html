@@ -8,6 +8,16 @@
 	<link rel="stylesheet" href="css/flex.css">
 </head>
 <body>
-	<iframe class="wrapper" frameBorder="0" src="dashboard/dashboard.html"> <!-- editar este SRC para incluir a página que você deseja colocar de primeira -->
+	<div class="sidebar">
+		<button class="toggle-btn">☰</button>
+		<nav class="nav-content">
+			<a href="dashboard/dashboard.html" target="navs">Dashboard</a>
+			<a href="config/tablelist.html" target="navs">Tables</a>
+			<a href="config/chainlist.html" target="navs">Chains</a>
+			<a href="config/rulelist.html" target="navs">Rules</a>
+			<a href="logs/logs.html" target="navs">Logs</a>
+		</nav>
+	</div>
+	<iframe class="wrapper" name="navs" frameBorder="0" src="dashboard/dashboard.html"> <!-- editar este SRC para incluir a página que você deseja colocar de primeira -->
 </body>
 </html>
