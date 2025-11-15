@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criar Regra - Firewall Wizard</title>
+  <link rel="stylesheet" href="../css/flex.css">
+  <link rel="stylesheet" href="../css/elements.css">
+  <link rel="stylesheet" href="../css/text-config.css">
+  <link rel="stylesheet" href="../../css/rule-config.css" />
+</head>
+<body>
+
+<main class="rule-container">
+
+  <div class="rule-card">
+    <div class="rule-header">
+      <h2>Criar Nova Regra</h2>
+      <p class="rule-subtitle">Configure uma regra para o firewall nftables</p>
+    </div>
+
+    <form id="ruleForm" class="rule-form">
+
+      <!-- Seção 1: Identificação da Regra -->
+      <fieldset class="rule-fieldset">
+        <legend>Identificação da Regra</legend>
+        
+        <div class="form-group">
+          <label for="description">Descrição:</label>
+          <input 
+            type="text" 
+            id="description" 
+            name="description"
+            placeholder="ex: Permitir SSH apenas de redes administrativas"
+            required
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="family">Family:</label>
+            <select id="family" name="family" required>
+              <option value="">Selecione...</option>
+              <option value="inet">inet (IPv4 + IPv6)</option>
+              <option value="ip">ip (IPv4)</option>
+              <option value="ip6">ip6 (IPv6)</option>
+              <option value="arp">arp</option>
+              <option value="bridge">bridge</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="table">Tabela:</label>
+            <select id="table" name="table" required>
+              <option value="">Selecione...</option>
+              <option value="filter">filter</option>
+              <option value="nat">nat</option>
+              <option value="mangle">mangle</option>
+              <option value="raw">raw</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="chain">Chain:</label>
+            <select id="chain" name="chain" required>
+              <option value="">Selecione...</option>
+              <option value="input">input</option>
+              <option value="output">output</option>
+              <option value="forward">forward</option>
+              <option value="prerouting">prerouting</option>
+              <option value="postrouting">postrouting</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="position">Posição na cadeia:</label>
+          <input 
+            type="number" 
+            id="position" 
+            name="position"
+            placeholder="ex: 1"
+            min="1"
+            value="1"
+          />
+        </div>
+      </fieldset>
+
+      <!-- Seção 2: Critérios de Correspondência -->
+      <fieldset class="rule-fieldset">
+        <legend>Critérios de Correspondência</legend>
+        
+        <div class="form-group">
+          <label for="matchType">Tipo de Correspondência:</label>
+          <select id="matchType" name="matchType" required>
+            <option value="">Selecione...</option>
+            <option value="interface">Interface</option>
+            <option value="state">Estado de Conexão</option>
+            <option value="protocol">Protocolo</option>
+            <option value="ip">Endereço IP</option>
+            <option value="limit">Limite de Taxa</option>
+            <option value="all">Todas as Conexões</option>
+          </select>
+        </div>
+
+        <!-- Interface Match -->
+        <div id="match-interface" class="match-section" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="interface">Interface:</label>
+              <input 
+                type="text" 
+                id="interface" 
+                name="interface"
+                placeholder="ex: eth0, lo"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="interfaceDir">Direção:</label>
+              <select id="interfaceDir" name="interfaceDir">
+                <option value="input">Input</option>
+                <option value="output">Output</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- State Match -->
+        <div id="match-state" class="match-section" style="display: none;">
+          <div class="form-group">
+            <label>Estados de Conexão:</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="states" value="established" /> Established
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="states" value="related" /> Related
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="states" value="new" /> New
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="states" value="invalid" /> Invalid
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Protocol Match -->
+        <div id="match-protocol" class="match-section" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="protocol">Protocolo:</label>
+              <select id="protocol" name="protocol">
+                <option value="">Selecione...</option>
+                <option value="tcp">TCP</option>
+                <option value="udp">UDP</option>
+                <option value="icmp">ICMP</option>
+                <option value="esp">ESP</option>
+                <option value="ah">AH</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="destPort">Porta Destino:</label>
+              <input 
+                type="text" 
+                id="destPort" 
+                name="destPort"
+                placeholder="ex: 22 ou 80,443 ou 3000:4000"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="srcPort">Porta Origem:</label>
+              <input 
+                type="text" 
+                id="srcPort" 
+                name="srcPort"
+                placeholder="ex: 1024:65535"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- IP Match -->
+        <div id="match-ip" class="match-section" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="srcAddr">Endereço Origem:</label>
+              <input 
+                type="text" 
+                id="srcAddr" 
+                name="srcAddr"
+                placeholder="ex: 192.168.1.0/24 ou @admin_networks"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="destAddr">Endereço Destino:</label>
+              <input 
+                type="text" 
+                id="destAddr" 
+                name="destAddr"
+                placeholder="ex: 10.0.0.0/8"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Limit Match -->
+        <div id="match-limit" class="match-section" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rate">Taxa:</label>
+              <input 
+                type="text" 
+                id="rate" 
+                name="rate"
+                placeholder="ex: 5/minute ou 10/second"
+                value="5/minute"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="burst">Burst:</label>
+              <input 
+                type="number" 
+                id="burst" 
+                name="burst"
+                placeholder="ex: 10"
+                value="10"
+                min="1"
+              />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Seção 3: Ação -->
+      <fieldset class="rule-fieldset">
+        <legend>Ação</legend>
+        
+        <div class="form-group">
+          <label for="action">Ação:</label>
+          <select id="action" name="action" required>
+            <option value="">Selecione...</option>
+            <option value="accept">Accept (Aceitar)</option>
+            <option value="drop">Drop (Descartar)</option>
+            <option value="reject">Reject (Rejeitar)</option>
+            <option value="log">Log (Registrar)</option>
+            <option value="dnat">DNAT (Network Address Translation de destino)</option>
+            <option value="snat">SNAT (Network Address Translation de origem)</option>
+            <option value="masquerade">Masquerade (Mascarar)</option>
+            <option value="add_to_set">Add to Set (Adicionar a conjunto)</option>
+          </select>
+        </div>
+
+        <!-- DNAT Action -->
+        <div id="action-dnat" class="action-section" style="display: none;">
+          <div class="form-group">
+            <label for="natTarget">Alvo NAT:</label>
+            <input 
+              type="text" 
+              id="natTarget" 
+              name="natTarget"
+              placeholder="ex: 192.168.1.100:8080"
+            />
+          </div>
+        </div>
+
+        <!-- Log Action -->
+        <div id="action-log" class="action-section" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="logPrefix">Prefixo do Log:</label>
+              <input 
+                type="text" 
+                id="logPrefix" 
+                name="logPrefix"
+                placeholder="ex: Firewall-Denied: "
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="logLevel">Nível:</label>
+              <select id="logLevel" name="logLevel">
+                <option value="debug">Debug</option>
+                <option value="info">Info</option>
+                <option value="warn">Warn</option>
+                <option value="err">Error</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Set Action -->
+        <div id="action-set" class="action-section" style="display: none;">
+          <div class="form-group">
+            <label for="setTarget">Alvo do Conjunto:</label>
+            <input 
+              type="text" 
+              id="setTarget" 
+              name="setTarget"
+              placeholder="ex: ssh_abusers"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="counter" name="counter" checked />
+            Habilitar Contador
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Seção 4: Configurações Adicionais -->
+      <fieldset class="rule-fieldset">
+        <legend>Configurações Adicionais</legend>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="enabled" name="enabled" checked />
+            Regra Ativa
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="comment">Comentário:</label>
+          <textarea 
+            id="comment" 
+            name="comment"
+            placeholder="Adicione notas sobre esta regra..."
+            rows="3"
+          ></textarea>
+        </div>
+      </fieldset>
+
+      <!-- Botões de Ação -->
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Salvar Regra</button>
+        <button type="reset" class="btn-secondary">Limpar Formulário</button>
+        <button type="button" class="btn-tertiary" onclick="window.history.back()">Cancelar</button>
+      </div>
+
+    </form>
+  </div>
+
+</main>
+
+<script src="ruleconfig.js"></script>
+
+</body>
+</html>
+
