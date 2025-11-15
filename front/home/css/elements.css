@@ -1,0 +1,24 @@
+.sidebar {
+	position: fixed;
+	width: 150px;
+	height: 100vh;
+	left: -150px;
+	top: 0;
+	background-color: blue;
+	transition: left 0.3s ease-in-out;
+}
+
+.sidebar.expanded {
+	left: 0;
+}
+
+.nav-content {
+	padding: 20px;
+}
+
+.nav-content a {
+	display: flex;
+	align-items: center;
+	color: white;
+	text-decoration: none;
+}
