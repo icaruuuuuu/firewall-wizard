@@ -1,0 +1,265 @@
+{
+  "veredicts": [
+    {
+      "date": "2025-09-26",
+      "time": "21:14:02",
+      "source_ip": "203.0.113.12",
+      "source_port": "54321",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "80",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-26",
+      "time": "20:38:54",
+      "source_ip": "188.55.1.70",
+      "source_port": "22",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "443",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-26",
+      "time": "20:37:02",
+      "source_ip": "10.0.0.5",
+      "source_port": "49152",
+      "dest_ip": "188.55.1.70",
+      "dest_port": "53",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-25",
+      "time": "15:23:41",
+      "source_ip": "192.168.1.15",
+      "source_port": "3389",
+      "dest_ip": "10.0.0.8",
+      "dest_port": "22",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-25",
+      "time": "14:12:33",
+      "source_ip": "45.76.122.89",
+      "source_port": "25",
+      "dest_ip": "10.0.0.12",
+      "dest_port": "993",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-25",
+      "time": "11:05:17",
+      "source_ip": "10.0.0.5",
+      "source_port": "49153",
+      "dest_ip": "8.8.8.8",
+      "dest_port": "53",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-24",
+      "time": "09:45:28",
+      "source_ip": "172.217.16.206",
+      "source_port": "443",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "49154",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-24",
+      "time": "08:32:11",
+      "source_ip": "104.18.32.45",
+      "source_port": "80",
+      "dest_ip": "10.0.0.15",
+      "dest_port": "8080",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-23",
+      "time": "22:15:47",
+      "source_ip": "10.0.0.7",
+      "source_port": "49155",
+      "dest_ip": "1.1.1.1",
+      "dest_port": "53",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-23",
+      "time": "19:28:33",
+      "source_ip": "93.184.216.34",
+      "source_port": "443",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "49156",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-22",
+      "time": "16:42:19",
+      "source_ip": "185.143.234.12",
+      "source_port": "21",
+      "dest_ip": "10.0.0.9",
+      "dest_port": "21",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-22",
+      "time": "13:27:55",
+      "source_ip": "10.0.0.5",
+      "source_port": "49157",
+      "dest_ip": "208.67.222.222",
+      "dest_port": "53",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-21",
+      "time": "10:18:42",
+      "source_ip": "76.223.125.73",
+      "source_port": "1433",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "1433",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-21",
+      "time": "07:53:26",
+      "source_ip": "10.0.0.11",
+      "source_port": "49158",
+      "dest_ip": "142.251.32.110",
+      "dest_port": "443",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-20",
+      "time": "23:41:38",
+      "source_ip": "151.101.194.217",
+      "source_port": "80",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "49159",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-20",
+      "time": "18:29:14",
+      "source_ip": "34.120.182.45",
+      "source_port": "25",
+      "dest_ip": "10.0.0.18",
+      "dest_port": "587",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-19",
+      "time": "14:36:27",
+      "source_ip": "10.0.0.5",
+      "source_port": "49160",
+      "dest_ip": "91.198.174.192",
+      "dest_port": "80",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-19",
+      "time": "12:22:08",
+      "source_ip": "203.0.113.45",
+      "source_port": "22",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "22",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-18",
+      "time": "08:15:39",
+      "source_ip": "10.0.0.6",
+      "source_port": "49161",
+      "dest_ip": "185.199.108.153",
+      "dest_port": "443",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-18",
+      "time": "05:47:52",
+      "source_ip": "198.51.100.23",
+      "source_port": "993",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "993",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-17",
+      "time": "03:28:41",
+      "source_ip": "10.0.0.5",
+      "source_port": "49162",
+      "dest_ip": "192.0.78.25",
+      "dest_port": "80",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-17",
+      "time": "01:19:37",
+      "source_ip": "54.192.143.21",
+      "source_port": "443",
+      "dest_ip": "10.0.0.14",
+      "dest_port": "49163",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-16",
+      "time": "22:08:44",
+      "source_ip": "10.0.0.5",
+      "source_port": "49164",
+      "dest_ip": "104.244.42.129",
+      "dest_port": "21",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-16",
+      "time": "20:51:29",
+      "source_ip": "172.64.155.87",
+      "source_port": "23",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "23",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-15",
+      "time": "17:39:16",
+      "source_ip": "10.0.0.13",
+      "source_port": "49165",
+      "dest_ip": "199.232.65.114",
+      "dest_port": "443",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-15",
+      "time": "15:24:33",
+      "source_ip": "203.0.113.89",
+      "source_port": "110",
+      "dest_ip": "10.0.0.5",
+      "dest_port": "110",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-14",
+      "time": "11:17:58",
+      "source_ip": "10.0.0.5",
+      "source_port": "49166",
+      "dest_ip": "151.101.130.217",
+      "dest_port": "80",
+      "action": "Block"
+    },
+    {
+      "date": "2025-09-14",
+      "time": "09:42:11",
+      "source_ip": "98.137.246.72",
+      "source_port": "80",
+      "dest_ip": "10.0.0.16",
+      "dest_port": "49167",
+      "action": "Allow"
+    },
+    {
+      "date": "2025-09-13",
+      "time": "06:35:47",
+      "source_ip": "10.0.0.5",
+      "source_port": "49168",
+      "dest_ip": "185.199.111.153",
+      "dest_port": "443",
+      "action": "Allow"
+    }
+  ]
+}
