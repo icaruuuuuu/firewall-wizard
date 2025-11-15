@@ -1,0 +1,324 @@
+{
+  "config": {
+    "version": "1.0",
+    "name": "Firewall Corporativo",
+    "default_policy": "deny",
+    "description": "Configuração básica de firewall para servidor web",
+    "last_updated": "2024-01-15T10:00:00Z"
+  },
+  "tables": [
+    {
+      "id": "t1",
+      "name": "filter",
+      "family": "inet",
+      "description": "Tabela principal de filtragem de pacotes"
+    },
+    {
+      "id": "t2", 
+      "name": "nat",
+      "family": "ip",
+      "description": "Tabela para Network Address Translation"
+    }
+  ],
+  "chains": [
+    {
+      "id": "c1",
+      "table_id": "t1",
+      "name": "input",
+      "type": "filter",
+      "hook": "input",
+      "priority": 0,
+      "policy": "drop",
+      "description": "Cadeia para tráfego de entrada no sistema"
+    },
+    {
+      "id": "c2",
+      "table_id": "t1",
+      "name": "forward", 
+      "type": "filter",
+      "hook": "forward",
+      "priority": 0,
+      "policy": "drop",
+      "description": "Cadeia para tráfego sendo encaminhado"
+    },
+    {
+      "id": "c3",
+      "table_id": "t1",
+      "name": "output",
+      "type": "filter",
+      "hook": "output", 
+      "priority": 0,
+      "policy": "accept",
+      "description": "Cadeia para tráfego de saída do sistema"
+    },
+    {
+      "id": "c4",
+      "table_id": "t2",
+      "name": "prerouting",
+      "type": "nat",
+      "hook": "prerouting",
+      "priority": -100,
+      "policy": null,
+      "description": "Cadeia para NAT antes do roteamento"
+    },
+    {
+      "id": "c5",
+      "table_id": "t2", 
+      "name": "postrouting",
+      "type": "nat",
+      "hook": "postrouting",
+      "priority": 100,
+      "policy": null,
+      "description": "Cadeia para NAT depois do roteamento"
+    }
+  ],
+  "sets": [
+    {
+      "id": "s1",
+      "table_id": "t1",
+      "name": "web_ports",
+      "type": "inet_service",
+      "flags": ["constant"],
+      "elements": [80, 443, 8080, 8443],
+      "description": "Portas para serviços web"
+    },
+    {
+      "id": "s2",
+      "table_id": "t1", 
+      "name": "admin_networks",
+      "type": "ipv4_addr",
+      "flags": ["interval"],
+      "elements": ["192.168.1.0/24", "10.1.1.0/24"],
+      "description": "Redes administrativas confiáveis"
+    },
+    {
+      "id": "s3",
+      "table_id": "t1",
+      "name": "ssh_abusers",
+      "type": "ipv4_addr",
+      "flags": ["dynamic", "timeout"],
+      "elements": [],
+      "timeout": "1h",
+      "description": "IPs bloqueados por excesso de tentativas SSH"
+    }
+  ],
+  "rules": [
+    {
+      "id": "r1",
+      "chain_id": "c1",
+      "position": 1,
+      "description": "Permitir interface loopback",
+      "matches": [
+        {
+          "type": "interface",
+          "interface": "lo",
+          "direction": "input"
+        }
+      ],
+      "action": "accept",
+      "counter": true,
+      "enabled": true
+    },
+    {
+      "id": "r2",
+      "chain_id": "c1",
+      "position": 2,
+      "description": "Permitir conexões estabelecidas e relacionadas",
+      "matches": [
+        {
+          "type": "state", 
+          "states": ["established", "related"]
+        }
+      ],
+      "action": "accept",
+      "counter": true,
+      "enabled": true
+    },
+    {
+      "id": "r3",
+      "chain_id": "c1",
+      "position": 3,
+      "description": "SSH apenas de redes administrativas com rate limiting",
+      "matches": [
+        {
+          "type": "protocol",
+          "protocol": "tcp", 
+          "destination_port": 22
+        },
+        {
+          "type": "ip",
+          "source_address": "@admin_networks"
+        },
+        {
+          "type": "limit",
+          "rate": "5/minute",
+          "burst": 10
+        }
+      ],
+      "action": "accept",
+      "counter": true,
+      "enabled": true
+    },
+    {
+      "id": "r4",
+      "chain_id": "c1", 
+      "position": 4,
+      "description": "Serviços web nas portas padrão",
+      "matches": [
+        {
+          "type": "protocol",
+          "protocol": "tcp",
+          "destination_port": "@web_ports"
+        }
+      ],
+      "action": "accept",
+      "counter": true,
+      "enabled": true
+    },
+    {
+      "id": "r5",
+      "chain_id": "c1",
+      "position": 5,
+      "description": "Proteção contra ICMP flood",
+      "matches": [
+        {
+          "type": "protocol",
+          "protocol": "icmp"
+        },
+        {
+          "type": "limit", 
+          "rate": "2/second",
+          "burst": 5
+        }
+      ],
+      "action": "accept",
+      "enabled": true
+    },
+    {
+      "id": "r6",
+      "chain_id": "c1",
+      "position": 6,
+      "description": "Bloquear IPs com excesso de tentativas SSH",
+      "matches": [
+        {
+          "type": "ip", 
+          "source_address": "@ssh_abusers"
+        }
+      ],
+      "action": "drop",
+      "enabled": true
+    },
+    {
+      "id": "r7",
+      "chain_id": "c1",
+      "position": 7,
+      "description": "Detectar e bloquear abuso de SSH",
+      "matches": [
+        {
+          "type": "protocol",
+          "protocol": "tcp",
+          "destination_port": 22
+        },
+        {
+          "type": "limit",
+          "rate": "10/minute", 
+          "burst": 5
+        }
+      ],
+      "action": "add_to_set",
+      "set_target": "s3",
+      "enabled": true
+    },
+    {
+      "id": "r8",
+      "chain_id": "c1",
+      "position": 8, 
+      "description": "Log de tráfego bloqueado",
+      "matches": [
+        {
+          "type": "all"
+        }
+      ],
+      "action": "log",
+      "log_config": {
+        "prefix": "Firewall-Denied: ",
+        "level": "warn"
+      },
+      "enabled": true
+    },
+    {
+      "id": "r9",
+      "chain_id": "c4",
+      "position": 1,
+      "description": "Redirecionar HTTP para servidor interno",
+      "matches": [
+        {
+          "type": "protocol",
+          "protocol": "tcp", 
+          "destination_port": 80
+        }
+      ],
+      "action": "dnat",
+      "nat_target": "192.168.1.100:8080",
+      "enabled": true
+    },
+    {
+      "id": "r10",
+      "chain_id": "c5",
+      "position": 1,
+      "description": "NAT para tráfego de saída na internet",
+      "matches": [
+        {
+          "type": "interface",
+          "interface": "eth0",
+          "direction": "output"
+        }
+      ],
+      "action": "masquerade",
+      "enabled": true
+    },
+    {
+      "id": "r11", 
+      "chain_id": "c2",
+      "position": 1,
+      "description": "Permitir encaminhamento entre redes internas",
+      "matches": [
+        {
+          "type": "ip",
+          "source_address": "192.168.1.0/24",
+          "destination_address": "10.1.1.0/24" 
+        }
+      ],
+      "action": "accept",
+      "enabled": true
+    },
+    {
+      "id": "r12",
+      "chain_id": "c3",
+      "position": 1,
+      "description": "Bloquear saída para IPs maliciosos",
+      "matches": [
+        {
+          "type": "ip",
+          "destination_address": "203.0.113.0/24"
+        }
+      ],
+      "action": "drop", 
+      "enabled": true
+    }
+  ],
+  "maps": [
+    {
+      "id": "m1",
+      "table_id": "t2",
+      "name": "load_balance",
+      "key_type": "inet_service",
+      "value_type": "ipv4_addr . inet_service", 
+      "data": {
+        "8080": "192.168.1.10 . 80",
+        "8081": "192.168.1.11 . 80"
+      },
+      "description": "Mapa para balanceamento de carga"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Firewall Wizard</title>
+	<link rel="stylesheet" href="css/flex.css">
+	<link rel="stylesheet" href="css/elements.css">
+</head>
+<body>
+	<button class="toggle-btn" id="outter-tog">☰</button>
+	<div class="sidebar">
+		<button class="toggle-btn" id="inner-tog">☰</button>
+		<nav class="nav-content">
+			<a href="dashboard/dashboard.html" target="navs">Dashboard</a>
+			<a href="config/tablelist.html" target="navs">Tables</a>
+			<a href="config/chainlist.html" target="navs">Chains</a>
+			<a href="config/rulelist.html" target="navs">Rules</a>
+			<a href="logs/logs.html" target="navs">Logs</a>
+		</nav>
+	</div>
+
+	<script>
+		const sidebar = document.querySelector('.sidebar');
+		const outter = document.getElementById('outter-tog');
+		const inner = document.getElementById('inner-tog');
+		outter.addEventListener('click', () => {sidebar.classList.toggle('expanded');});
+		inner.addEventListener('click', () => {sidebar.classList.toggle('expanded');});
+	</script>
+
+	<iframe class="wrapper" name="navs" frameBorder="0" src="dashboard/dashboard.html"> <!-- editar este SRC para incluir a página que você deseja colocar de primeira -->
+</body>
+</html>
