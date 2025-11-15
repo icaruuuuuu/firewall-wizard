@@ -6,10 +6,18 @@
 	<title>Firewall Wizard</title>
 	<link rel="stylesheet" href="css/flex.css">
 	<link rel="stylesheet" href="css/elements.css">
+	<link rel="stylesheet" href="css/text-config.css">
+	<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/metropolis-4">
 </head>
 <body>
+	<button class="toggle-btn" id="outter-tog">☰</button>
+
+	<div class="sidebar-overlay"></div>
 	<div class="sidebar">
-		<button class="toggle-btn" id="inner-tog">☰</button>
+		<div class="logo">
+			<img src="assets/Firewall_Wizard_Hat_NoBackground.png" alt="logo" class="logo-pic"/>
+			<img src="assets/Firewall_Wizard_Nome.png" alt="name" class="logo-name"/>
+		</div>
 		<nav class="nav-content">
 			<a href="dashboard/dashboard.html" target="navs">Dashboard</a>
 			<a href="config/tablelist.html" target="navs">Tables</a>
@@ -18,12 +26,21 @@
 			<a href="logs/logs.html" target="navs">Logs</a>
 		</nav>
 	</div>
+
 	<script>
 		const sidebar = document.querySelector('.sidebar');
 		const outter = document.getElementById('outter-tog');
-		const inner = document.getElementById('inner-tog');
-		outter.addEventListener('click', () => {sidebar.classList.toggle('expanded');});
-		inner.addEventListener('click', () => {sidebar.classList.toggle('expanded');});
+		const overlay = document.querySelector('.sidebar-overlay');
+
+		outter.addEventListener('click', () => {
+			sidebar.classList.add('expanded');
+			overlay.classList.add('active');
+		});
+
+		overlay.addEventListener('click', () => {	
+			sidebar.classList.remove('expanded');
+			overlay.classList.remove('active');
+		});
 	</script>
 
 	<iframe class="wrapper" name="navs" frameBorder="0" src="dashboard/dashboard.html"> <!-- editar este SRC para incluir a página que você deseja colocar de primeira -->
