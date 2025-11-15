@@ -1,0 +1,78 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #f8f5ff;
+color: #3b0764;
+}
+
+
+.header {
+background: #a78bfa;
+padding: 20px;
+text-align: center;
+color: white;
+font-size: 28px;
+}
+
+
+.kpi-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 15px;
+padding: 20px;
+}
+
+
+.kpi-card {
+background: white;
+border-radius: 12px;
+padding: 20px;
+font-size: 20px;
+text-align: center;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+color: #5b21b6;
+}
+
+
+.chart-section {
+margin: 30px;
+padding: 20px;
+background: white;
+border-radius: 12px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+
+.grid-4 {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+padding: 20px;
+}
+
+
+.panel {
+background: white;
+padding: 15px;
+border-radius: 12px;
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+min-height: 200px;
+}
+
+
+.panel ul {
+list-style: none;
+padding: 0;
+}
+
+
+.logs table {
+width: 100%;
+border-collapse: collapse;
+}
+
+
+.logs th, .logs td {
+padding: 8px;
+border-bottom: 1px solid #ddd;
+}

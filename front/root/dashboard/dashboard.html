@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Firewall Wizard</title>
+<link rel="stylesheet" href="style.css" />
+<script type="module" src="dashboard.js" defer></script>
+</head>
+<body>
+<header class="header">
+</header>
+
+
+<section class="kpi-container">
+<div class="kpi-card">Tabelas Ativas:  <span id="tablesCount">0</span></div>
+<div class="kpi-card">Chains Totais:  <span id="chainsCount">0</span></div>
+<div class="kpi-card">Regras Ativas:  <span id="rulesCount">0</span></div>
+<div class="kpi-card">Sets Ativos:  <span id="setsCount">0</span></div>
+<div class="kpi-card">Bloqueios: <span id="dropsToday">0</span></div>
+<div class="kpi-card">Permissões: <span id="acceptsToday">0</span></div>
+</section>
+
+
+<section class="chart-section">
+<h2>Tráfego ao Longo do Tempo</h2>
+<canvas id="trafficChart"></canvas>
+</section>
+
+
+<section class="chart-section">
+<h2>Portas Mais Acessadas</h2>
+<canvas id="portChart"></canvas>
+</section>
+
+
+<section class="grid-4">
+<div class="panel">
+<h3>Tables</h3>
+<ul id="tablesList"></ul>
+</div>
+
+
+<div class="panel">
+<h3>Chains</h3>
+<ul id="chainsList"></ul>
+</div>
+
+
+<div class="panel">
+<h3>Rules</h3>
+<ul id="rulesList"></ul>
+</div>
+
+
+<div class="panel">
+<h3>Sets</h3>
+<ul id="setsList"></ul>
+</div>
+</section>
+</html>
