@@ -48,6 +48,13 @@ async function loadVerdictTable() {
     const td_action = document.createElement('td')
     td_action.id = `verdict-td-action-${index}`
     td_action.textContent = `${verdicts[index].action}`
+
+    if (td_action.textContent == 'Allow') {
+      td_action.classList.add('badge', 'badge-allow')
+    } else {
+      td_action.classList.add('badge', 'badge-block')
+    }
+
     current_tr.appendChild(td_action)
   }
 }
