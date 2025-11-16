@@ -1,18 +1,13 @@
-// ==================== VARIÁVEIS GLOBAIS ====================
-
-console.log('✅ chainlistconfig.js carregado');
+// Variáveis globais
 
 let allChains = [];
 let allTables = [];
 let filteredChains = [];
 
-// ==================== ELEMENTOS DO DOM ====================
-
+// Elementos do DOM
 let searchInput, filterTable, filterType, btnReset, btnSearch;
 let tableBody, emptyState, statsContainer;
 let detailsModal, deleteModal;
-
-// ==================== INICIALIZAÇÃO ====================
 
 document.addEventListener('DOMContentLoaded', async () => {
   initializeDOMElements();
@@ -34,8 +29,6 @@ function initializeDOMElements() {
   deleteModal = document.getElementById('deleteModal');
 }
 
-// ==================== CARREGAMENTO DE DADOS ====================
-
 function loadData() {
   allChains = getExampleChains();
   allTables = getExampleTables();
@@ -44,8 +37,6 @@ function loadData() {
   populateTableFilter();
   updateStats();
 }
-
-// ==================== DADOS DE EXEMPLO ====================
 
 function getExampleTables() {
   return [
@@ -109,8 +100,6 @@ function getExampleChains() {
   ];
 }
 
-// ==================== PREENCHIMENTO DE FILTROS ====================
-
 function populateTableFilter() {
   filterTable.innerHTML = '<option value="">Todas as Tabelas</option>';
   allTables.forEach(table => {
@@ -120,8 +109,6 @@ function populateTableFilter() {
     filterTable.appendChild(option);
   });
 }
-
-// ==================== CONFIGURAÇÃO DE EVENT LISTENERS ====================
 
 function setupEventListeners() {
   searchInput?.addEventListener('input', applyFilters);
@@ -157,8 +144,6 @@ function setupEventListeners() {
   });
 }
 
-// ==================== APLICAÇÃO DE FILTROS ====================
-
 function applyFilters() {
   const searchTerm = (searchInput?.value || '').toLowerCase().trim();
   const tableFilter = filterTable?.value || '';
@@ -192,8 +177,6 @@ function resetFilters() {
   renderChains();
   updateStats();
 }
-
-// ==================== RENDERIZAÇÃO DA TABELA ====================
 
 function renderChains() {
   if (!tableBody) return;
@@ -253,8 +236,6 @@ function createChainRow(chain) {
 
   return tr;
 }
-
-// ==================== MODAL DE DETALHES ====================
 
 window.showDetailsModal = function(chainId) {
   const chain = allChains.find(c => c.id === chainId);
@@ -324,8 +305,6 @@ window.showDetailsModal = function(chainId) {
   detailsModal.style.display = 'flex';
 };
 
-// ==================== MODAL DE DELEÇÃO ====================
-
 window.showDeleteModal = function(chainId) {
   const chain = allChains.find(c => c.id === chainId);
   if (!chain) return;
@@ -371,10 +350,7 @@ function confirmDelete(chainId) {
   deleteModal.style.display = 'none';
   renderChains();
   updateStats();
-  console.log('Chain deletada com sucesso');
 }
-
-// ==================== ATUALIZAÇÃO DE ESTATÍSTICAS ====================
 
 function updateStats() {
   if (!statsContainer) return;
@@ -405,8 +381,6 @@ function updateStats() {
 
   statsContainer.innerHTML = statsHTML;
 }
-
-// ==================== UTILITÁRIOS ====================
 
 function escapeHtml(text) {
   const div = document.createElement('div');

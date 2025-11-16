@@ -217,7 +217,7 @@ function showDeleteSuccess() {
         z-index: 2000;
         animation: slideIn 0.3s;
     `;
-    notification.textContent = 'Tabla eliminada correctamente';
+    notification.textContent = 'Tablea Eliminada com Sucesso!';
     document.body.appendChild(notification);
 
     setTimeout(() => {

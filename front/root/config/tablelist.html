@@ -4,596 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablelist - Firewall Wizard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-            color: white;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-        }
-
-        .header-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .btn-new {
-            background: white;
-            color: #8b5cf6;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-
-        .btn-new:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .filters {
-            background: #f8f9fa;
-            padding: 20px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .filter-group {
-            flex: 1;
-            min-width: 150px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .filter-group label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        .filter-group input,
-        .filter-group select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .filter-group input:focus,
-        .filter-group select:focus {
-            outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        }
-
-        .btn-reset {
-            align-self: flex-end;
-            background: #e0e0e0;
-            color: #666;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 12px;
-        }
-
-        .btn-reset:hover {
-            background: #d0d0d0;
-            transform: translateY(-2px);
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            background: #fafafa;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #8b5cf6;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #999;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #8b5cf6;
-            margin-top: 5px;
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-            padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        thead {
-            background: #f0f0f0;
-            border-bottom: 2px solid #ddd;
-        }
-
-        th {
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            color: #555;
-        }
-
-        tbody tr:hover {
-            background: #f9f9f9;
-            transition: background 0.2s;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-inet {
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
-        .badge-ip {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .badge-ip6 {
-            background: #e9d5ff;
-            color: #6b21a8;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-ver {
-            background: #e0f2fe;
-            color: #0369a1;
-            border: 1px solid #0369a1;
-        }
-
-        .btn-ver:hover {
-            background: #0369a1;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-del {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #991b1b;
-        }
-
-        .btn-del:hover {
-            background: #991b1b;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            animation: fadeIn 0.3s;
-        }
-
-        .modal.active {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            animation: slideDown 0.3s;
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px 12px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-
-        .modal-close:hover {
-            transform: scale(1.2);
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .modal-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .info-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .info-label {
-            font-size: 11px;
-            color: #999;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .info-value {
-            font-size: 14px;
-            color: #333;
-            font-weight: 500;
-            word-break: break-word;
-        }
-
-        .description-full {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        .btn-close-modal {
-            background: #e0e0e0;
-            color: #666;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-close-modal:hover {
-            background: #d0d0d0;
-        }
-
-        .btn-confirm-delete {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-confirm-delete:hover {
-            background: #991b1b;
-            transform: translateY(-2px);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .empty-state-text {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .filters {
-                flex-direction: column;
-            }
-
-            .filter-group {
-                min-width: 100%;
-            }
-
-            .btn-reset {
-                align-self: flex-start;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            table {
-                font-size: 12px;
-            }
-
-            th, td {
-                padding: 10px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn-action {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 20px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-info {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/tablelist.css">
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📋 Tablelist</h1>
-            <div class="header-buttons">
-                <a href="table.html" style="text-decoration: none;">
-                    <button class="btn-new">+ Criar Nova Tabela</button>
+        <div class="card">
+            <div class="header">
+                <div class="header-content">
+                    <h2>📋 Tabelas</h2>
+                    <p class="header-subtitle">Gerenciamento de tabelas nftables</p>
+                </div>
+                <a href="table.html" class="btn-primary">
+                    <span>+</span> Criar Nova Tabela
                 </a>
             </div>
-        </div>
 
-        <div class="filters">
-            <div class="filter-group" style="flex: 2;">
-                <label for="searchInput">Buscar</label>
-                <input type="text" id="searchInput" placeholder="Nome, Família e Descrição...">
+            <div class="filters">
+                <div class="search-group">
+                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar...">
+                </div>
+                <div class="filter-group">
+                    <select id="familyFilter" class="filter-select">
+                        <option value="">Todas</option>
+                        <option value="inet">inet</option>
+                        <option value="ip">ip</option>
+                        <option value="ip6">ip6</option>
+                    </select>
+                    <button id="btnReset" class="btn-secondary">Resetar</button>
+                </div>
             </div>
-            <div class="filter-group">
-                <label for="familyFilter">Familia</label>
-                <select id="familyFilter">
-                    <option value="">Todas</option>
-                    <option value="inet">inet</option>
-                    <option value="ip">ip</option>
-                    <option value="ip6">ip6</option>
-                </select>
-            </div>
-            <button class="btn-reset" onclick="resetFilters()">Resetar</button>
-        </div>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-label">Total</div>
-                <div class="stat-value" id="totalCount">0</div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total</div>
+                    <div class="stat-number" id="totalCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Filtrado</div>
+                    <div class="stat-number" id="filteredCount">0</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Filtrado</div>
-                <div class="stat-value" id="filteredCount">0</div>
-            </div>
-        </div>
 
-        <div class="table-wrapper">
-            <table id="tablesTable">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Familia</th>
-                        <th>Descrição</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="tablesTableBody">
-                </tbody>
-            </table>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Familia</th>
+                            <th>Descrição</th>
+                            <th style="width: 150px; text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablesTableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📋</div>
+                <h3>Nenhuma tabela encontrada</h3>
+                <a href="table.html" class="btn-primary">Criar Primeira Tabela</a>
+            </div>
         </div>
     </div>
 
-    <!-- Details Modal -->
-    <div id="detailsModal" class="modal">
+    <div id="detailsModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Detalhes da Tabela</h2>
+                <h3>Detalhes da Tabela</h3>
                 <button class="modal-close" onclick="closeDetailsModal()">×</button>
             </div>
             <div class="modal-body">
-                <div class="modal-info">
-                    <div class="info-item">
-                        <span class="info-label">ID</span>
-                        <span class="info-value" id="detailId">-</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Nombre</span>
-                        <span class="info-value" id="detailName">-</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Familia</span>
-                        <span class="info-value" id="detailFamily">-</span>
-                    </div>
-                </div>
-                <div class="description-full" id="detailDescription">-</div>
-                <div class="modal-buttons">
-                    <button class="btn-close-modal" onclick="closeDetailsModal()">Cerrar</button>
+                <div class="detail-section">
+                    <h4>Informações</h4>
+                    <table class="detail-table">
+                        <tr>
+                            <td class="detail-label">ID</td>
+                            <td id="detailId">-</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Nome</td>
+                            <td id="detailName">-</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Familia</td>
+                            <td id="detailFamily">-</td>
+                        </tr>
+                        <tr>
+                            <td class="detail-label">Descrição</td>
+                            <td id="detailDescription">-</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div id="deleteModal" class="modal">
-        <div class="modal-content">
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h2>Confirmar Eliminação</h2>
+                <h3>Confirmar Eliminação</h3>
                 <button class="modal-close" onclick="closeDeleteModal()">×</button>
             </div>
             <div class="modal-body">
                 <p style="margin-bottom: 20px; color: #666;">
-                    Está prestes a eliminar esta tabela. Esta ação não pode ser desfeita. Tem certeza de que deseja continuar?
+                    Está prestes a eliminar esta tabela. Esta ação não pode ser desfeita. Tem certeza?
                 </p>
                 <p style="background: #fee2e2; padding: 12px; border-radius: 6px; color: #991b1b; margin-bottom: 20px;">
-                    <strong>Tabla:</strong> <span id="deleteTableName">-</span>
+                    <strong>Tabela:</strong> <span id="deleteTableName">-</span>
                 </p>
-                <div class="modal-buttons">
-                    <button class="btn-close-modal" onclick="closeDeleteModal()">Cancelar</button>
-                    <button class="btn-confirm-delete" onclick="confirmDelete()">Eliminar</button>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+                    <button class="btn-delete" onclick="confirmDelete()" style="padding: 10px 20px;">Eliminar</button>
                 </div>
             </div>
         </div>

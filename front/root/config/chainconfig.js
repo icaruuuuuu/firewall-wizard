@@ -1,10 +1,6 @@
-// ==================== VARIÁVEIS GLOBAIS ====================
-
-console.log('✅ chainconfig.js carregado');
+// Variáveis globais
 
 let allTables = [];
-
-// ==================== ELEMENTOS DO DOM ====================
 
 const form = document.getElementById('chainForm');
 const nameInput = document.getElementById('name');
@@ -16,8 +12,6 @@ const priorityInput = document.getElementById('priority');
 const policySelect = document.getElementById('policy');
 const alertDiv = document.getElementById('alert');
 
-// ==================== INICIALIZAÇÃO ====================
-
 document.addEventListener('DOMContentLoaded', () => {
   loadTables();
   setupEventListeners();
@@ -26,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
   form?.addEventListener('submit', handleSubmit);
 }
-
-// ==================== CARREGAMENTO DE DADOS ====================
 
 function loadTables() {
   allTables = getExampleTables();
@@ -50,8 +42,6 @@ function populateTableSelect() {
     tableSelect.appendChild(option);
   });
 }
-
-// ==================== VALIDAÇÃO ====================
 
 function validateForm() {
   const errors = [];
@@ -80,8 +70,6 @@ function validateForm() {
   return errors;
 }
 
-// ==================== COLETA DE DADOS ====================
-
 function collectFormData() {
   return {
     id: `c${Date.now()}`,
@@ -95,32 +83,23 @@ function collectFormData() {
   };
 }
 
-// ==================== TRATAMENTO DE ENVIO ====================
-
 function handleSubmit(e) {
   e.preventDefault();
 
-  // Validar
   const errors = validateForm();
   if (errors.length > 0) {
     showAlert(errors.join('<br>'), 'error');
     return;
   }
 
-  // Coletar dados
   const chainData = collectFormData();
 
-  // Simular salvamento
-  console.log('Chain para ser criada:', chainData);
-  
   showAlert('✓ Chain criada com sucesso! Redirecionando...', 'success');
   
   setTimeout(() => {
     window.location.href = 'chainlist.html';
   }, 1500);
 }
-
-// ==================== MENSAGENS ====================
 
 function showAlert(message, type) {
   alertDiv.className = `alert alert-${type}`;

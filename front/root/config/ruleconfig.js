@@ -243,32 +243,8 @@ function showErrors(errors) {
 ruleForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
-  // Valida o formulário
-  const errors = validateForm();
-  if (errors.length > 0) {
-    showErrors(errors);
-    return;
-  }
-  
-  // Coleta os dados
-  const ruleData = collectFormData();
-  
-  // Armazena no localStorage
-  let rules = JSON.parse(localStorage.getItem('firewall_rules')) || [];
-  rules.push(ruleData);
-  localStorage.setItem('firewall_rules', JSON.stringify(rules));
-  
-  console.log('Regra salva:', ruleData);
-  
-  alert('Regra criada com sucesso!');
-  
-  // Limpa o formulário
-  ruleForm.reset();
-  
-  // Redireciona para a lista de regras após 1.5s
-  setTimeout(() => {
-    window.location.href = 'rulelist.html';
-  }, 1500);
+  // Apenas modo visual - sem funcionalidade real
+  alert('⚠️ Formulário em modo visual apenas. Funcionalidade desabilitada.');
 });
 
 // ==================== PREENCHIMENTO DE DROPDOWNS DINÂMICOS ====================
