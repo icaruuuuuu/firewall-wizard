@@ -3,7 +3,7 @@ import { get } from './requests.js'
 const verdict_table = document.getElementById('verdict-table')
 const verdict_table_body = document.getElementById('verdict-table-body')
 
-async function loadTable() {
+async function loadVerdictTable() {
   const verdicts = await get('verdicts')
   
   for (const index in verdicts) {
@@ -52,4 +52,4 @@ async function loadTable() {
   }
 }
 
-loadTable()
+loadVerdictTable()
