@@ -175,7 +175,7 @@ function getExampleRules() {
 // ==================== PREENCHIMENTO DE FILTROS ====================
 
 function populateTableFilter() {
-  filterTable.innerHTML = '<option value="">Todas as Tables</option>';
+  filterTable.innerHTML = '<option value="">All Tables</option>';
   allTables.forEach(table => {
     const option = document.createElement('option');
     option.value = table.id;
@@ -185,7 +185,7 @@ function populateTableFilter() {
 }
 
 function populateChainFilter() {
-  filterChain.innerHTML = '<option value="">Todas as Chains</option>';
+  filterChain.innerHTML = '<option value="">All Chains</option>';
   allChains.forEach(chain => {
     const table = allTables.find(t => t.id === chain.table_id);
     const tableName = table ? table.name : 'unknown';

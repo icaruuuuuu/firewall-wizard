@@ -11,26 +11,26 @@
         <div class="card">
             <div class="header">
                 <div class="header-content">
-                    <h2>📋 Tabelas</h2>
-                    <p class="header-subtitle">Gerenciamento de tabelas nftables</p>
+                    <h2>📋 Tables</h2>
+                    <p class="header-subtitle">NFTables table management</p>
                 </div>
                 <a href="table.html" class="btn-primary">
-                    <span>+</span> Criar Nova Tabela
+                    <span>+</span> Create new table
                 </a>
             </div>
 
             <div class="filters">
                 <div class="search-group">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar...">
+                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
                 </div>
                 <div class="filter-group">
                     <select id="familyFilter" class="filter-select">
-                        <option value="">Todas</option>
+                        <option value="">All</option>
                         <option value="inet">inet</option>
-                        <option value="ip">ip</option>
+                        <option value="ip">ip4</option>
                         <option value="ip6">ip6</option>
                     </select>
-                    <button id="btnReset" class="btn-secondary">Resetar</button>
+                    <button id="btnReset" class="btn-secondary">Reset</button>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@
                     <div class="stat-number" id="totalCount">0</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">Filtrado</div>
+                    <div class="stat-label">Filtered</div>
                     <div class="stat-number" id="filteredCount">0</div>
                 </div>
             </div>
@@ -49,10 +49,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Familia</th>
-                            <th>Descrição</th>
-                            <th style="width: 150px; text-align: center;">Ações</th>
+                            <th>Name</th>
+                            <th>Family</th>
+                            <th>Description</th>
+                            <th style="width: 150px; text-align: center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tablesTableBody">
@@ -62,8 +62,8 @@
 
             <div id="emptyState" class="empty-state" style="display: none;">
                 <div class="empty-icon">📋</div>
-                <h3>Nenhuma tabela encontrada</h3>
-                <a href="table.html" class="btn-primary">Criar Primeira Tabela</a>
+                <h3>No table found</h3>
+                <a href="table.html" class="btn-primary">Create First Table</a>
             </div>
         </div>
     </div>
@@ -71,27 +71,27 @@
     <div id="detailsModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Detalhes da Tabela</h3>
+                <h3>Table details</h3>
                 <button class="modal-close" onclick="closeDetailsModal()">×</button>
             </div>
             <div class="modal-body">
                 <div class="detail-section">
-                    <h4>Informações</h4>
+                    <h4>Info</h4>
                     <table class="detail-table">
                         <tr>
                             <td class="detail-label">ID</td>
                             <td id="detailId">-</td>
                         </tr>
                         <tr>
-                            <td class="detail-label">Nome</td>
+                            <td class="detail-label">Name</td>
                             <td id="detailName">-</td>
                         </tr>
                         <tr>
-                            <td class="detail-label">Familia</td>
+                            <td class="detail-label">Family</td>
                             <td id="detailFamily">-</td>
                         </tr>
                         <tr>
-                            <td class="detail-label">Descrição</td>
+                            <td class="detail-label">Description</td>
                             <td id="detailDescription">-</td>
                         </tr>
                     </table>
@@ -103,19 +103,19 @@
     <div id="deleteModal" class="modal" style="display: none;">
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
-                <h3>Confirmar Eliminação</h3>
+                <h3>Confirm</h3>
                 <button class="modal-close" onclick="closeDeleteModal()">×</button>
             </div>
             <div class="modal-body">
                 <p style="margin-bottom: 20px; color: #666;">
-                    Está prestes a eliminar esta tabela. Esta ação não pode ser desfeita. Tem certeza?
+                    You're about to delete this table. This action cannot be reverted. Are you sure?
                 </p>
                 <p style="background: #fee2e2; padding: 12px; border-radius: 6px; color: #991b1b; margin-bottom: 20px;">
-                    <strong>Tabela:</strong> <span id="deleteTableName">-</span>
+                    <strong>Table:</strong> <span id="deleteTableName">-</span>
                 </p>
                 <div class="action-buttons">
-                    <button class="btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
-                    <button class="btn-delete" onclick="confirmDelete()" style="padding: 10px 20px;">Eliminar</button>
+                    <button class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button class="btn-delete" onclick="confirmDelete()" style="padding: 10px 20px;">Delete</button>
                 </div>
             </div>
         </div>
