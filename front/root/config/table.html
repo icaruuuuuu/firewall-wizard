@@ -9,8 +9,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📋 Nova Tabela</h1>
-            <p>Criar nova tabela de firewall</p>
+            <h1>📋 New Table</h1>
+            <p>Create new table</p>
         </div>
 
         <div class="form-container">
@@ -19,11 +19,11 @@
             <form id="tableForm">
                 
                 <fieldset>
-                    <legend>Identificación</legend>
+                    <legend>Identity</legend>
 
                     <div class="form-group">
                         <label for="name">
-                            Nome <span class="required">*</span>
+                            Name <span class="required">*</span>
                         </label>
                         <input 
                             type="text" 
@@ -32,50 +32,50 @@
                             placeholder="ex: filter, nat, mangle, raw, security"
                             required
                         >
-                        <div class="help-text">Nome único para a tabela (sem espaços)</div>
+                        <div class="help-text">Unique name for the table (no whitespaces)</div>
                     </div>
 
                     <div class="form-group">
                         <label for="description">
-                            Descrição <span class="required">*</span>
+                            Description <span class="required">*</span>
                         </label>
                         <textarea 
                             id="description" 
                             name="description" 
-                            placeholder="Descreva o propósito desta tabela..."
+                            placeholder="Describe this table's purpose..."
                             required
                         ></textarea>
-                        <div class="help-text">Explicação clara sobre a função da tabela</div>
+			<div class="help-text">Clear description about the table's function</div>
                     </div>
                 </fieldset>
 
                 
                 <fieldset>
-                    <legend>Configuração</legend>
+                    <legend>Config</legend>
 
                     <div class="form-group">
                         <label for="family">
-                            Família <span class="required">*</span>
+                            Protocol Family <span class="required">*</span>
                         </label>
                         <select id="family" name="family" required>
-                            <option value="">-- Selecionar --</option>
-                            <option value="inet">inet (IPv4 e IPv6)</option>
-                            <option value="ip">ip (apenas IPv4)</option>
-                            <option value="ip6">ip6 (apenas IPv6)</option>
+                            <option value="">-- Select --</option>
+                            <option value="inet">inet (IPv4 and IPv6)</option>
+                            <option value="ip">ip (IPv4 only)</option>
+                            <option value="ip6">ip6 (IPv6 only)</option>
                             <option value="arp">arp (ARP)</option>
                             <option value="bridge">bridge (Bridge)</option>
                             <option value="netdev">netdev (Netdev)</option>
                         </select>
-                        <div class="help-text">Família de protocolos suportados pela tabela</div>
+                        <div class="help-text">Protocol family supported by the table</div>
                     </div>
                 </fieldset>
 
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" onclick="window.location.href='tablelist.html'">
-                        ← Cancelar
+                        ← Cancel
                     </button>
                     <button type="submit" class="btn-submit">
-                        Criar Tabela ✓
+                        Create new table ✓
                     </button>
                 </div>
             </form>

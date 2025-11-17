@@ -1,4 +1,3 @@
-// Form Handler para Table
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('tableForm');
     if (form) {
@@ -6,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Validar formulário
 function validateForm() {
     const errors = [];
     const name = document.getElementById('name').value.trim();
@@ -14,21 +12,21 @@ function validateForm() {
     const family = document.getElementById('family').value;
 
     if (!name) {
-        errors.push('Nome da tabela é obrigatório');
+        errors.push('Table name is required');
     } else if (name.includes(' ')) {
-        errors.push('Nome da tabela não pode conter espaços');
+        errors.push('Table name cannot contain whitespaces');
     } else if (name.length < 3) {
-        errors.push('Nome da tabela deve ter pelo menos 3 caracteres');
+        errors.push('Table name must be atleast 3 characters');
     }
 
     if (!description) {
-        errors.push('Descrição é obrigatória');
+        errors.push('Description is required');
     } else if (description.length < 10) {
-        errors.push('Descrição deve ter pelo menos 10 caracteres');
+        errors.push('Description must be atleast 10 characters');
     }
 
     if (!family) {
-        errors.push('Família de protocolos é obrigatória');
+        errors.push('Protocol family is required');
     }
 
     return errors;
@@ -44,13 +42,12 @@ function collectFormData() {
     };
 }
 
-// Mostrar alerta
 function showAlert(message, type = 'success') {
     const alertBox = document.getElementById('alertBox');
     
     if (type === 'error' && Array.isArray(message)) {
         alertBox.innerHTML = `
-            <strong>❌ Erros na validação:</strong>
+            <strong>❌ Couldn't validate:</strong>
             <ul class="error-list">
                 ${message.map(msg => `<li>${escapeHtml(msg)}</li>`).join('')}
             </ul>
@@ -68,7 +65,6 @@ function showAlert(message, type = 'success') {
     }
 }
 
-// Escape HTML
 function escapeHtml(text) {
     const map = {
         '&': '&amp;',
@@ -80,7 +76,6 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
-// Handle submit
 function handleSubmit(e) {
     e.preventDefault();
 
@@ -93,13 +88,10 @@ function handleSubmit(e) {
 
     const tableData = collectFormData();
 
-    // Simular sucesso
-    showAlert(`Tabla "${tableData.name}" creada exitosamente`);
+    showAlert(`Table "${tableData.name}" created successfully`);
 
-    // Limpar formulário
     document.getElementById('tableForm').reset();
 
-    // Redirecionar após sucesso
     setTimeout(() => {
         window.location.href = 'tablelist.html';
     }, 1500);

@@ -13,29 +13,29 @@
     
     <div class="header">
       <div class="header-content">
-        <h2>Regras do Firewall</h2>
-        <p class="header-subtitle">Gerenciamento de regras nftables</p>
+        <h2>Firewall Rules</h2>
+        <p class="header-subtitle">NFTables Rule Management</p>
       </div>
       <a href="rule.html" class="btn-primary">
-        <span>+</span> Criar Nova Regra
+        <span>+</span> Create new rules
       </a>
     </div>
 
     <div class="filters">
       <div class="search-group">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar...">
-        <button class="btn-search" id="btnSearch">Buscar</button>
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
+        <button class="btn-search" id="btnSearch">Search</button>
       </div>
 
       <div class="filter-group">
         <select id="filterTable" class="filter-select">
-          <option value="">Todas as Tabelas</option>
+          <option value="">All Tables</option>
         </select>
         <select id="filterChain" class="filter-select">
-          <option value="">Todas as Chains</option>
+          <option value="">All Chains</option>
         </select>
         <select id="filterAction" class="filter-select">
-          <option value="">Todas as Ações</option>
+          <option value="">All Actions</option>
           <option value="accept">accept</option>
           <option value="drop">drop</option>
         </select>
@@ -50,13 +50,13 @@
         <thead>
           <tr>
             <th style="width: 30px; text-align: center;"></th>
-            <th>Descrição</th>
+            <th>Description</th>
             <th style="width: 80px; text-align: center;">Family</th>
-            <th style="width: 80px; text-align: center;">Tabela</th>
+            <th style="width: 80px; text-align: center;">Table</th>
             <th style="width: 100px; text-align: center;">Chain</th>
-            <th style="width: 100px; text-align: center;">Ação</th>
-            <th style="width: 60px; text-align: center;">Pos</th>
-            <th style="width: 150px; text-align: center;">Ações</th>
+            <th style="width: 100px; text-align: center;">Action</th>
+            <th style="width: 60px; text-align: center;">Priority</th>
+            <th style="width: 150px; text-align: center;">Status</th>
           </tr>
         </thead>
         <tbody id="rulesTableBody"></tbody>
