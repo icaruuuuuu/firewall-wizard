@@ -63,7 +63,7 @@ body {
 .btn-primary {
  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
  color: white;
- padding: 16px 16px;
+ padding: 12px 22px;
  border: none;
  border-radius: 6px;
  transition: all 0.3s ease;
@@ -78,10 +78,14 @@ body {
  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
  color: white;
  padding: 12px 20px;
+ border: none;
+ border-radius: 6px;
+ transition: all 0.3s ease;
  }
 
 .btn-search:hover {
  box-shadow: 0 4px 12px rgba(167,139,250,0.4);
+ transform: translateY(-2px);
  }
 
 .btn-secondary {
@@ -92,6 +96,11 @@ body {
  border: none;
  border-radius: 6px;
  transition: all 0.3s ease;
+ }
+
+.btn-secondary:hover {
+ box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+ transform: translateY(-2px);
  }
 
 .filters {
