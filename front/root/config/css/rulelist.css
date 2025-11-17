@@ -64,6 +64,8 @@ body {
  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
  color: white;
  padding: 12px 24px;
+ border-radius: 6px;
+ transition: all 0.3s ease;
  }
 
 .btn-primary:hover {
@@ -77,6 +79,7 @@ body {
  padding: 16px 16px;
  border: none;
  border-radius: 6px;
+ transition: all 0.3s ease;
  }
 
 .btn-search:hover {
@@ -91,6 +94,7 @@ body {
  font-size: 13px;
  border: none;
  border-radius: 6px;
+ transition: all 0.3s ease;
  }
 
 .btn-secondary:hover {
