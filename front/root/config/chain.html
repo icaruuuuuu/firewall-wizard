@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Chain - Firewall Wizard</title>
+  <title>New Chain - Firewall Wizard</title>
   <link rel="stylesheet" href="css/chain.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
   <div class="card">
     
     <div class="header">
-      <h2>Nova Chain</h2>
-      <p class="header-subtitle">Criar uma nova cadeia de firewall</p>
+      <h2>New Chain</h2>
+      <p class="header-subtitle">Create a new firewall chain</p>
     </div>
 
     <div class="form-container">
@@ -22,35 +22,35 @@
       <form id="chainForm">
         
         <fieldset>
-          <legend>📋 Identificação</legend>
+          <legend>📋 Identification</legend>
           
           <div class="form-group">
-            <label for="name">Nome da Chain *</label>
+            <label for="name">Chain name *</label>
             <input type="text" id="name" name="name" placeholder="Ex: input, output, forward..." required>
-            <p class="help-text">Nome único da chain</p>
+            <p class="help-text">Chain exclusive name</p>
           </div>
 
           <div class="form-group">
-            <label for="description">Descrição</label>
+            <label for="description">Description</label>
             <textarea id="description" name="description" placeholder="Descrição detalhada da chain..."></textarea>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>⚙️ Configuração</legend>
+          <legend>⚙️ Configuration</legend>
           
           <div class="form-row">
             <div class="form-group">
-              <label for="table">Tabela *</label>
+              <label for="table">Table *</label>
               <select id="table" name="table" required>
-                <option value="">Selecione uma tabela...</option>
+                <option value="">Select a table...</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="type">Tipo *</label>
+              <label for="type">Type *</label>
               <select id="type" name="type" required>
-                <option value="">Selecione o tipo...</option>
+                <option value="">Select the type...</option>
                 <option value="filter">filter</option>
                 <option value="nat">nat</option>
                 <option value="mangle">mangle</option>
@@ -63,7 +63,7 @@
             <div class="form-group">
               <label for="hook">Hook *</label>
               <select id="hook" name="hook" required>
-                <option value="">Selecione o hook...</option>
+                <option value="">Select the hook...</option>
                 <option value="input">input</option>
                 <option value="output">output</option>
                 <option value="forward">forward</option>
@@ -73,28 +73,28 @@
             </div>
 
             <div class="form-group">
-              <label for="priority">Prioridade *</label>
+              <label for="priority">Priority *</label>
               <input type="number" id="priority" name="priority" value="0" required>
-              <p class="help-text">-300 a 300 (padrão: 0)</p>
+              <p class="help-text">-300 a 300 (default: 0)</p>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="policy">Policy (Padrão)</label>
+            <label for="policy">Policy</label>
             <select id="policy" name="policy">
-              <option value="">Nenhuma</option>
+              <option value="">None</option>
               <option value="accept">accept</option>
               <option value="drop">drop</option>
               <option value="reject">reject</option>
             </select>
-            <p class="help-text">Ação padrão quando nenhuma regra corresponde</p>
+            <p class="help-text">Default action when mismatched with all rules</p>
           </div>
         </fieldset>
 
         <div class="form-actions">
-          <a href="chainlist.html" class="btn btn-secondary">Cancelar</a>
+          <a href="chainlist.html" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">
-            <span>✓</span> Criar Chain
+            <span>✓</span> Create Chain
           </button>
         </div>
 

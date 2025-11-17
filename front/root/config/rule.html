@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Regra - Firewall Wizard</title>
+  <title>New Rule - Firewall Wizard</title>
   <link rel="stylesheet" href="css/rule.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
   <div class="card">
     
     <div class="header">
-      <h2>🔐 Nova Regra</h2>
-      <p class="header-subtitle">Configure uma regra para o firewall nftables</p>
+      <h2>🔐 New Rule</h2>
+      <p class="header-subtitle">Configure a nftable firewall rule</p>
     </div>
 
     <div class="form-container">
@@ -21,24 +21,24 @@
         <form id="ruleForm">
 
           <fieldset>
-            <legend>📝 Identificação da Regra</legend>
+            <legend>📝 Rule Identification</legend>
             <div class="form-group">
-              <label for="description">Descrição *</label>
+              <label for="description">Description *</label>
               <input 
                 type="text" 
                 id="description" 
                 name="description"
-                placeholder="Ex: Permitir SSH apenas de redes administrativas"
+                placeholder="Ex: Allow SSH only on administrative networks"
                 required
               />
-              <p class="help-text">Descrição clara da regra</p>
+              <p class="help-text">Rule's description</p>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="family">Family *</label>
                 <select id="family" name="family" required>
-                  <option value="">Selecione...</option>
+                  <option value="">Select...</option>
                   <option value="inet">inet (IPv4 + IPv6)</option>
                   <option value="ip">ip (IPv4)</option>
                   <option value="ip6">ip6 (IPv6)</option>
@@ -48,9 +48,9 @@
               </div>
 
               <div class="form-group">
-                <label for="table">Tabela *</label>
+                <label for="table">Table *</label>
                 <select id="table" name="table" required>
-                  <option value="">Selecione...</option>
+                  <option value="">Select...</option>
                   <option value="filter">filter</option>
                   <option value="nat">nat</option>
                   <option value="mangle">mangle</option>
@@ -63,7 +63,7 @@
               <div class="form-group">
                 <label for="chain">Chain *</label>
                 <select id="chain" name="chain" required>
-                  <option value="">Selecione...</option>
+                  <option value="">Select...</option>
                   <option value="input">input</option>
                   <option value="output">output</option>
                   <option value="forward">forward</option>
@@ -73,7 +73,7 @@
               </div>
 
               <div class="form-group">
-                <label for="position">Posição *</label>
+                <label for="position">Position *</label>
                 <input 
                   type="number" 
                   id="position" 
@@ -82,23 +82,23 @@
                   min="1"
                   value="1"
                 />
-                <p class="help-text">Posição na cadeia</p>
+                <p class="help-text">Position in the chain</p>
               </div>
             </div>
           </fieldset>
 
           <fieldset>
-            <legend>🎯 Critérios de Correspondência</legend>
+            <legend>🎯 Matching Criteria</legend>
             <div class="form-group">
-              <label for="matchType">Tipo de Correspondência *</label>
+              <label for="matchType">Matching Type *</label>
               <select id="matchType" name="matchType" required>
-                <option value="">Selecione...</option>
+                <option value="">Select...</option>
                 <option value="interface">Interface</option>
-                <option value="state">Estado de Conexão</option>
-                <option value="protocol">Protocolo</option>
-                <option value="ip">Endereço IP</option>
-                <option value="limit">Limite de Taxa</option>
-                <option value="all">Todas as Conexões</option>
+                <option value="state">Connection State</option>
+                <option value="protocol">Protocol</option>
+                <option value="ip">IP Adress</option>
+                <option value="limit">Rate Limit</option>
+                <option value="all">All Connections</option>
               </select>
             </div>
 
@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="interfaceDir">Direção</label>
+                  <label for="interfaceDir">Direction</label>
                   <select id="interfaceDir" name="interfaceDir">
                     <option value="input">Input</option>
                     <option value="output">Output</option>
@@ -126,7 +126,7 @@
 
             <div id="match-state" class="match-section" style="display: none;">
               <div class="form-group">
-                <label>Estados de Conexão</label>
+                <label>Connection States</label>
                 <div class="checkbox-group">
                   <label class="checkbox-label">
                     <input type="checkbox" name="states" value="established" /> Established
@@ -147,9 +147,9 @@
             <div id="match-protocol" class="match-section" style="display: none;">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="protocol">Protocolo</label>
+                  <label for="protocol">Protocol</label>
                   <select id="protocol" name="protocol">
-                    <option value="">Selecione...</option>
+                    <option value="">Select...</option>
                     <option value="tcp">TCP</option>
                     <option value="udp">UDP</option>
                     <option value="icmp">ICMP</option>
@@ -159,17 +159,17 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="destPort">Porta Destino</label>
+                  <label for="destPort">Destination Port</label>
                   <input 
                     type="text" 
                     id="destPort" 
                     name="destPort"
-                    placeholder="Ex: 22 ou 80,443 ou 3000:4000"
+                    placeholder="Ex: 22 or 80,443 or 3000:4000"
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="srcPort">Porta Origem</label>
+                  <label for="srcPort">Source Port</label>
                   <input 
                     type="text" 
                     id="srcPort" 
@@ -183,17 +183,17 @@
             <div id="match-ip" class="match-section" style="display: none;">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="srcAddr">Endereço Origem</label>
+                  <label for="srcAddr">Source Address</label>
                   <input 
                     type="text" 
                     id="srcAddr" 
                     name="srcAddr"
-                    placeholder="Ex: 192.168.1.0/24 ou @admin_networks"
+                    placeholder="Ex: 192.168.1.0/24 or @admin_networks"
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="destAddr">Endereço Destino</label>
+                  <label for="destAddr">Destination Address</label>
                   <input 
                     type="text" 
                     id="destAddr" 
@@ -207,12 +207,12 @@
             <div id="match-limit" class="match-section" style="display: none;">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="rate">Taxa</label>
+                  <label for="rate">Rate</label>
                   <input 
                     type="text" 
                     id="rate" 
                     name="rate"
-                    placeholder="Ex: 5/minute ou 10/second"
+                    placeholder="Ex: 5/minute or 10/second"
                     value="5/minute"
                   />
                 </div>
@@ -233,25 +233,25 @@
           </fieldset>
 
           <fieldset>
-            <legend>⚡ Ação</legend>
+            <legend>⚡ Action</legend>
             <div class="form-group">
-              <label for="action">Ação *</label>
+              <label for="action">Action *</label>
               <select id="action" name="action" required>
-                <option value="">Selecione...</option>
-                <option value="accept">Accept (Aceitar)</option>
-                <option value="drop">Drop (Descartar)</option>
-                <option value="reject">Reject (Rejeitar)</option>
-                <option value="log">Log (Registrar)</option>
+                <option value="">Select...</option>
+                <option value="accept">Accept</option>
+                <option value="drop">Drop</option>
+                <option value="reject">Reject</option>
+                <option value="log">Log</option>
                 <option value="dnat">DNAT (Network Address Translation)</option>
                 <option value="snat">SNAT (Network Address Translation)</option>
-                <option value="masquerade">Masquerade (Mascarar)</option>
-                <option value="add_to_set">Add to Set (Adicionar a conjunto)</option>
+                <option value="masquerade">Masquerade</option>
+                <option value="add_to_set">Add to Set</option>
               </select>
             </div>
 
             <div id="action-dnat" class="action-section" style="display: none;">
               <div class="form-group">
-                <label for="natTarget">Alvo NAT</label>
+                <label for="natTarget">NAT Target</label>
                 <input 
                   type="text" 
                   id="natTarget" 
@@ -264,7 +264,7 @@
             <div id="action-log" class="action-section" style="display: none;">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="logPrefix">Prefixo do Log</label>
+                  <label for="logPrefix">Log Prefix</label>
                   <input 
                     type="text" 
                     id="logPrefix" 
@@ -274,7 +274,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="logLevel">Nível</label>
+                  <label for="logLevel">Level</label>
                   <select id="logLevel" name="logLevel">
                     <option value="debug">Debug</option>
                     <option value="info">Info</option>
@@ -287,7 +287,7 @@
 
             <div id="action-set" class="action-section" style="display: none;">
               <div class="form-group">
-                <label for="setTarget">Alvo do Conjunto</label>
+                <label for="setTarget">Set Target</label>
                 <input 
                   type="text" 
                   id="setTarget" 
@@ -300,34 +300,34 @@
             <div class="form-group">
               <label class="checkbox-label">
                 <input type="checkbox" id="counter" name="counter" checked />
-                Habilitar Contador
+                Enable Counter
               </label>
             </div>
           </fieldset>
 
           <fieldset>
-            <legend>⚙️ Configurações Adicionais</legend>
+            <legend>⚙️ Extra Configurations</legend>
             <div class="form-group">
               <label class="checkbox-label">
                 <input type="checkbox" id="enabled" name="enabled" checked />
-                Regra Ativa
+                Active Rule
               </label>
             </div>
 
             <div class="form-group">
-              <label for="comment">Comentário</label>
+              <label for="comment">Comment</label>
               <textarea 
                 id="comment" 
                 name="comment"
-                placeholder="Adicione notas sobre esta regra..."
+                placeholder="Add notes about this rule..."
               ></textarea>
             </div>
           </fieldset>
 
           <div class="form-actions">
-            <a href="rulelist.html" class="btn btn-secondary">← Cancelar</a>
+            <a href="rulelist.html" class="btn btn-secondary">← Cancel</a>
             <button type="submit" class="btn btn-primary">
-              <span>✓</span> Salvar Regra
+              <span>✓</span> Save Rule
             </button>
           </div>
 
