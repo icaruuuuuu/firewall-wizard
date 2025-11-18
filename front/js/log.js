@@ -132,8 +132,8 @@ async function loadVerdictTableFilter(pattern, name = 'all') {
 loadVerdictTable()
 
 log_filter.oninput = (event) => {
-  const parameters = log_filter.value.split(',')
-  parameters.map(value => value.trim())
+  let parameters = log_filter.value.split(':')
+  parameters = parameters.map(value => value.trim())
 
   loadVerdictTableFilter(parameters[0], parameters[1])
 }
