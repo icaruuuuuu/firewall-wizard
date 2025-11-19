@@ -69,71 +69,203 @@ async function loadVerdictTable() {
 
 async function loadVerdictTableFilter(pattern, name = 'all') {
   const verdicts = await get('verdicts')
-
   verdict_table_body.innerHTML = ''
 
-  if (name == 'date') {
-    for (const index in verdicts) {
-      if (verdicts[index].date == pattern) {
-        loadLine(verdicts, index)
+  switch (name) {
+    case 'date':
+      for (const index in verdicts) {
+        if (verdicts[index].date == pattern) {
+          loadLine(verdicts, index)
+        }
       }
-    }
-  } else if (name == 'time') {
+      break
+      
+    case 'time':
       for (const index in verdicts) {
         if (verdicts[index].time == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else if (name == 'source_ip') {
+      break
+      
+    case 'source_ip':
       for (const index in verdicts) {
         if (verdicts[index].source_ip == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else if (name == 'source_port') {
+      break
+      
+    case 'source_port':
       for (const index in verdicts) {
         if (verdicts[index].source_port == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else if (name == 'dest_ip') {
+      break
+      
+    case 'dest_ip':
       for (const index in verdicts) {
         if (verdicts[index].dest_ip == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else if (name == 'dest_port') {
+      break
+      
+    case 'dest_port':
       for (const index in verdicts) {
         if (verdicts[index].dest_port == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else if (name == 'action') {
+      break
+      
+    case 'action':
       for (const index in verdicts) {
         if (verdicts[index].action == pattern) {
           loadLine(verdicts, index)
         }
       }
-  } else {
-    for (const index in verdicts) {
-      if (verdicts[index].date == pattern ||
-      verdicts[index].time == pattern ||
-      verdicts[index].source_ip == pattern ||
-      verdicts[index].source_port == pattern ||
-      verdicts[index].dest_ip == pattern ||
-      verdicts[index].dest_port == pattern ||
-      verdicts[index].action == pattern) {
-        loadLine(verdicts, index)
+      break
+      
+    default:
+      if (pattern != '' && name == 'all') {
+        for (const index in verdicts) {
+          if (verdicts[index].date == pattern ||
+            verdicts[index].time == pattern ||
+            verdicts[index].source_ip == pattern ||
+            verdicts[index].source_port == pattern ||
+            verdicts[index].dest_ip == pattern ||
+            verdicts[index].dest_port == pattern ||
+            verdicts[index].action == pattern) {
+            loadLine(verdicts, index)
+          }
+        }
+      } else {
+        loadVerdictTable()
       }
+      break
+  }
+}
+
+async function loadVerdictTableFilterRegex(pattern, key = 'all') {
+  const verdicts = await get('verdicts')
+  verdict_table_body.innerHTML = ''
+
+  function isRegex(pattern) {
+
+    if (pattern.startsWith('/') && pattern.endsWith('/')) {
+      return true
     }
+    return false
+
+    // try {
+    //   new RegExp(pattern)
+    //   return true
+    // } catch (e) {
+    //   return false
+    // }
+  }
+
+  function testPattern(key_value, pattern) {
+    if (isRegex(pattern)) {
+      const regex = new RegExp(pattern.slice(1,-1), 'i')
+      return regex.test(key_value)
+    }
+    return pattern.toLowerCase().includes(key_value.toLowerCase())
+  }
+
+  switch (key) {
+    case 'date':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].date, pattern)){
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'time':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].time, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'source_ip':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].source_ip, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'source_port':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].source_port, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'dest_ip':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].dest_ip, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'dest_port':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].dest_port, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    case 'action':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].action, pattern)) {
+          loadLine(verdicts, index)
+        }
+      }
+      break
+      
+    default:
+      if (pattern != '' && key == 'all') {
+        for (const index in verdicts) {
+          if (testPattern(verdicts[index].date, pattern) ||
+          testPattern(verdicts[index].time, pattern) ||
+          testPattern(verdicts[index].source_ip, pattern) ||
+          testPattern(verdicts[index].source_port, pattern) ||
+          testPattern(verdicts[index].dest_ip, pattern) ||
+          testPattern(verdicts[index].dest_port, pattern) ||
+          testPattern(verdicts[index].action, pattern)) {
+            loadLine(verdicts, index)
+          }
+        }
+      } else {
+        loadVerdictTable()
+      }
+      break
   }
 }
 
 loadVerdictTable()
 
 log_filter.oninput = (event) => {
-  let parameters = log_filter.value.split(':')
+  let parameters = log_filter.value.split('|')
   parameters = parameters.map(value => value.trim())
 
   loadVerdictTableFilter(parameters[0], parameters[1])
 }
+
+log_filter_regex.oninput = (event) => {
+  let parameters = log_filter_regex.value.split('|')
+  parameters = parameters.map(value => value.trim())
+
+  loadVerdictTableFilterRegex(parameters[0], parameters[1])
+}
+
+// REMOVER PESQUISA POR STRING!!!!!!!!!!!!!1 REGEX CUMPRE O SEU PAPEL!!!!!
