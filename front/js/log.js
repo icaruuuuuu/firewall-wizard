@@ -3,7 +3,7 @@ import { get } from './requests.js'
 const verdict_table = document.getElementById('verdict-table')
 const verdict_table_body = document.getElementById('verdict-table-body')
 const log_filter = document.getElementById('log-filter')
-const log_filter_regex = document.getElementById('log-filter-regex')
+const download_log = document.getElementById('download-log')
 
 function loadLine(verdicts, index) {
   console.log(verdicts[index])
@@ -67,104 +67,15 @@ async function loadVerdictTable() {
   }
 }
 
-async function loadVerdictTableFilter(pattern, name = 'all') {
-  const verdicts = await get('verdicts')
-  verdict_table_body.innerHTML = ''
-
-  switch (name) {
-    case 'date':
-      for (const index in verdicts) {
-        if (verdicts[index].date == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'time':
-      for (const index in verdicts) {
-        if (verdicts[index].time == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'source_ip':
-      for (const index in verdicts) {
-        if (verdicts[index].source_ip == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'source_port':
-      for (const index in verdicts) {
-        if (verdicts[index].source_port == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'dest_ip':
-      for (const index in verdicts) {
-        if (verdicts[index].dest_ip == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'dest_port':
-      for (const index in verdicts) {
-        if (verdicts[index].dest_port == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    case 'action':
-      for (const index in verdicts) {
-        if (verdicts[index].action == pattern) {
-          loadLine(verdicts, index)
-        }
-      }
-      break
-      
-    default:
-      if (pattern != '' && name == 'all') {
-        for (const index in verdicts) {
-          if (verdicts[index].date == pattern ||
-            verdicts[index].time == pattern ||
-            verdicts[index].source_ip == pattern ||
-            verdicts[index].source_port == pattern ||
-            verdicts[index].dest_ip == pattern ||
-            verdicts[index].dest_port == pattern ||
-            verdicts[index].action == pattern) {
-            loadLine(verdicts, index)
-          }
-        }
-      } else {
-        loadVerdictTable()
-      }
-      break
-  }
-}
-
-async function loadVerdictTableFilterRegex(pattern, key = 'all') {
+async function loadVerdictTableFilter(pattern, key = 'all') {
   const verdicts = await get('verdicts')
   verdict_table_body.innerHTML = ''
 
   function isRegex(pattern) {
-
     if (pattern.startsWith('/') && pattern.endsWith('/')) {
       return true
     }
     return false
-
-    // try {
-    //   new RegExp(pattern)
-    //   return true
-    // } catch (e) {
-    //   return false
-    // }
   }
 
   function testPattern(key_value, pattern) {
@@ -252,20 +163,32 @@ async function loadVerdictTableFilterRegex(pattern, key = 'all') {
   }
 }
 
+async function downloadResource(resource) {
+  const verdicts = await get(resource)
+  const resource_json = JSON.stringify(verdicts, null, 2)
+  const blob = new Blob([resource_json], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `${resource}.json`
+
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+
+  URL.revokeObjectURL(url)
+}
+
 loadVerdictTable()
 
 log_filter.oninput = (event) => {
-  let parameters = log_filter.value.split('|')
+  let parameters = log_filter.value.split(';')
   parameters = parameters.map(value => value.trim())
 
   loadVerdictTableFilter(parameters[0], parameters[1])
 }
 
-log_filter_regex.oninput = (event) => {
-  let parameters = log_filter_regex.value.split('|')
-  parameters = parameters.map(value => value.trim())
-
-  loadVerdictTableFilterRegex(parameters[0], parameters[1])
+download_log.onclick = (event) => {
+  downloadResource('verdicts')
 }
-
-// REMOVER PESQUISA POR STRING!!!!!!!!!!!!!1 REGEX CUMPRE O SEU PAPEL!!!!!
