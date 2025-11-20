@@ -1,61 +1,60 @@
-import { get } from './requests.js'
+import { get, loadLine, downloadResource } from './lib.js'
 
-const verdict_table = document.getElementById('verdict-table')
 const verdict_table_body = document.getElementById('verdict-table-body')
 const log_filter = document.getElementById('log-filter')
 const download_log = document.getElementById('download-log')
 
-function loadLine(verdicts, index) {
-  console.log(verdicts[index])
+// function loadLine(verdicts, index) {
+//   console.log(verdicts[index])
 
-  const tr = document.createElement('tr')
-  tr.id = `verdict-tr-${index}`
-  verdict_table_body.appendChild(tr)
+//   const tr = document.createElement('tr')
+//   tr.id = `verdict-tr-${index}`
+//   verdict_table_body.appendChild(tr)
   
-  const current_tr = document.getElementById(`verdict-tr-${index}`)
+//   const current_tr = document.getElementById(`verdict-tr-${index}`)
 
-  const td_date = document.createElement('td')
-  td_date.id = `verdict-td-date-${index}`
-  td_date.textContent = `${verdicts[index].date}`
-  current_tr.appendChild(td_date)
+//   const td_date = document.createElement('td')
+//   td_date.id = `verdict-td-date-${index}`
+//   td_date.textContent = `${verdicts[index].date}`
+//   current_tr.appendChild(td_date)
 
-  const td_time = document.createElement('td')
-  td_time.id = `verdict-td-time-${index}`
-  td_time.textContent = `${verdicts[index].time}`
-  current_tr.appendChild(td_time)
+//   const td_time = document.createElement('td')
+//   td_time.id = `verdict-td-time-${index}`
+//   td_time.textContent = `${verdicts[index].time}`
+//   current_tr.appendChild(td_time)
 
-  const td_sourceip = document.createElement('td')
-  td_sourceip.id = `verdict-td-sourceip-${index}`
-  td_sourceip.textContent = `${verdicts[index].source_ip}`
-  current_tr.appendChild(td_sourceip)
+//   const td_sourceip = document.createElement('td')
+//   td_sourceip.id = `verdict-td-sourceip-${index}`
+//   td_sourceip.textContent = `${verdicts[index].source_ip}`
+//   current_tr.appendChild(td_sourceip)
 
-  const td_sourceport = document.createElement('td')
-  td_sourceport.id = `verdict-td-sourceport-${index}`
-  td_sourceport.textContent = `${verdicts[index].source_port}`
-  current_tr.appendChild(td_sourceport)
+//   const td_sourceport = document.createElement('td')
+//   td_sourceport.id = `verdict-td-sourceport-${index}`
+//   td_sourceport.textContent = `${verdicts[index].source_port}`
+//   current_tr.appendChild(td_sourceport)
 
-  const td_destip = document.createElement('td')
-  td_destip.id = `verdict-td-destip-${index}`
-  td_destip.textContent = `${verdicts[index].dest_ip}`
-  current_tr.appendChild(td_destip)
+//   const td_destip = document.createElement('td')
+//   td_destip.id = `verdict-td-destip-${index}`
+//   td_destip.textContent = `${verdicts[index].dest_ip}`
+//   current_tr.appendChild(td_destip)
 
-  const td_destport = document.createElement('td')
-  td_destport.id = `verdict-td-destport-${index}`
-  td_destport.textContent = `${verdicts[index].dest_port}`
-  current_tr.appendChild(td_destport)
+//   const td_destport = document.createElement('td')
+//   td_destport.id = `verdict-td-destport-${index}`
+//   td_destport.textContent = `${verdicts[index].dest_port}`
+//   current_tr.appendChild(td_destport)
 
-  const td_action = document.createElement('td')
-  td_action.id = `verdict-td-action-${index}`
-  td_action.textContent = `${verdicts[index].action}`
+//   const td_action = document.createElement('td')
+//   td_action.id = `verdict-td-action-${index}`
+//   td_action.textContent = `${verdicts[index].action}`
 
-  if (td_action.textContent == 'Allow') {
-    td_action.classList.add('badge', 'badge-allow')
-  } else {
-    td_action.classList.add('badge', 'badge-block')
-  }
+//   if (td_action.textContent == 'Allow') {
+//     td_action.classList.add('badge', 'badge-allow')
+//   } else {
+//     td_action.classList.add('badge', 'badge-block')
+//   }
 
-  current_tr.appendChild(td_action)
-}
+//   current_tr.appendChild(td_action)
+// }
 
 async function loadVerdictTable() {
   const verdicts = await get('verdicts')
@@ -63,7 +62,8 @@ async function loadVerdictTable() {
   verdict_table_body.innerHTML = ''
 
   for (const index in verdicts) {
-    loadLine(verdicts, index)
+    loadLine(verdicts, 'verdicts', index, verdict_table_body,
+    ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
   }
 }
 
@@ -90,7 +90,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'date':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].date, pattern)){
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -98,7 +99,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'time':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].time, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -106,7 +108,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'source_ip':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].source_ip, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -114,7 +117,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'source_port':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].source_port, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -122,7 +126,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'dest_ip':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].dest_ip, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -130,7 +135,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'dest_port':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].dest_port, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -138,7 +144,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
     case 'action':
       for (const index in verdicts) {
         if (testPattern(verdicts[index].action, pattern)) {
-          loadLine(verdicts, index)
+          loadLine(verdicts, 'verdicts', index, verdict_table_body,
+          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
         }
       }
       break
@@ -153,7 +160,8 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
           testPattern(verdicts[index].dest_ip, pattern) ||
           testPattern(verdicts[index].dest_port, pattern) ||
           testPattern(verdicts[index].action, pattern)) {
-            loadLine(verdicts, index)
+            loadLine(verdicts, 'verdicts', index, verdict_table_body,
+            ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
           }
         }
       } else {
@@ -161,23 +169,6 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
       }
       break
   }
-}
-
-async function downloadResource(resource) {
-  const verdicts = await get(resource)
-  const resource_json = JSON.stringify(verdicts, null, 2)
-  const blob = new Blob([resource_json], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `${resource}.json`
-
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-
-  URL.revokeObjectURL(url)
 }
 
 loadVerdictTable()
