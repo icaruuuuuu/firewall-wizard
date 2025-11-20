@@ -171,8 +171,7 @@ async function loadVerdictTableFilter(pattern, key = 'all') {
   }
 }
 
-loadVerdictTable()
-
+// Event listeners
 log_filter.oninput = (event) => {
   let parameters = log_filter.value.split(';')
   parameters = parameters.map(value => value.trim())
@@ -183,3 +182,5 @@ log_filter.oninput = (event) => {
 download_log.onclick = (event) => {
   downloadResource('verdicts')
 }
+
+loadVerdictTable()
