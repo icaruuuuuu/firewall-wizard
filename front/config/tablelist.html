@@ -25,10 +25,12 @@
                 </div>
                 <div class="filter-group">
                     <select id="familyFilter" class="filter-select">
-                        <option value="">All</option>
+                        <option value="all">All</option>
                         <option value="inet">inet</option>
-                        <option value="ip">ip4</option>
+                        <option value="ip">ip</option>
                         <option value="ip6">ip6</option>
+                        <option value="bridge">bridge</option>
+                        <option value="arp">arp</option>
                     </select>
                     <button id="btnReset" class="btn-secondary">Reset</button>
                 </div>
@@ -49,13 +51,12 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Family</th>
-                            <th>Description</th>
-                            <th style="width: 150px; text-align: center;">Actions</th>
+                            <th style="width: 100px;">Name</th>
+                            <th style="width: 100px;">Family</th>
+                            <th style="width: 150px;">Description</th>
                         </tr>
                     </thead>
-                    <tbody id="tablesTableBody">
+                    <tbody id="tables-table-body">
                     </tbody>
                 </table>
             </div>
@@ -121,7 +122,7 @@
         </div>
     </div>
 
-    <script src="../js/tablelistconfig.js"></script>
+    <script src="../js/tablelistconfig.js" type="module"></script>
 </body>
 </html>
 
