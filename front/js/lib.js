@@ -1,3 +1,5 @@
+export { get, loadLine, downloadResource }
+
 async function get(arg, id = '') {
 	try {
 		const response = await fetch(`http://localhost:3000/${arg}/${id}`);
@@ -42,5 +44,3 @@ async function downloadResource(resource_name) {
 
   URL.revokeObjectURL(url)
 }
-
-export { get, loadLine, downloadResource }
