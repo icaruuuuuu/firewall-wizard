@@ -79,6 +79,7 @@ family_filter.addEventListener('change', applyFilters)
 
 
 async function resetFilters() {
+    filter_type.value = 'all'
     tables_table_body()
 }
 reset_filters_btn.addEventListener('click', resetFilters) 

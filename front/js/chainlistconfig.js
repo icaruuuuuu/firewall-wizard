@@ -70,6 +70,7 @@ async function applyFilters() {
 filter_type.addEventListener('change', applyFilters)
 
 async function resetFilters() {
+    filter_type.value = 'all'
     chain_table_body()
 }
 
