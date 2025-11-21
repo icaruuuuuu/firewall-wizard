@@ -83,3 +83,5 @@ async function resetFilters() {
     tables_table_body()
 }
 reset_filters_btn.addEventListener('click', resetFilters) 
+
+oi
