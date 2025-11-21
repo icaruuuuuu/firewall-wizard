@@ -4,6 +4,8 @@ const table_body = document.getElementById('tables-table-body')
 const search_input = document.getElementById('searchInput')
 const family_filter = document.getElementById('familyFilter')
 const reset_filters_btn = document.getElementById('btnReset')
+const search_qtd = document.getElementById('totalCount')
+const qtd_filter = document.getElementById('filteredCount')
 
 async function tables_table_body() {
   const tables = await get('tables')
@@ -28,6 +30,7 @@ async function applyFilters() {
             loadLine(tables, 'tables', index, table_body,
             ['name', 'family', 'description'] )
         }
+        
     }
     else if (search_family === 'inet'){
         for (const index in tables) {
@@ -36,6 +39,7 @@ async function applyFilters() {
                 ['name', 'family', 'description'] )
             }
         }
+        
     }
     else if (search_family === 'ip'){
         for (const index in tables){
@@ -54,6 +58,7 @@ async function applyFilters() {
                 )
             }
         }
+    
     }
     else if (search_family === 'bridge'){
         for (const index in tables){
@@ -63,6 +68,7 @@ async function applyFilters() {
                 )
             }
         }
+        
     }
     else if (search_family === 'arp'){
         for (const index in tables){
@@ -79,9 +85,20 @@ family_filter.addEventListener('change', applyFilters)
 
 
 async function resetFilters() {
-    filter_type.value = 'all'
+    family_filter.value = 'all'
     tables_table_body()
 }
 reset_filters_btn.addEventListener('click', resetFilters) 
 
-oi
+async function applycount() {
+    const tables = await get ('tables')
+    let count = 0
+    for (const index in tables){
+        count += 1
+    }
+    search_qtd.innerText = count
+}
+
+applycount()
+
+
