@@ -1,4 +1,4 @@
-import { get, loadLine, downloadResource } from './lib.js'
+import { get, loadLine, downloadResource, testPattern } from './lib.js'
 
 const verdict_table_body = document.getElementById('verdict-table-body')
 const log_filter = document.getElementById('log-filter')
@@ -7,41 +7,16 @@ const download_log = document.getElementById('download-log')
 const verdicts_json = await get('verdicts')
 const verdict_keys = ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action']
 
-
 function loadVerdictTable(verdicts) {
   verdict_table_body.innerHTML = ''
 
   for (const index in verdicts) {
-    loadLine(verdicts, 'verdicts', index, verdict_table_body,
-      ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
+    loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
   }
 }
 
-async function loadVerdictTableFilter(verdicts, pattern, key = 'all') {
+function loadVerdictTableFilter(verdicts, pattern, key = 'all') {
   verdict_table_body.innerHTML = ''
-
-  function isRegex(pattern) {
-    if (pattern.startsWith('/') && pattern.endsWith('/')) {
-      return true
-    }
-    return false
-  }
-
-  function testPattern(key_value, pattern) {
-    const key_value_str = String(key_value);
-    const pattern_str = String(pattern);
-
-    if (isRegex(pattern_str)) {
-      try {
-        const regex = new RegExp(pattern_str.slice(1, -1), 'i')
-        return regex.test(key_value_str)
-      } catch (e) {
-        return key_value_str.toLowerCase() === pattern_str.toLowerCase()
-      }
-    }
-
-    return key_value_str.toLowerCase().includes(pattern_str.toLowerCase())
-  }
 
   switch (key) {
     case 'date':

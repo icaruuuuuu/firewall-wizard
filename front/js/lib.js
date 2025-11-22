@@ -1,17 +1,17 @@
-export { get, loadLine, downloadResource }
+export { get, loadLine, downloadResource, isRegex, testPattern }
 
 async function get(arg, id = '') {
-	try {
-		const response = await fetch(`http://localhost:3000/${arg}/${id}`);
-		if (!response.ok) throw new Error(`Erro ao listar configuração de ${arg}`);
-		const data = await response.json();
-		console.table(data);
-		return data;
+  try {
+    const response = await fetch(`http://localhost:3000/${arg}/${id}`);
+    if (!response.ok) throw new Error(`Erro ao listar configuração de ${arg}`);
+    const data = await response.json();
+    console.table(data);
+    return data;
 
-	} catch (error) {
-		console.error('Erro na requisição:', error)
-		return null
-	}
+  } catch (error) {
+    console.error('Erro na requisição:', error)
+    return null
+  }
 }
 
 function loadLine(resource, resource_name, index, table_body_name, resource_keys) {
@@ -43,4 +43,27 @@ async function downloadResource(resource_name) {
   document.body.removeChild(link)
 
   URL.revokeObjectURL(url)
+}
+
+function isRegex(pattern) {
+  if (pattern.startsWith('/') && pattern.endsWith('/')) {
+    return true
+  }
+  return false
+}
+
+function testPattern(key_value, pattern) {
+  const key_value_str = String(key_value);
+  const pattern_str = String(pattern);
+
+  if (isRegex(pattern_str)) {
+    try {
+      const regex = new RegExp(pattern_str.slice(1, -1), 'i')
+      return regex.test(key_value_str)
+    } catch (e) {
+      return key_value_str.toLowerCase() === pattern_str.toLowerCase()
+    }
+  }
+
+  return key_value_str.toLowerCase().includes(pattern_str.toLowerCase())
 }
