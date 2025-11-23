@@ -6,12 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rules - Firewall Wizard</title>
   <link rel="stylesheet" href="../css/list.css">
+  <link rel="stylesheet" href="../css/overlay.css">
+  <link rel="stylesheet" href="../css/flex.css">
 </head>
 
 <body>
 
-  <main class="container">
-    <div class="card">
+<main class="container">
+  <div class="card">
+    
+    <div class="header">
+      <div class="header-content">
+        <h2>Firewall Rules</h2>
+        <p class="header-subtitle">NFTables Rule Management</p>
+      </div>
+      <a onclick="toggleOverlay()" class="btn-primary">
+        <span>+</span> Create new rules
+      </a>
+    </div>
 
       <div class="header">
         <div class="header-content">
@@ -63,6 +75,10 @@
         <a href="rule.html" class="btn-primary">Create First Rule</a>
       </div>
 
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <div class="empty-icon">📋</div>
+      <h3>No rule found</h3>
+      <a onclick="toggleOverlay()" class="btn-primary">Create First Rule</a>
     </div>
   </main>
 
@@ -74,7 +90,11 @@
     <div class="modal-content" style="max-width: 400px;"></div>
   </div>
 
-  <script src="../js/rulelistconfig.js" type="module"></script>
+<div class="overlay">
+<iframe src="rule.html" class="wrapper" id="frame"></iframe>
+</div>
+<script src="../js/overlay.js"></script>
+<script src="../js/rulelistconfig.js" type="module"></script>
 
 </body>
 

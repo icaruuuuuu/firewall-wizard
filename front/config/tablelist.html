@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablelist - Firewall Wizard</title>
     <link rel="stylesheet" href="../css/list.css">
+    <link rel="stylesheet" href="../css/overlay.css">
+    <link rel="stylesheet" href="../css/flex.css">
 </head>
 
 <body>
@@ -16,7 +18,7 @@
                     <h2>Tables</h2>
                     <p class="header-subtitle">NFTables table management</p>
                 </div>
-                <a href="table.html" class="btn-primary">
+                <a onclick="toggleOverlay();" class="btn-primary">
                     <span>+</span> Create new table
                 </a>
             </div>
@@ -127,7 +129,11 @@
         </div>
     </div>
 
+    <div class="overlay">
+    	<iframe src="table.html" class="wrapper" id="frame"></iframe>
+    </div>
+
+    <script src="../js/overlay.js"></script>
     <script src="../js/tablelistconfig.js" type="module"></script>
 </body>
-
 </html>

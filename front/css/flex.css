@@ -1,5 +1,5 @@
 iframe {
-	border solid 0 transparent;
+	border: none;
 }
 
 body {
