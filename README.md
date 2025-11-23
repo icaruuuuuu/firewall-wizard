@@ -78,6 +78,8 @@ npx json-server db.json
 
 O servidor JSON mock será iniciado e fornecerá os dados necessários para o painel.
 
+---
+
 ## 👥 Equipe
 
 - Bruno de Farias Andrade
