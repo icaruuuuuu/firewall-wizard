@@ -1,6 +1,6 @@
 export { get, loadLine, downloadResource, isRegex, testPattern }
 
-async function get(arg, id = '') {
+async function get(arg = '', id = '') {
   try {
     const response = await fetch(`http://localhost:3000/${arg}/${id}`);
     if (!response.ok) throw new Error(`Erro ao listar configuração de ${arg}`);
@@ -28,7 +28,7 @@ function loadLine(resource, resource_name, index, table_body_name, resource_keys
   table_body_name.appendChild(tr)
 }
 
-async function downloadResource(resource_name) {
+async function downloadResource(resource_name = '') {
   const resource = await get(resource_name)
   const resource_json = JSON.stringify(resource, null, 2)
   const blob = new Blob([resource_json], { type: 'application/json' })
@@ -36,7 +36,12 @@ async function downloadResource(resource_name) {
 
   const link = document.createElement('a')
   link.href = url
-  link.download = `${resource_name}.json`
+
+  if (resource_name == '') {
+    link.download = `db.json`
+  } else {
+    link.download = `${resource_name}.json`
+  }
 
   document.body.appendChild(link)
   link.click()

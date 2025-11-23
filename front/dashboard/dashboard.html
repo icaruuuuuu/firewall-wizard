@@ -1,48 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Firewall Wizard</title>
-<link rel="stylesheet" href="../css/dashboard.css" />
-<script type="module" src="../js/dashboard.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFTables Dashboard</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
+
 <body>
-<header class="header">
-    <h1 class="page-title">Dashboard</h1>
-</header>
+    <div class="header">
+        <img src="../imgs/Firewall_Wizard_Hat_NoBackground.png" alt="Firewall Wizard Logo">
+        <h1 class="page-title">Firewall Wizard Dashboard</h1>
+    </div>
 
-<section class="kpi-container">
-<div class="kpi-card">Active Tables: <span id="tablesCount">0</span></div>
-<div class="kpi-card">Total Chains: <span id="chainsCount">0</span></div>
-<div class="kpi-card">Active Rules: <span id="rulesCount">0</span></div>
-<div class="kpi-card">Active Sets: <span id="setsCount">0</span></div>
-<div class="kpi-card">Blocks: <span id="dropsToday">0</span></div>
-<div class="kpi-card">Permissions: <span id="acceptsToday">0</span></div>
-</section>
+    <div class="dashboard-container">
+        <div class="kpi-container">
+            <div class="kpi-card">
+                <div class="kpi-label">Blocked Packets</div>
+                <div class="kpi-value" id="blocked-packets"></div>
+                <div class="kpi-subtext">Last 24 hours</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Tables</div>
+                <div class="kpi-value" id="total-tables"></div>
+                <div class="kpi-subtext">Active in system</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Chains</div>
+                <div class="kpi-value" id="total-chains"></div>
+                <div class="kpi-subtext">Distributed among tables</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Rules</div>
+                <div class="kpi-value" id="total-rules"></div>
+                <div class="kpi-subtext">Active rules</div>
+            </div>
+        </div>
 
-<section class="grid-4">
-<div class="panel">
-<h3>Tables</h3>
-<ul id="tablesList"></ul>
-</div>
+        <div class="search-box">
+            <input id="search-input" type="text" class="search-input"
+                placeholder="Search in all tables... (Ex: pattern;key)">
+            <button class="download-btn" id="download-btn">Download database</button>
+        </div>
 
+        <div class="tables-section">
+            <!-- Tables Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Tables</h2>
+                    <span class="panel-count" id="tables-count"></span>
+                </div>
+                <div class="table-container">
+                    <table id="tables-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tables-body">
+                            <!-- Tables will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-<div class="panel">
-<h3>Chains</h3>
-<ul id="chainsList"></ul>
-</div>
+            <!-- Chains Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Chains</h2>
+                    <span class="panel-count" id="chains-count"></span>
+                </div>
+                <div class="table-container">
+                    <table id="chains-table">
+                        <thead>
+                            <tr>
+                                <th>Associated Table</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chains-body">
+                            <!-- Chains will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
+            <!-- Rules Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Rules</h2>
+                    <span class="panel-count" id="rules-count"></span>
+                </div>
+                <div class="table-container">
+                    <table id="rules-table">
+                        <thead>
+                            <tr>
+                                <th>Associated Chain</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rules-body">
+                            <!-- Rules will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="panel">
-<h3>Rules</h3>
-<ul id="rulesList"></ul>
-</div>
+    <script src="../js/dashboard.js" type="module"></script>
+</body>
 
-
-<div class="panel">
-<h3>Sets</h3>
-<ul id="setsList"></ul>
-</div>
-</section>
 </html>
