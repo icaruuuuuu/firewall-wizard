@@ -68,7 +68,7 @@ function loadRulesTableFilter(rules, pattern, key = 'all') {
   switch (key) {
     case 'action':
       for (const index in rules) {
-        if (testPattern(rules[index].date, pattern)) {
+        if (testPattern(rules[index].action, pattern)) {
           loadLine(rules, 'rules', index, rules_table, rules_keys)
         }
       }
@@ -76,7 +76,7 @@ function loadRulesTableFilter(rules, pattern, key = 'all') {
 
     case 'description':
       for (const index in rules) {
-        if (testPattern(rules[index].time, pattern)) {
+        if (testPattern(rules[index].description, pattern)) {
           loadLine(rules, 'rules', index, rules_table, rules_keys)
         }
       }
@@ -84,7 +84,7 @@ function loadRulesTableFilter(rules, pattern, key = 'all') {
 
     case 'enabled':
       for (const index in rules) {
-        if (testPattern(rules[index].source_ip, pattern)) {
+        if (testPattern(rules[index].enabled, pattern)) {
           loadLine(rules, 'rules', index, rules_table, rules_keys)
         }
       }
@@ -92,7 +92,7 @@ function loadRulesTableFilter(rules, pattern, key = 'all') {
 
     case 'match':
       for (const index in rules) {
-        if (testPattern(rules[index].source_port, pattern)) {
+        if (testPattern(rules[index].match, pattern)) {
           loadLine(rules, 'rules', index, rules_table, rules_keys)
         }
       }

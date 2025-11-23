@@ -1,4 +1,4 @@
-import { get, loadLine} from './lib.js'
+import { get, loadLine, testPattern } from './lib.js'
 
 const table_body = document.getElementById('tables-table-body')
 const search_input = document.getElementById('searchInput')
@@ -6,115 +6,127 @@ const family_filter = document.getElementById('familyFilter')
 const reset_filters_btn = document.getElementById('btnReset')
 const search_qtd = document.getElementById('totalCount')
 const qtd_filter = document.getElementById('filteredCount')
-const search_button = document.getElementById('btnSearch')
 
-async function tables_table_body() {
-  const tables = await get('tables')
-  
-  table_body.innerHTML = ''
+const tables_json = await get('tables')
+const tables_keys = ['name', 'family', 'description']
 
-  for (const index in tables) {
-    loadLine(tables, 'tables', index, table_body,
-    ['name', 'family', 'description'] )
-  }
+function loadTableTable() {
+    table_body.innerHTML = ''
+
+    for (const index in tables_json) {
+        loadLine(tables_json, 'tables', index, table_body, tables_keys)
+    }
 }
 
-tables_table_body()
+loadTableTable()
 
 
-async function applyFilters() {
-    const tables = await get('tables')
+function applyFilters() {
     table_body.innerHTML = ''
     const search_family = family_filter.value
-    if (search_family === 'all'){
-        for (const index in tables) {
-            loadLine(tables, 'tables', index, table_body,
-            ['name', 'family', 'description'] )
+    if (search_family === 'all') {
+        for (const index in tables_json) {
+            loadLine(tables_json, 'tables', index, table_body, tables_keys)
         }
-        
+
     }
-    else if (search_family === 'inet'){
-        for (const index in tables) {
-            if (tables[index].family === 'inet'){
-                loadLine(tables, 'tables', index, table_body,
-                ['name', 'family', 'description'] )
+    else if (search_family === 'inet') {
+        for (const index in tables_json) {
+            if (tables_json[index].family === 'inet') {
+                loadLine(tables_json, 'tables', index, table_body, tables_keys)
             }
         }
-        
+
     }
-    else if (search_family === 'ip'){
-        for (const index in tables){
-            if (tables[index].family === 'ip'){
-                loadLine(tables, 'tables', index, table_body,
-                ['name', 'family', 'description']
-                )
+    else if (search_family === 'ip') {
+        for (const index in tables_json) {
+            if (tables_json[index].family === 'ip') {
+                loadLine(tables_json, 'tables', index, table_body, tables_keys)
             }
         }
     }
-    else if (search_family === 'ip6'){
-        for (const index in tables){
-            if (tables[index].family === 'ip6'){
-                loadLine(tables, 'tables', index, table_body,
-                ['name', 'family', 'description']
-                )
+    else if (search_family === 'ip6') {
+        for (const index in tables_json) {
+            if (tables_json[index].family === 'ip6') {
+                loadLine(tables_json, 'tables', index, table_body, tables_keys)
             }
         }
-    
+
     }
-    else if (search_family === 'bridge'){
-        for (const index in tables){
-            if (tables[index].family === 'bridge'){
-                loadLine(tables, 'tables', index, table_body,
-                ['name', 'family', 'description']
-                )
+    else if (search_family === 'bridge') {
+        for (const index in tables_json) {
+            if (tables_json[index].family === 'bridge') {
+                loadLine(tables_json, 'tables', index, table_body, tables_keys)
             }
         }
-        
+
     }
-    else if (search_family === 'arp'){
-        for (const index in tables){
-            if (tables[index].family === 'arp'){
-                loadLine(tables, 'tables', index, table_body,
-                ['name', 'family', 'description']
+    else if (search_family === 'arp') {
+        for (const index in tables_json) {
+            if (tables_json[index].family === 'arp') {
+                loadLine(tables_json, 'tables', index, table_body,
+                    ['name', 'family', 'description']
                 )
             }
         }
     }
 }
 
-family_filter.addEventListener('change', applyFilters)
+function loadTablesTableFilter(tables, pattern, key = 'all') {
+    table_body.innerHTML = ''
 
+    switch (key) {
+        case 'name':
+            for (const index in tables) {
+                if (testPattern(tables[index].name, pattern)) {
+                    loadLine(tables, 'tables', index, table_body, tables_keys)
+                }
+            }
+            break
 
-async function resetFilters() {
-    family_filter.value = 'all'
-    tables_table_body()
-}
-reset_filters_btn.addEventListener('click', resetFilters) 
+        case 'family':
+            for (const index in tables) {
+                if (testPattern(tables[index].family, pattern)) {
+                    loadLine(tables, 'tables', index, table_body, tables_keys)
+                }
+            }
+            break
 
-async function applycount() {
-    const tables = await get ('tables')
-    let count = 0
-    for (const index in tables){
-        count += 1
+        case 'description':
+            for (const index in tables) {
+                if (testPattern(tables[index].description, pattern)) {
+                    loadLine(tables, 'tables', index, table_body, tables_keys)
+                }
+            }
+
+        default:
+            if (pattern != '' && key == 'all') {
+                for (const index in tables) {
+                    if (testPattern(tables[index].name, pattern) ||
+                        testPattern(tables[index].family, pattern) ||
+                        testPattern(tables[index].description, pattern)) {
+                        loadLine(tables, 'tables', index, table_body, tables_keys)
+                    }
+                }
+            } else {
+                loadTableTable()
+            }
+            break
     }
-    search_qtd.innerText = count
 }
 
-applycount()
-
-async function applycountfilter() {
-    const tables = await get ('tables')
+function applycountfilter() {
     let count = 0
     const search_family = family_filter.value
-    if (search_family === 'all'){
-        for (const index in tables) {
+    if (search_family === 'all') {
+        for (const index in tables_json) {
             count += 1
         }
-        
+
     }
     else {
-        for (const index in tables){
-            if (tables[index].family === search_family){
+        for (const index in tables_json) {
+            if (tables_json[index].family === search_family) {
                 count += 1
             }
         }
@@ -122,42 +134,31 @@ async function applycountfilter() {
     qtd_filter.innerText = count
 }
 
-family_filter.addEventListener('change', applycountfilter) 
+family_filter.addEventListener('change', applycountfilter)
 reset_filters_btn.addEventListener('click', applycountfilter)
 
+family_filter.addEventListener('change', applyFilters)
 
-async function searchTables() {
-    const tables = await get('tables')
-    const search_term = search_input.value.toLowerCase()
-    table_body.innerHTML = ''
-    for (const index in tables) {
-        if (tables[index].name.toLowerCase().includes(search_term) ||
-            tables[index].family.toLowerCase().includes(search_term) ||
-            tables[index].description.toLowerCase().includes(search_term)) {
-            loadLine(tables, 'tables', index, table_body,
-            ['name', 'family', 'description'])
-        }
-        
-    }
-    
+
+function resetFilters() {
+    family_filter.value = 'all'
+    loadTableTable()
 }
 
-search_button.addEventListener('click', searchTables)
+reset_filters_btn.addEventListener('click', resetFilters)
 
-async function search_name_qtd(){
-    const tables = await get('tables')
-    const search_term = search_input.value.toLowerCase()
+function applyCount() {
     let count = 0
-    for (const index in tables) {
-        if (tables[index].name.toLowerCase().includes(search_term) ||
-            tables[index].family.toLowerCase().includes(search_term) ||
-            tables[index].description.toLowerCase().includes(search_term)) {
-            count += 1
-        }
-
+    for (const index in tables_json) {
+        count += 1
     }
-    qtd_filter.innerText = count
+    search_qtd.innerText = count
 }
 
-search_button.addEventListener('click', search_name_qtd)
+applyCount()
 
+search_input.oninput = (event) => {
+    let parameters = search_input.value.split(';')
+    parameters = parameters.map(value => value.trim())
+    loadTablesTableFilter(tables_json, parameters[0], parameters[1])
+}
