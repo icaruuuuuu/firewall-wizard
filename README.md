@@ -60,8 +60,6 @@ cd firewall-wizard/back
 
 npx json-server db.json
 
-Acesse: http://localhost:3000
-
 ------------------------------------------------------------------------
 
 🤝 Como Contribuir
