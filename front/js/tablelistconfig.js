@@ -136,7 +136,11 @@ function applycountfilter() {
 }
 
 family_filter.addEventListener('change', applycountfilter)
-reset_filters_btn.addEventListener('click', applycountfilter)
+// reset_filters_btn.addEventListener('click', applycountfilter)
+reset_filters_btn.onclick = (event) => {
+    resetFilters()
+    applycountfilter()
+}
 
 family_filter.addEventListener('change', applyFilters)
 
@@ -146,7 +150,7 @@ function resetFilters() {
     loadTableTable()
 }
 
-reset_filters_btn.addEventListener('click', resetFilters)
+// reset_filters_btn.addEventListener('click', resetFilters)
 
 function applyCount() {
     let count = 0
@@ -157,6 +161,7 @@ function applyCount() {
 }
 
 applyCount()
+applycountfilter()
 
 search_input.oninput = (event) => {
     let parameters = search_input.value.split(';')

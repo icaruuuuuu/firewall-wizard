@@ -1,71 +1,91 @@
-Firewall Wizard
+# 🔥 Firewall Wizard
 
-Um painel web completo para gerenciamento, visualização e análise de
-firewalls baseados em nftables, incluindo dashboard, listagem de regras,
-tabelas, chains, logs e busca avançada por regex.
+Um painel web completo para **gerenciamento, visualização e análise** de firewalls baseados em **nftables**, incluindo dashboard em tempo real, listagem de regras, tabelas, chains, logs e busca avançada com regex.
 
-------------------------------------------------------------------------
+---
 
-📘 Descrição Detalhada do Projeto:
+## 📘 Sobre o Projeto
 
-O Firewall Wizard é uma interface intuitiva para inspeção e
-administração de firewalls utilizando nftables. Ele facilita o processo
-de visualização das configurações, criação e modificação de regras,
-análise de logs e monitoramento do estado atual do firewall.
+O **Firewall Wizard** é uma interface moderna e intuitiva desenvolvida para facilitar a administração de firewalls utilizando **nftables**.
 
-O sistema foi criado para ser simples, rápido e ideal tanto para
-iniciantes quanto para administradores experientes.
+Ele permite visualizar a estrutura completa do firewall, monitorar seu estado, manipular regras e analisar logs — tudo de forma clara, rápida e acessível tanto para iniciantes quanto para administradores experientes.
 
-------------------------------------------------------------------------
+---
 
-✨ Principais Funcionalidades:
+## ✨ Funcionalidades Principais
 
--   Dashboard completo com:
-    -   Quantidade total de rules.
-    -   Quantidade de tables.
-    -   Quantidade de chains.
-    -   Uso de recursos e logs recentes.
--   Listagem detalhada de:
-    -   Tables.
-    -   Chains.
-    -   Rules.
--   Busca com Regex para filtrar regras.
--   Logs integrados com visualização otimizada.
--   Interface intuitiva inspirada em painéis de firewall modernos.
+### 🧭 Dashboard Completo
+- Contagem total de **rules**
+- Número de **tables**
+- Número de **chains**
+- Indicadores de uso e status
 
-------------------------------------------------------------------------
+### 📚 Listagens Detalhadas
+- Tabelas (**tables**)
+- Correntes (**chains**)
+- Regras (**rules**)
 
-🛠️ Tecnologias Utilizadas:
+### 🔍 Busca Avançada
+- Filtro poderoso utilizando **Expressões Regulares (Regex)**  
+  Ideal para localizar regras específicas em ambientes grandes.
 
--   HTML5, CSS3, JavaScript.
--   Node.js / Express (backend).
--   nftables via CLI ou API.
--   JSON para estrutura de regras.
+### 📜 Logs Integrados
+- Visualização otimizada dos logs do firewall
+- Atualização dinâmica
 
-------------------------------------------------------------------------
+### 🖥️ Interface Moderna
+- Layout inspirado em painéis de firewall profissionais
+- Navegação simples e responsiva
 
-📦 Instalação:
+---
 
-Pré-requisitos:
+## 🛠️ Tecnologias Utilizadas
 
--   Linux com suporte a nftables
--   Node.js 
--   npm 
+### Frontend
+- **HTML5**
+- **CSS3**
+- **JavaScript**
 
-▶️ Como Executar:
+### Backend
+- **Node.js**
+- **json-server**
 
-Modo Local:
+### Firewall
+- **nftables** via CLI
+- **JSON** para estrutura interna de regras
 
+---
+
+## 📦 Instalação
+
+### ✔️ Pré-requisitos
+- Linux com suporte a **nftables**
+- **Node.js**
+- **npm**
+- **json-server**
+
+---
+
+## ▶️ Como Executar
+
+### Modo Local
+
+```bash
 cd firewall-wizard/back
 
 npx json-server db.json
+```
 
-------------------------------------------------------------------------
+O servidor JSON mock será iniciado e fornecerá os dados necessários para o painel.
 
-🙏 Agradecimentos:
+## 👥 Equipe
 
--   Ao GRANDE E ÚNICO Professor Luiz Carlos Rodrigues Chaves.
--   As Autoridades Idealizadoras, Criadoras e Desenvolvedoras do Firewall Wizard.
--   A Turma de Desenvolvimento Web 2025.2.
+- Bruno de Farias Andrade
+- Ícaro Machado da Silva
+- Pedro Henrique Rodrigues Alves
 
-------------------------------------------------------------------------
+## 🙏 Agradecimentos
+
+- Ao GRANDE E ÚNICO Professor Luiz Carlos Rodrigues Chaves, pela orientação e dedicação.
+- Às autoridades idealizadoras e desenvolvedoras do Firewall Wizard.
+- À Turma de Desenvolvimento Web 2025.2, pelo apoio e colaboração.
