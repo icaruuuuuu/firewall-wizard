@@ -1,12 +1,13 @@
-import { get, loadLine, testPattern } from './lib.js'
+import { get, loadLine, testPattern, downloadResource } from './lib.js'
 
 const chain_body = document.getElementById('chainlist-table-body')
 const filter_type = document.getElementById('filterType')
 const reset_filters_btn = document.getElementById('btnReset')
 const search_input = document.getElementById('searchInput')
+const download_chains = document.getElementById('download-chains')
 
 const chains_json = await get('chains')
-const chains_keys = ['name', 'type', 'hook', 'priority', 'policy', 'description']
+const chains_keys = ['table_id', 'name', 'type', 'hook', 'priority', 'policy', 'description']
 
 function loadChainTable() {
     chain_body.innerHTML = ''
@@ -139,4 +140,8 @@ search_input.oninput = (event) => {
     let parameters = search_input.value.split(';')
     parameters = parameters.map(value => value.trim())
     loadChainsTableFilter(chains_json, parameters[0], parameters[1])
+}
+
+download_chains.onclick = (event) => {
+    downloadResource('chains')
 }

@@ -21,6 +21,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -213,6 +214,7 @@
     max-height: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     max-height: 1000px;
@@ -488,4 +490,3 @@ button {
   margin-top: 6px;
   font-weight: 600;
 }
-

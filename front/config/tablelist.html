@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tablelist - Firewall Wizard</title>
     <link rel="stylesheet" href="../css/list.css">
 </head>
+
 <body>
     <div class="container">
         <div class="card">
             <div class="header">
                 <div class="header-content">
-                    <h2>📋 Tables</h2>
+                    <h2>Tables</h2>
                     <p class="header-subtitle">NFTables table management</p>
                 </div>
                 <a href="table.html" class="btn-primary">
@@ -21,8 +23,10 @@
 
             <div class="filters">
                 <div class="search-group">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
-                    <button class="btn-search" id="btnSearch">Search</button>
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Filter by regex (Ex: pattern;key)">
+                    <button id="download-tables">Download tables</button>
+                    <!-- <button class="btn-search" id="btnSearch">Search</button> -->
                 </div>
                 <div class="filter-group">
                     <select id="familyFilter" class="filter-select">
@@ -125,5 +129,5 @@
 
     <script src="../js/tablelistconfig.js" type="module"></script>
 </body>
-</html>
 
+</html>

@@ -1,12 +1,13 @@
-import { get, loadLine, testPattern } from './lib.js'
+import { get, loadLine, testPattern, downloadResource } from './lib.js'
 
 const rules_table = document.getElementById('rulelist-table-body')
 const filter_type = document.getElementById('filterType')
 const reset_filters_btn = document.getElementById('btnReset')
 const search_input = document.getElementById('searchInput')
+const download_rules = document.getElementById('download-rules')
 
 const rules_json = await get('rules')
-const rules_keys = ['action', 'description', 'enabled', 'matches']
+const rules_keys = ['chain_id', 'action', 'description', 'enabled', 'matches']
 
 function rules_list_table() {
   rules_table.innerHTML = ''
@@ -129,4 +130,8 @@ search_input.oninput = (event) => {
   let parameters = search_input.value.split(';')
   parameters = parameters.map(value => value.trim())
   loadRulesTableFilter(rules_json, parameters[0], parameters[1])
+}
+
+download_rules.onclick = (event) => {
+  downloadResource('rules')
 }

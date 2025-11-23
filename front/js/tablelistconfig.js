@@ -1,4 +1,4 @@
-import { get, loadLine, testPattern } from './lib.js'
+import { get, loadLine, testPattern, downloadResource } from './lib.js'
 
 const table_body = document.getElementById('tables-table-body')
 const search_input = document.getElementById('searchInput')
@@ -6,6 +6,7 @@ const family_filter = document.getElementById('familyFilter')
 const reset_filters_btn = document.getElementById('btnReset')
 const search_qtd = document.getElementById('totalCount')
 const qtd_filter = document.getElementById('filteredCount')
+const download_tables = document.getElementById('download-tables')
 
 const tables_json = await get('tables')
 const tables_keys = ['name', 'family', 'description']
@@ -161,4 +162,8 @@ search_input.oninput = (event) => {
     let parameters = search_input.value.split(';')
     parameters = parameters.map(value => value.trim())
     loadTablesTableFilter(tables_json, parameters[0], parameters[1])
+}
+
+download_tables.onclick = (event) => {
+    downloadResource('tables')
 }
