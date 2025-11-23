@@ -6,7 +6,7 @@ tabelas, chains, logs e busca avançada por regex.
 
 ------------------------------------------------------------------------
 
-📘 Descrição Detalhada do Projeto
+📘 Descrição Detalhada do Projeto:
 
 O Firewall Wizard é uma interface intuitiva para inspeção e
 administração de firewalls utilizando nftables. Ele facilita o processo
@@ -18,7 +18,7 @@ iniciantes quanto para administradores experientes.
 
 ------------------------------------------------------------------------
 
-✨ Principais Funcionalidades
+✨ Principais Funcionalidades:
 
 -   Dashboard completo com:
     -   Quantidade total de rules
@@ -35,7 +35,7 @@ iniciantes quanto para administradores experientes.
 
 ------------------------------------------------------------------------
 
-🛠️ Tecnologias Utilizadas
+🛠️ Tecnologias Utilizadas:
 
 -   HTML5, CSS3, JavaScript
 -   Node.js / Express (backend)
@@ -44,7 +44,7 @@ iniciantes quanto para administradores experientes.
 
 ------------------------------------------------------------------------
 
-📦 Instalação
+📦 Instalação:
 
 Pré-requisitos:
 
@@ -52,7 +52,7 @@ Pré-requisitos:
 -   Node.js 
 -   npm 
 
-▶️ Como Executar
+▶️ Como Executar:
 
 Modo Local:
 
@@ -62,7 +62,7 @@ npx json-server db.json
 
 ------------------------------------------------------------------------
 
-🤝 Como Contribuir
+🤝 Como Contribuir:
 
 1.  Faça um fork do repositório
 2.  Crie uma branch (feat/nova-funcionalidade)
@@ -71,7 +71,7 @@ npx json-server db.json
 
 ------------------------------------------------------------------------
 
-🙏 Agradecimentos
+🙏 Agradecimentos:
 
 -   Ao Professor Luiz Carlos Rodrigues Chaves.
 -   As Autoridades Idealizadoras, Criadoras e Desenvolvedoras do Firewall Wizard.
