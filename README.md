@@ -64,7 +64,7 @@ npx json-server db.json
 
 🙏 Agradecimentos:
 
--   Ao Professor Luiz Carlos Rodrigues Chaves.
+-   Ao GRANDE E ÚNICO Professor Luiz Carlos Rodrigues Chaves.
 -   As Autoridades Idealizadoras, Criadoras e Desenvolvedoras do Firewall Wizard.
 -   A Turma de Desenvolvimento Web 2025.2.
 
