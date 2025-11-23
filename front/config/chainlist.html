@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chains - Firewall Wizard</title>
-  <link rel="stylesheet" href="../css/list.css">
-  <link rel="stylesheet" href="../css/overlay.css">
-  <link rel="stylesheet" href="../css/flex.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chains - Firewall Wizard</title>
+<link rel="stylesheet" href="../css/list.css">
+<link rel="stylesheet" href="../css/overlay.css">
+<link rel="stylesheet" href="../css/flex.css">
 </head>
 <body>
 
@@ -18,7 +18,7 @@
         <h2>NFTables Chains</h2>
         <p class="header-subtitle">NFTables chain management</p>
       </div>
-      <a href="chain.html" class="btn-primary">
+      <a onclick="toggleOverlay()" class="btn-primary">
         <span>+</span> Create new chain
       </a> 
     </div>
@@ -65,7 +65,7 @@
     <div id="emptyState" class="empty-state" style="display: none;">
       <div class="empty-icon">⛓️</div>
       <h3>No chain found</h3>
-      <a href="chain.html" class="btn-primary">Create first chain</a>
+      <a onclick="toggleOverlay()" class="btn-primary">Create first chain</a>
     </div>
 
   </div>
