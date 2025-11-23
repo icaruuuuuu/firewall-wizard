@@ -21,26 +21,26 @@ iniciantes quanto para administradores experientes.
 ✨ Principais Funcionalidades:
 
 -   Dashboard completo com:
-    -   Quantidade total de rules
-    -   Quantidade de tables
-    -   Quantidade de chains
-    -   Uso de recursos e logs recentes
+    -   Quantidade total de rules.
+    -   Quantidade de tables.
+    -   Quantidade de chains.
+    -   Uso de recursos e logs recentes.
 -   Listagem detalhada de:
-    -   Tables
-    -   Chains
-    -   Rules
--   Busca com Regex para filtrar regras
--   Logs integrados com visualização otimizada
--   Interface intuitiva inspirada em painéis de firewall modernos
+    -   Tables.
+    -   Chains.
+    -   Rules.
+-   Busca com Regex para filtrar regras.
+-   Logs integrados com visualização otimizada.
+-   Interface intuitiva inspirada em painéis de firewall modernos.
 
 ------------------------------------------------------------------------
 
 🛠️ Tecnologias Utilizadas:
 
--   HTML5, CSS3, JavaScript
--   Node.js / Express (backend)
--   nftables via CLI ou API
--   JSON para estrutura de regras
+-   HTML5, CSS3, JavaScript.
+-   Node.js / Express (backend).
+-   nftables via CLI ou API.
+-   JSON para estrutura de regras.
 
 ------------------------------------------------------------------------
 
@@ -64,10 +64,10 @@ npx json-server db.json
 
 🤝 Como Contribuir:
 
-1.  Faça um fork do repositório
-2.  Crie uma branch (feat/nova-funcionalidade)
-3.  Commit suas mudanças
-4.  Abra um Pull Request
+1.  Faça um fork do repositório.
+2.  Crie uma branch (feat/nova-funcionalidade).
+3.  Commit suas mudanças.
+4.  Abra um Pull Request.
 
 ------------------------------------------------------------------------
 
