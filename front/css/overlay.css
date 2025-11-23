@@ -1,20 +1,28 @@
 .overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	opacity: 0;
-	visibility: hidden;
-	transition: all 0.3 ease;
-	z-index: 5000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 5000;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .overlay.active {
-	visibility: visible;
-	opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
 
-.overlay.active ~ body {
+.blur {
+	transition: all 0.3s ease;
+	overflow: hidden;
+}
+
+.blur .container {
 	filter: blur(4px);
+	pointer-events: none;
+	transition: filter 0.3 ease
 }
