@@ -3,6 +3,7 @@ import { get, loadLine, downloadResource, testPattern } from './lib.js'
 const verdict_table_body = document.getElementById('verdict-table-body')
 const log_filter = document.getElementById('log-filter')
 const download_log = document.getElementById('download-log')
+const log_count = document.getElementById('log-count')
 
 const verdicts_json = await get('verdicts')
 const verdict_keys = ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action']
@@ -95,19 +96,28 @@ function loadVerdictTableFilter(verdicts, pattern, key = 'all') {
   }
 }
 
+function calculateLogEntries() {
+  log_count.innerText = `${verdict_table_body.childElementCount} entries`
+}
+
 // Event listeners
 log_filter.oninput = (event) => {
   let parameters = log_filter.value.split(';')
   parameters = parameters.map(value => value.trim())
   loadVerdictTableFilter(verdicts_json, parameters[0], parameters[1])
+  calculateLogEntries()
 }
 
 download_log.onclick = (event) => {
   downloadResource('verdicts')
 }
 
-loadVerdictTable(verdicts_json)
+function loadStart() {
+  loadVerdictTable(verdicts_json)
+  calculateLogEntries()
+}
 
+loadStart()
 // Antigo loadLine()
 // function loadLine(verdicts, index) {
 //   console.log(verdicts[index])

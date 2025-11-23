@@ -11,34 +11,40 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="dashboard-container">
         <div class="header">
-            <h2>Logs</h5>
-                <p class="header-subtitle">Firewall verdict history</p>
+            <h1 class="page-title">Logs</h1>
+            <p class="header-subtitle">Firewall verdict history</p>
         </div>
 
         <div class="filters">
-            <input id="log-filter" placeholder="Filter by regex (Ex: pattern;key)" style="min-width:220px">
-            <button id="download-log">Download logs</button>
+            <input id="log-filter" class="search-input" placeholder="Filter by regex (Ex: pattern;key)">
+            <button id="download-log" class="download-btn">Download logs</button>
         </div>
 
-        <div class="table-container">
-            <table id="verdict-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Source IP</th>
-                        <th>Source Port</th>
-                        <th>Destination IP</th>
-                        <th>Destination Port</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="verdict-table-body">
-                    <!-- Table rows will be populated by JavaScript -->
-                </tbody>
-            </table>
+        <div class="panel">
+            <div class="panel-header">
+                <h2 class="panel-title">Firewall Verdicts</h2>
+                <span id="log-count" class="panel-count">150 entries</span>
+            </div>
+
+            <div class="table-container">
+                <table id="verdict-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Source IP</th>
+                            <th>Source Port</th>
+                            <th>Destination IP</th>
+                            <th>Destination Port</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="verdict-table-body">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
