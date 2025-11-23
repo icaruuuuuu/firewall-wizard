@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="../css/overlay.css">
   <link rel="stylesheet" href="../css/flex.css">
 </head>
+
 <body>
 
 <main class="container">
@@ -23,64 +25,70 @@
       </a>
     </div>
 
-    <div class="filters">
-      <div class="search-group">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
-        <button class="btn-search" id="btnSearch">Search</button>
+      <div class="header">
+        <div class="header-content">
+          <h2>Rules</h2>
+          <p class="header-subtitle">NFTables rules management</p>
+        </div>
+        <a href="rule.html" class="btn-primary">
+          <span>+</span> Create new rules
+        </a>
       </div>
 
-      <div class="filter-group">
-        <select id="filterTable" class="filter-select">
-          <option value="">All Tables</option>
-        </select>
-        <select id="filterChain" class="filter-select">
-          <option value="">All Chains</option>
-        </select>
-        <select id="filterAction" class="filter-select">
-          <option value="">All Actions</option>
-          <option value="accept">accept</option>
-          <option value="drop">drop</option>
-        </select>
-        <button id="btnReset" class="btn-secondary">Clear Filters</button>
+      <div class="filters">
+        <div class="search-group">
+          <input type="text" id="searchInput" class="search-input" placeholder="Filter by regex (Ex: pattern;key)">
+          <button id="download-rules">Download rules</button>
+          <!-- <button class="btn-search" id="btnSearch">Search</button> -->
+        </div>
+
+        <div class="filter-group">
+          <select id="filterType" class="filter-select">
+            <option value="all">All Status</option>
+            <option value="true">active</option>
+            <option value="false">disabled</option>
+          </select>
+          <button id="btnReset" class="btn-secondary">Clear Filters</button>
+        </div>
       </div>
-    </div>
 
-    <div id="statsContainer" class="stats"></div>
+      <div id="statsContainer" class="stats"></div>
 
-    <div class="table-wrapper">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th style="width: 30px; text-align: center;"></th>
-            <th>Description</th>
-            <th style="width: 80px; text-align: center;">Family</th>
-            <th style="width: 80px; text-align: center;">Table</th>
-            <th style="width: 100px; text-align: center;">Chain</th>
-            <th style="width: 100px; text-align: center;">Action</th>
-            <th style="width: 60px; text-align: center;">Priority</th>
-            <th style="width: 150px; text-align: center;">Status</th>
-          </tr>
-        </thead>
-        <tbody id="rulelist-table-body"></tbody>
-      </table>
-    </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Associated Chain</th>
+              <th style="width: 100px;">Action</th>
+              <th style="width: 150px;">Description</th>
+              <th style="width: 100px;">Status</th>
+              <th style="width: 100px;">Match Conditions</th>
+            </tr>
+          </thead>
+          <tbody id="rulelist-table-body"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon">📋</div>
+        <h3>No rule found</h3>
+        <a href="rule.html" class="btn-primary">Create First Rule</a>
+      </div>
 
     <div id="emptyState" class="empty-state" style="display: none;">
       <div class="empty-icon">📋</div>
       <h3>No rule found</h3>
       <a onclick="toggleOverlay()" class="btn-primary">Create First Rule</a>
     </div>
+  </main>
 
+  <div id="detailsModal" class="modal" style="display: none;">
+    <div class="modal-content"></div>
   </div>
-</main>
 
-<div id="detailsModal" class="modal" style="display: none;">
-  <div class="modal-content"></div>
-</div>
-
-<div id="deleteModal" class="modal" style="display: none;">
-  <div class="modal-content" style="max-width: 400px;"></div>
-</div>
+  <div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 400px;"></div>
+  </div>
 
 <div class="overlay">
 <iframe src="rule.html" class="wrapper" id="frame"></iframe>
@@ -89,5 +97,5 @@
 <script src="../js/rulelistconfig.js" type="module"></script>
 
 </body>
-</html>
 
+</html>

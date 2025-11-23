@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 <link rel="stylesheet" href="../css/overlay.css">
 <link rel="stylesheet" href="../css/flex.css">
 </head>
+
 <body>
 
 <main class="container">
@@ -23,61 +25,74 @@
       </a> 
     </div>
 
-    <div class="filters">
-      <div class="search-group">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
-        <button class="btn-search" id="btnSearch">Search</button>
+      <div class="header">
+        <div>
+          <h2>Chains</h2>
+          <p class="header-subtitle">NFTables chain management</p>
+        </div>
+        <a href="chain.html" class="btn-primary">
+          <span>+</span> Create new chain
+        </a>
       </div>
 
-      <div class="filter-group">
-        <select id="filterTable" class="filter-select">
-          <option value="">All Tables</option>
-        </select>
-        <select id="filterType" class="filter-select">
-          <option value="all">All</option>
-          <option value="filter">filter</option>
-          <option value="nat">nat</option>
-          <option value="route">route</option>
-          <option value="meter">meter</option>
-        </select>
-        <button id="btnReset" class="btn-secondary">Clear Filters</button>
+      <div class="filters">
+        <div class="search-group">
+          <input type="text" id="searchInput" class="search-input" placeholder="Filter by regex (Ex: pattern;key)">
+          <button id="download-chains">Download chains</button>
+          <!-- <button class="btn-search" id="btnSearch">Search</button> -->
+        </div>
+
+        <div class="filter-group">
+          <select id="filterType" class="filter-select">
+            <option value="all">All Types</option>
+            <option value="filter">filter</option>
+            <option value="nat">nat</option>
+            <option value="route">route</option>
+            <option value="meter">meter</option>
+          </select>
+          <button id="btnReset" class="btn-secondary">Clear Filters</button>
+        </div>
       </div>
-    </div>
 
-    <div id="statsContainer" class="stats"></div>
+      <div id="statsContainer" class="stats"></div>
 
-    <div class="table-wrapper">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th style="width: 100px;">Name</th>
-            <th style="width: 80px;">Type</th>
-            <th style="width: 80px;">Hook</th>
-            <th style="width: 80px;">Priority</th>
-            <th style="width: 80px;">Policy</th>
-            <th style="width: 150px;">Description</th>
-          </tr>
-        </thead>
-        <tbody id="chainlist-table-body"></tbody>
-      </table>
-    </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Associated Table</th>
+              <th style="width: 100px;">Name</th>
+              <th style="width: 80px;">Type</th>
+              <th style="width: 80px;">Hook</th>
+              <th style="width: 80px;">Priority</th>
+              <th style="width: 80px;">Policy</th>
+              <th style="width: 150px;">Description</th>
+            </tr>
+          </thead>
+          <tbody id="chainlist-table-body"></tbody>
+        </table>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon">⛓️</div>
+        <h3>No chain found</h3>
+        <a href="chain.html" class="btn-primary">Create first chain</a>
+      </div>
 
     <div id="emptyState" class="empty-state" style="display: none;">
       <div class="empty-icon">⛓️</div>
       <h3>No chain found</h3>
       <a onclick="toggleOverlay()" class="btn-primary">Create first chain</a>
     </div>
+  </main>
 
+  <div id="detailsModal" class="modal" style="display: none;">
+    <div class="modal-content"></div>
   </div>
-</main>
 
-<div id="detailsModal" class="modal" style="display: none;">
-  <div class="modal-content"></div>
-</div>
-
-<div id="deleteModal" class="modal" style="display: none;">
-  <div class="modal-content" style="max-width: 400px;"></div>
-</div>
+  <div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content" style="max-width: 400px;"></div>
+  </div>
 
 <div class="overlay">
 <iframe src="chain.html" class="wrapper" id="frame"></iframe>
@@ -86,5 +101,5 @@
 <script src="../js/chainlistconfig.js" type="module"></script>
 
 </body>
-</html>
 
+</html>

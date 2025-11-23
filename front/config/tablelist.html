@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,13 @@
     <link rel="stylesheet" href="../css/overlay.css">
     <link rel="stylesheet" href="../css/flex.css">
 </head>
+
 <body>
     <div class="container">
         <div class="card">
             <div class="header">
                 <div class="header-content">
-                    <h2>📋 Tables</h2>
+                    <h2>Tables</h2>
                     <p class="header-subtitle">NFTables table management</p>
                 </div>
                 <a onclick="toggleOverlay();" class="btn-primary">
@@ -23,11 +25,14 @@
 
             <div class="filters">
                 <div class="search-group">
-                    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search...">
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Filter by regex (Ex: pattern;key)">
+                    <button id="download-tables">Download tables</button>
+                    <!-- <button class="btn-search" id="btnSearch">Search</button> -->
                 </div>
                 <div class="filter-group">
                     <select id="familyFilter" class="filter-select">
-                        <option value="all">All</option>
+                        <option value="all">All Family</option>
                         <option value="inet">inet</option>
                         <option value="ip">ip</option>
                         <option value="ip6">ip6</option>

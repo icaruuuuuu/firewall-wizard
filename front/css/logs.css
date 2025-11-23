@@ -146,7 +146,7 @@ body {
     border-top: 1px solid #e5e7eb;
 }
 
-button {
+#download-log {
     padding: 10px 20px;
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
     color: white;
@@ -158,14 +158,14 @@ button {
     transition: all 0.2s;
 }
 
-button:hover {
+#download-log:hover {
     background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
 }
 
 /* Estados de foco para acessibilidade */
-button:focus,
+#download-log:focus,
 input:focus {
     outline: 2px solid #8b5cf6;
     outline-offset: 2px;
@@ -177,40 +177,40 @@ input:focus {
         margin: 10px;
         border-radius: 8px;
     }
-    
+
     .header {
         padding: 20px;
     }
-    
+
     .header h2 {
         font-size: 24px;
     }
-    
+
     .filters {
         flex-direction: column;
         padding: 15px 20px;
     }
-    
+
     .filters input {
         max-width: 100%;
     }
-    
+
     .table-container {
         padding: 0 15px;
     }
-    
+
     #verdict-table th,
     #verdict-table td {
         padding: 12px 8px;
         font-size: 13px;
     }
-    
+
     .actions {
         padding: 15px 20px;
         flex-direction: column;
     }
-    
-    button {
+
+    #download-log {
         width: 100%;
     }
 }

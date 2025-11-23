@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,16 @@
     <link rel="stylesheet" href="../css/text-config.css">
     <link rel="stylesheet" href="../css/logs.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <h2>Firewall Logs</h5>
-            <p class="header-subtitle">Firewall verdict history</p>
+            <h2>Logs</h5>
+                <p class="header-subtitle">Firewall verdict history</p>
         </div>
 
         <div class="filters">
-            <input id="log-filter" placeholder="Filter by regex (Ex: pattern;name)" style="min-width:220px">
+            <input id="log-filter" placeholder="Filter by regex (Ex: pattern;key)" style="min-width:220px">
             <button id="download-log">Download logs</button>
         </div>
 
@@ -42,4 +44,5 @@
 
     <script src="../js/log.js" type="module"></script>
 </body>
+
 </html>

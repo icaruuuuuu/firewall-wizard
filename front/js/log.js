@@ -1,16 +1,121 @@
-import { get, loadLine, downloadResource } from './lib.js'
+import { get, loadLine, downloadResource, testPattern } from './lib.js'
 
 const verdict_table_body = document.getElementById('verdict-table-body')
 const log_filter = document.getElementById('log-filter')
 const download_log = document.getElementById('download-log')
 
+const verdicts_json = await get('verdicts')
+const verdict_keys = ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action']
+
+function loadVerdictTable(verdicts) {
+  verdict_table_body.innerHTML = ''
+
+  for (const index in verdicts) {
+    loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+  }
+}
+
+function loadVerdictTableFilter(verdicts, pattern, key = 'all') {
+  verdict_table_body.innerHTML = ''
+
+  switch (key) {
+    case 'date':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].date, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'time':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].time, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'source_ip':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].source_ip, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'source_port':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].source_port, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'dest_ip':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].dest_ip, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'dest_port':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].dest_port, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    case 'action':
+      for (const index in verdicts) {
+        if (testPattern(verdicts[index].action, pattern)) {
+          loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+        }
+      }
+      break
+
+    default:
+      if (pattern != '' && key == 'all') {
+        for (const index in verdicts) {
+          if (testPattern(verdicts[index].date, pattern) ||
+            testPattern(verdicts[index].time, pattern) ||
+            testPattern(verdicts[index].source_ip, pattern) ||
+            testPattern(verdicts[index].source_port, pattern) ||
+            testPattern(verdicts[index].dest_ip, pattern) ||
+            testPattern(verdicts[index].dest_port, pattern) ||
+            testPattern(verdicts[index].action, pattern)) {
+            loadLine(verdicts, 'verdicts', index, verdict_table_body, verdict_keys)
+          }
+        }
+      } else {
+        loadVerdictTable(verdicts_json)
+      }
+      break
+  }
+}
+
+// Event listeners
+log_filter.oninput = (event) => {
+  let parameters = log_filter.value.split(';')
+  parameters = parameters.map(value => value.trim())
+  loadVerdictTableFilter(verdicts_json, parameters[0], parameters[1])
+}
+
+download_log.onclick = (event) => {
+  downloadResource('verdicts')
+}
+
+loadVerdictTable(verdicts_json)
+
+// Antigo loadLine()
 // function loadLine(verdicts, index) {
 //   console.log(verdicts[index])
 
 //   const tr = document.createElement('tr')
 //   tr.id = `verdict-tr-${index}`
 //   verdict_table_body.appendChild(tr)
-  
+
 //   const current_tr = document.getElementById(`verdict-tr-${index}`)
 
 //   const td_date = document.createElement('td')
@@ -55,132 +160,3 @@ const download_log = document.getElementById('download-log')
 
 //   current_tr.appendChild(td_action)
 // }
-
-async function loadVerdictTable() {
-  const verdicts = await get('verdicts')
-  
-  verdict_table_body.innerHTML = ''
-
-  for (const index in verdicts) {
-    loadLine(verdicts, 'verdicts', index, verdict_table_body,
-    ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-  }
-}
-
-async function loadVerdictTableFilter(pattern, key = 'all') {
-  const verdicts = await get('verdicts')
-  verdict_table_body.innerHTML = ''
-
-  function isRegex(pattern) {
-    if (pattern.startsWith('/') && pattern.endsWith('/')) {
-      return true
-    }
-    return false
-  }
-
-  function testPattern(key_value, pattern) {
-    if (isRegex(pattern)) {
-      const regex = new RegExp(pattern.slice(1,-1), 'i')
-      return regex.test(key_value)
-    }
-    return pattern.toLowerCase().includes(key_value.toLowerCase())
-  }
-
-  switch (key) {
-    case 'date':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].date, pattern)){
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'time':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].time, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'source_ip':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].source_ip, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'source_port':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].source_port, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'dest_ip':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].dest_ip, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'dest_port':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].dest_port, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    case 'action':
-      for (const index in verdicts) {
-        if (testPattern(verdicts[index].action, pattern)) {
-          loadLine(verdicts, 'verdicts', index, verdict_table_body,
-          ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-        }
-      }
-      break
-      
-    default:
-      if (pattern != '' && key == 'all') {
-        for (const index in verdicts) {
-          if (testPattern(verdicts[index].date, pattern) ||
-          testPattern(verdicts[index].time, pattern) ||
-          testPattern(verdicts[index].source_ip, pattern) ||
-          testPattern(verdicts[index].source_port, pattern) ||
-          testPattern(verdicts[index].dest_ip, pattern) ||
-          testPattern(verdicts[index].dest_port, pattern) ||
-          testPattern(verdicts[index].action, pattern)) {
-            loadLine(verdicts, 'verdicts', index, verdict_table_body,
-            ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action'])
-          }
-        }
-      } else {
-        loadVerdictTable()
-      }
-      break
-  }
-}
-
-// Event listeners
-log_filter.oninput = (event) => {
-  let parameters = log_filter.value.split(';')
-  parameters = parameters.map(value => value.trim())
-
-  loadVerdictTableFilter(parameters[0], parameters[1])
-}
-
-download_log.onclick = (event) => {
-  downloadResource('verdicts')
-}
-
-loadVerdictTable()
