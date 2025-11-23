@@ -62,15 +62,6 @@ npx json-server db.json
 
 ------------------------------------------------------------------------
 
-🤝 Como Contribuir:
-
-1.  Faça um fork do repositório.
-2.  Crie uma branch (feat/nova-funcionalidade).
-3.  Commit suas mudanças.
-4.  Abra um Pull Request.
-
-------------------------------------------------------------------------
-
 🙏 Agradecimentos:
 
 -   Ao Professor Luiz Carlos Rodrigues Chaves.
