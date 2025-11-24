@@ -91,9 +91,5 @@ function handleSubmit(e) {
     showAlert(`Table "${tableData.name}" created successfully`);
 
     document.getElementById('tableForm').reset();
-
-    setTimeout(() => {
-        window.location.href = 'tablelist.html';
-    }, 1500);
 }
 

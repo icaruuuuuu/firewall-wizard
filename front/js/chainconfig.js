@@ -94,20 +94,16 @@ function handleSubmit(e) {
 
   const chainData = collectFormData();
 
-  showAlert('✓ Chain criada com sucesso! Redirecionando...', 'success');
-  
-  setTimeout(() => {
-    window.location.href = 'chainlist.html';
-  }, 1500);
+  showAlert('✓ Chain criada com sucesso! Redirecionando...', 'success');  
 }
 
 function showAlert(message, type) {
-  alertDiv.className = `alert alert-${type}`;
+  alertDiv.className = `alert ${type}`;
   alertDiv.innerHTML = message;
   alertDiv.style.display = 'block';
   
   setTimeout(() => {
     alertDiv.style.display = 'none';
-  }, 5000);
+  }, 2000);  
 }
 
