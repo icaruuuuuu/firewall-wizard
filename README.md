@@ -1,4 +1,4 @@
-# 🔥 Firewall Wizard
+# 🔥 Firewall Wizard 
 
 Um painel web completo para **gerenciamento, visualização e análise** de firewalls baseados em **nftables**, incluindo dashboard em tempo real, listagem de regras, tabelas, chains, logs e busca avançada com regex.
 
@@ -66,7 +66,7 @@ Ele permite visualizar a estrutura completa do firewall, monitorar seu estado, m
 
 ---
 
-## ▶️ Como Executar
+## ▶️ Como Executar?
 
 ### Modo Local
 
