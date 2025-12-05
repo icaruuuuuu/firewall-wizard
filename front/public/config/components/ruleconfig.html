@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Rule - Firewall Wizard</title>
-  <link rel="stylesheet" href="../../css/config.css">
+  <link rel="stylesheet" href="../../assets/css/config.css">
 </head>
+
 <body>
 
-<main class="container">
-  <div class="card">
-    
-    <div class="header">
-      <h2>🔐 New Rule</h2>
-      <p class="header-subtitle">Configure a nftable firewall rule</p>
-    </div>
+  <main class="container">
+    <div class="card">
 
-    <div class="form-container">
+      <div class="header">
+        <h2>🔐 New Rule</h2>
+        <p class="header-subtitle">Configure a nftable firewall rule</p>
+      </div>
+
+      <div class="form-container">
 
         <form id="ruleForm">
 
@@ -24,13 +26,8 @@
             <legend>📝 Rule Identification</legend>
             <div class="form-group">
               <label for="description">Description *</label>
-              <input 
-                type="text" 
-                id="description" 
-                name="description"
-                placeholder="Ex: Allow SSH only on administrative networks"
-                required
-              />
+              <input type="text" id="description" name="description"
+                placeholder="Ex: Allow SSH only on administrative networks" required />
               <p class="help-text">Rule's description</p>
             </div>
 
@@ -74,14 +71,7 @@
 
               <div class="form-group">
                 <label for="position">Position *</label>
-                <input 
-                  type="number" 
-                  id="position" 
-                  name="position"
-                  placeholder="Ex: 1"
-                  min="1"
-                  value="1"
-                />
+                <input type="number" id="position" name="position" placeholder="Ex: 1" min="1" value="1" />
                 <p class="help-text">Position in the chain</p>
               </div>
             </div>
@@ -106,12 +96,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="interface">Interface</label>
-                  <input 
-                    type="text" 
-                    id="interface" 
-                    name="interface"
-                    placeholder="Ex: eth0, lo"
-                  />
+                  <input type="text" id="interface" name="interface" placeholder="Ex: eth0, lo" />
                 </div>
 
                 <div class="form-group">
@@ -160,22 +145,12 @@
 
                 <div class="form-group">
                   <label for="destPort">Destination Port</label>
-                  <input 
-                    type="text" 
-                    id="destPort" 
-                    name="destPort"
-                    placeholder="Ex: 22 or 80,443 or 3000:4000"
-                  />
+                  <input type="text" id="destPort" name="destPort" placeholder="Ex: 22 or 80,443 or 3000:4000" />
                 </div>
 
                 <div class="form-group">
                   <label for="srcPort">Source Port</label>
-                  <input 
-                    type="text" 
-                    id="srcPort" 
-                    name="srcPort"
-                    placeholder="Ex: 1024:65535"
-                  />
+                  <input type="text" id="srcPort" name="srcPort" placeholder="Ex: 1024:65535" />
                 </div>
               </div>
             </div>
@@ -184,22 +159,12 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="srcAddr">Source Address</label>
-                  <input 
-                    type="text" 
-                    id="srcAddr" 
-                    name="srcAddr"
-                    placeholder="Ex: 192.168.1.0/24 or @admin_networks"
-                  />
+                  <input type="text" id="srcAddr" name="srcAddr" placeholder="Ex: 192.168.1.0/24 or @admin_networks" />
                 </div>
 
                 <div class="form-group">
                   <label for="destAddr">Destination Address</label>
-                  <input 
-                    type="text" 
-                    id="destAddr" 
-                    name="destAddr"
-                    placeholder="Ex: 10.0.0.0/8"
-                  />
+                  <input type="text" id="destAddr" name="destAddr" placeholder="Ex: 10.0.0.0/8" />
                 </div>
               </div>
             </div>
@@ -208,25 +173,12 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="rate">Rate</label>
-                  <input 
-                    type="text" 
-                    id="rate" 
-                    name="rate"
-                    placeholder="Ex: 5/minute or 10/second"
-                    value="5/minute"
-                  />
+                  <input type="text" id="rate" name="rate" placeholder="Ex: 5/minute or 10/second" value="5/minute" />
                 </div>
 
                 <div class="form-group">
                   <label for="burst">Burst</label>
-                  <input 
-                    type="number" 
-                    id="burst" 
-                    name="burst"
-                    placeholder="Ex: 10"
-                    value="10"
-                    min="1"
-                  />
+                  <input type="number" id="burst" name="burst" placeholder="Ex: 10" value="10" min="1" />
                 </div>
               </div>
             </div>
@@ -252,12 +204,7 @@
             <div id="action-dnat" class="action-section" style="display: none;">
               <div class="form-group">
                 <label for="natTarget">NAT Target</label>
-                <input 
-                  type="text" 
-                  id="natTarget" 
-                  name="natTarget"
-                  placeholder="Ex: 192.168.1.100:8080"
-                />
+                <input type="text" id="natTarget" name="natTarget" placeholder="Ex: 192.168.1.100:8080" />
               </div>
             </div>
 
@@ -265,12 +212,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label for="logPrefix">Log Prefix</label>
-                  <input 
-                    type="text" 
-                    id="logPrefix" 
-                    name="logPrefix"
-                    placeholder="Ex: Firewall-Denied: "
-                  />
+                  <input type="text" id="logPrefix" name="logPrefix" placeholder="Ex: Firewall-Denied: " />
                 </div>
 
                 <div class="form-group">
@@ -288,12 +230,7 @@
             <div id="action-set" class="action-section" style="display: none;">
               <div class="form-group">
                 <label for="setTarget">Set Target</label>
-                <input 
-                  type="text" 
-                  id="setTarget" 
-                  name="setTarget"
-                  placeholder="Ex: ssh_abusers"
-                />
+                <input type="text" id="setTarget" name="setTarget" placeholder="Ex: ssh_abusers" />
               </div>
             </div>
 
@@ -316,19 +253,15 @@
 
             <div class="form-group">
               <label for="comment">Comment</label>
-              <textarea 
-                id="comment" 
-                name="comment"
-                placeholder="Add notes about this rule..."
-              ></textarea>
+              <textarea id="comment" name="comment" placeholder="Add notes about this rule..."></textarea>
             </div>
           </fieldset>
 
           <div class="form-actions">
             <button onclick="" class="btn btn-secondary btn-cancel">← Cancel</a>
-            <button type="submit" class="btn btn-primary">
-              <span>✓</span> Save Rule
-            </button>
+              <button type="submit" class="btn btn-primary">
+                <span>✓</span> Save Rule
+              </button>
           </div>
 
         </form>
@@ -339,5 +272,6 @@
 
   <script src="../../js/ruleconfig.js"></script>
 
-  </body>
-  </html>
+</body>
+
+</html>

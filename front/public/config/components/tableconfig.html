@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Nova Tabela - Firewall Wizard</title>
-    <link rel="stylesheet" href="../../css/config.css">
+    <link rel="stylesheet" href="../../assets/css/config.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -16,7 +18,7 @@
         <div class="form-container">
 
             <form id="tableForm">
-                
+
                 <fieldset>
                     <legend>Identity</legend>
 
@@ -24,13 +26,8 @@
                         <label for="name">
                             Name <span class="required">*</span>
                         </label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            placeholder="ex: filter, nat, mangle, raw, security"
-                            required
-                        >
+                        <input type="text" id="name" name="name" placeholder="ex: filter, nat, mangle, raw, security"
+                            required>
                         <div class="help-text">Unique name for the table (no whitespaces)</div>
                     </div>
 
@@ -38,17 +35,13 @@
                         <label for="description">
                             Description <span class="required">*</span>
                         </label>
-                        <textarea 
-                            id="description" 
-                            name="description" 
-                            placeholder="Describe this table's purpose..."
-                            required
-                        ></textarea>
-			<div class="help-text">Clear description about the table's function</div>
+                        <textarea id="description" name="description" placeholder="Describe this table's purpose..."
+                            required></textarea>
+                        <div class="help-text">Clear description about the table's function</div>
                     </div>
                 </fieldset>
 
-                
+
                 <fieldset>
                     <legend>Config</legend>
 
@@ -68,7 +61,7 @@
                         <div class="help-text">Protocol family supported by the table</div>
                     </div>
                 </fieldset>
-            	<div id="alertBox" class="alert"></div>
+                <div id="alertBox" class="alert"></div>
 
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" onclick="">
@@ -84,5 +77,5 @@
 
     <script src="../../js/tableconfig.js"></script>
 </body>
-</html>
 
+</html>
