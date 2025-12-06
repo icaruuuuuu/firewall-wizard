@@ -24,11 +24,11 @@ function readLogAll() {
 }
 
 function readLogById(id) {
-  return logs.find(v => v.id === id)
+  return logs.find(l => l.id === id)
 }
 
 function updateLog({ id, date, time, source_ip, source_port, dest_ip, dest_port, action }) {
-  const log_index = logs.findIndex(v => v.id === id)
+  const log_index = logs.findIndex(l => l.id === id)
 
   if (log_index === -1) {
     return null
@@ -50,7 +50,7 @@ function updateLog({ id, date, time, source_ip, source_port, dest_ip, dest_port,
 }
 
 function removeLog(id) {
-  const log_index = logs.findIndex(v => v.id === id)
+  const log_index = logs.findIndex(l => l.id === id)
 
   if (log_index === -1) {
     return false

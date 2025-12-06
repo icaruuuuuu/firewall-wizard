@@ -48,7 +48,7 @@ Ele permite visualizar a estrutura completa do firewall, monitorar seu estado, m
 
 ### Backend
 - **Node.js**
-- **json-server**
+- **Express**
 
 ### Firewall
 - **nftables** via CLI

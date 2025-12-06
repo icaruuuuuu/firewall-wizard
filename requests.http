@@ -1,7 +1,89 @@
 @server=http://localhost:3000/api
+@createdTableId={{createTable.response.body.id}}
+@createdChainId={{createChain.response.body.id}}
 @createdLogId={{createLog.response.body.id}}
 
-### Create a log
+### ──────────────────────────────────────────────────────────────────
+###                               TABLES
+### ──────────────────────────────────────────────────────────────────
+
+### Create a table
+# @name createTable
+POST {{server}}/tables
+Content-Type: application/json
+
+{
+  "name": "filter",
+  "family": "ip6",
+  "description": "Tabela principal de filtragem de pacotes IPv6"
+}
+
+### Get all tables
+GET {{server}}/tables
+
+### Get table by ID
+GET {{server}}/tables/{{createdTableId}}
+
+### Update table by ID
+PUT {{server}}/tables/{{createdTableId}}
+Content-Type: application/json
+
+{
+  "name": "filter",
+  "family": "ip4",
+  "description": "Tabela principal de filtragem de pacotes IPv4"
+}
+
+### Remove table by ID
+DELETE {{server}}/tables/{{createdTableId}}
+
+### ──────────────────────────────────────────────────────────────────
+###                               CHAINS
+### ──────────────────────────────────────────────────────────────────
+
+### Create a chain
+# @name createChain
+POST {{server}}/chains
+Content-Type: application/json
+
+{
+  "table_id": "cadqhx57ab5lk5u86n4q61w2",
+  "name": "input",
+  "type": "filter",
+  "hook": "input",
+  "priority": "2",
+  "policy": "accept",
+  "description": "Cadeia para tráfego de entrada no sistema com prioridade 2, política de aceitação"
+}
+
+### Get all chains
+GET {{server}}/chains
+
+### Get chain by ID
+GET {{server}}/chains/{{createdChainId}}
+
+### Update chain by ID
+PUT {{server}}/chains/{{createdChainId}}
+Content-Type: application/json
+
+{
+  "table_id": "t1",
+  "name": "input",
+  "type": "filter",
+  "hook": "input",
+  "priority": "3",
+  "policy": "deny",
+  "description": "Cadeia para tráfego de entrada no sistema com prioridade 3, política de negação"
+}
+
+### Remove chain by ID
+DELETE {{server}}/chains/{{createdChainId}}
+
+### ──────────────────────────────────────────────────────────────────
+###                                LOGS
+### ──────────────────────────────────────────────────────────────────
+
+### Create log
 # @name createLog
 POST {{server}}/logs
 Content-Type: application/json
@@ -22,7 +104,7 @@ GET {{server}}/logs
 ### Get log by ID
 GET {{server}}/logs/{{createdLogId}}
 
-### Update a log by ID
+### Update log by ID
 PUT {{server}}/logs/{{createdLogId}}
 Content-Type: application/json
 
@@ -36,5 +118,5 @@ Content-Type: application/json
   "action": "Block"
 }
 
-### Remove a log by ID
+### Remove log by ID
 DELETE {{server}}/logs/{{createdLogId}}
