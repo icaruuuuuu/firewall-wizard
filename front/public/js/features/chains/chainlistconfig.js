@@ -1,4 +1,5 @@
-import { get, loadLine, testPattern, downloadResource } from './lib.js'
+import { loadLine, testPattern, downloadResource } from '../../utils/lib.js'
+import { getResource } from '../../api/apiClient.js'
 
 const chain_body = document.getElementById('chainlist-table-body')
 const filter_type = document.getElementById('filterType')
@@ -6,7 +7,7 @@ const reset_filters_btn = document.getElementById('btnReset')
 const search_input = document.getElementById('searchInput')
 const download_chains = document.getElementById('download-chains')
 
-const chains_json = await get('chains')
+const chains_json = await getResource('chains')
 const chains_keys = ['table_id', 'name', 'type', 'hook', 'priority', 'policy', 'description']
 
 function loadChainTable() {

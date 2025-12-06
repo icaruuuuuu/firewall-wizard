@@ -1,4 +1,5 @@
-import { get, loadLine, testPattern, downloadResource } from './lib.js'
+import { loadLine, testPattern, downloadResource } from '../../utils/lib.js'
+import { getResource } from '../../api/apiClient.js'
 
 const rules_table = document.getElementById('rulelist-table-body')
 const filter_type = document.getElementById('filterType')
@@ -6,7 +7,7 @@ const reset_filters_btn = document.getElementById('btnReset')
 const search_input = document.getElementById('searchInput')
 const download_rules = document.getElementById('download-rules')
 
-const rules_json = await get('rules')
+const rules_json = await getResource('rules')
 const rules_keys = ['chain_id', 'action', 'description', 'enabled', 'matches']
 
 function rules_list_table() {

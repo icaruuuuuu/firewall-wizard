@@ -1,11 +1,11 @@
-import { get, loadLine, downloadResource, testPattern } from './lib.js'
+import { loadLine, downloadResource, testPattern } from '../../utils/lib.js'
+import { getResource } from '../../api/apiClient.js'
 
 const log_table_body = document.getElementById('log-table-body')
 const log_filter = document.getElementById('log-filter')
 const download_log = document.getElementById('download-log')
 const log_count = document.getElementById('log-count')
-
-const logs_json = await get('logs')
+const logs_json = await getResource('logs') // pensar em otimização/praticidade: assim so atualiza o log no front ao carregar a pagina
 const log_keys = ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action']
 
 function loadLogTable(logs) {
@@ -100,6 +100,11 @@ function calculateLogEntries() {
   log_count.innerText = `${log_table_body.childElementCount} entries`
 }
 
+function loadStart() {
+  loadLogTable(logs_json)
+  calculateLogEntries()
+}
+
 // Event listeners
 log_filter.oninput = (event) => {
   let parameters = log_filter.value.split(';')
@@ -110,11 +115,6 @@ log_filter.oninput = (event) => {
 
 download_log.onclick = (event) => {
   downloadResource('logs')
-}
-
-function loadStart() {
-  loadLogTable(logs_json)
-  calculateLogEntries()
 }
 
 loadStart()

@@ -1,9 +1,9 @@
-import { get, loadLine, testPattern, downloadResource } from './lib.js'
+import { get, loadLine, testPattern, downloadResource } from '../../utils/lib.js'
 
 const tables_json = await get('tables')
 const chains_json = await get('chains')
 const rules_json = await get('rules')
-const verdicts_json = await get('verdicts')
+const logs_json = await get('logs')
 
 const tables_keys = ['name']
 const chains_keys = ['table_id', 'name']
@@ -118,8 +118,8 @@ function loadDashboardFilter(tables, chains, rules, pattern, key = 'all') {
 
 function calculateBlockedPackets() {
   let counter = 0
-  for (const index in verdicts_json) {
-    if (verdicts_json[index].action == 'Block') {
+  for (const index in logs_json) {
+    if (logs_json[index].action == 'Block') {
       counter++
     }
   }

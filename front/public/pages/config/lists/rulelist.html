@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chains - Firewall Wizard</title>
-  <link rel="stylesheet" href="../../assets/css/list.css">
-  <link rel="stylesheet" href="../../assets/css/overlay.css">
-  <link rel="stylesheet" href="../../assets/css/flex.css">
+  <title>Rules - Firewall Wizard</title>
+  <link rel="stylesheet" href="../../../assets/css/list.css">
+  <link rel="stylesheet" href="../../../assets/css/overlay.css">
+  <link rel="stylesheet" href="../../../assets/css/flex.css">
 </head>
 
 <body>
@@ -16,29 +16,27 @@
     <div class="card">
 
       <div class="header">
-        <div>
-          <h2>Chains</h2>
-          <p class="header-subtitle">NFTables chain management</p>
+        <div class="header-content">
+          <h2>Rules</h2>
+          <p class="header-subtitle">NFTables rules management</p>
         </div>
         <a onclick="toggleOverlay()" class="btn-primary">
-          <span>+</span> Create new chain
+          <span>+</span> Create new rules
         </a>
       </div>
 
       <div class="filters">
         <div class="search-group">
           <input type="text" id="searchInput" class="search-input" placeholder="Filter by regex (Ex: pattern;key)">
-          <button id="download-chains">Download chains</button>
+          <button id="download-rules">Download rules</button>
           <!-- <button class="btn-search" id="btnSearch">Search</button> -->
         </div>
 
         <div class="filter-group">
           <select id="filterType" class="filter-select">
-            <option value="all">All Types</option>
-            <option value="filter">filter</option>
-            <option value="nat">nat</option>
-            <option value="route">route</option>
-            <option value="meter">meter</option>
+            <option value="all">All Status</option>
+            <option value="true">active</option>
+            <option value="false">disabled</option>
           </select>
           <button id="btnReset" class="btn-secondary">Clear Filters</button>
         </div>
@@ -50,29 +48,27 @@
         <table class="data-table">
           <thead>
             <tr>
-              <th style="width: 100px;">Associated Table</th>
-              <th style="width: 100px;">Name</th>
-              <th style="width: 80px;">Type</th>
-              <th style="width: 80px;">Hook</th>
-              <th style="width: 80px;">Priority</th>
-              <th style="width: 80px;">Policy</th>
+              <th style="width: 100px;">Associated Chain</th>
+              <th style="width: 100px;">Action</th>
               <th style="width: 150px;">Description</th>
+              <th style="width: 100px;">Status</th>
+              <th style="width: 100px;">Match Conditions</th>
             </tr>
           </thead>
-          <tbody id="chainlist-table-body"></tbody>
+          <tbody id="rulelist-table-body"></tbody>
         </table>
       </div>
 
       <div id="emptyState" class="empty-state" style="display: none;">
-        <div class="empty-icon">⛓️</div>
-        <h3>No chain found</h3>
-        <a href="chain.html" class="btn-primary">Create first chain</a>
+        <div class="empty-icon">📋</div>
+        <h3>No rule found</h3>
+        <a onclick="toggleOverlay()" class="btn-primary">Create First Rule</a>
       </div>
 
       <div id="emptyState" class="empty-state" style="display: none;">
-        <div class="empty-icon">⛓️</div>
-        <h3>No chain found</h3>
-        <a onclick="toggleOverlay()" class="btn-primary">Create first chain</a>
+        <div class="empty-icon">📋</div>
+        <h3>No rule found</h3>
+        <a onclick="toggleOverlay()" class="btn-primary">Create First Rule</a>
       </div>
   </main>
 
@@ -85,11 +81,10 @@
   </div>
 
   <div class="overlay">
-    <iframe src="../components/chainconfig.html" class="wrapper" id="frame"></iframe>
+    <iframe src="../components/ruleconfig.html" class="wrapper" id="frame"></iframe>
   </div>
-  <script src="../../js/overlay.js"></script>
-  <script src="../../js/chainlistconfig.js" type="module"></script>
-
+  <script src="../../../js/ui/overlay.js"></script>
+  <script src="../../../js/features/rules/rulelistconfig.js" type="module"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
-import { get, loadLine, testPattern, downloadResource } from './lib.js'
+import { loadLine, testPattern, downloadResource } from '../../utils/lib.js'
+import { getResource } from '../../api/apiClient.js'
 
 const table_body = document.getElementById('tables-table-body')
 const search_input = document.getElementById('searchInput')
@@ -8,7 +9,7 @@ const search_qtd = document.getElementById('totalCount')
 const qtd_filter = document.getElementById('filteredCount')
 const download_tables = document.getElementById('download-tables')
 
-const tables_json = await get('tables')
+const tables_json = await getResource('tables')
 const tables_keys = ['name', 'family', 'description']
 
 function loadTableTable() {
