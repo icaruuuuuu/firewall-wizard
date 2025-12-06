@@ -1,5 +1,12 @@
 export { get, loadLine, downloadResource, isRegex, testPattern }
 
+import { getResource } from "../api/apiClient.js";
+// import DashboardService from '../../../../back/src/models/Dashboard.js'
+// import TableService from '../../../../back/src/models/Table.js'
+// import ChainService from '../../../../back/src/models/Chain.js'
+// // import RuleService from '../../../../back/src/models/Rule.js'
+// import LogService from '../../../../back/src/models/Log.js'
+
 async function get(arg = '', id = '') {
   try {
     const response = await fetch(`http://localhost:3000/api/${arg}`);
@@ -28,20 +35,48 @@ function loadLine(resource, resource_name, index, table_body_name, resource_keys
   table_body_name.appendChild(tr)
 }
 
-async function downloadResource(resource_name = '') {
-  const resource = await get(resource_name)
-  const resource_json = JSON.stringify(resource, null, 2)
+// function getResourceJSON(resource_name) {
+//   switch (resource_name) {
+//     case 'db': {
+//       const resource = DashboardService.readAllResources(resource_name)
+//       return resource
+//     }
+
+//     case 'tables': {
+//       const resource = TableService.readTableAll(resource_name)
+//       return resource
+//     }
+
+//     case 'chains': {
+//       const resource = ChainService.readChainAll(resource_name)
+//       return resource
+//     }
+
+//     // case 'rules': {
+//     //   const resource = RuleService.readRuleAll(resource_name)
+//     //   return resource
+//     // }
+
+//     case 'logs': {
+//       const resource = LogService.readLogAll(resource_name)
+//       return resource
+//     }
+
+//     default:
+//       throw new Error(`Resource ${resource_name} not found.`)
+//   }
+// }
+
+async function downloadResource(resource_name) {
+  const resource = await getResource(resource_name)
+  const resource_json = JSON.stringify(resource, null, 2) // verificar se precisa
+
   const blob = new Blob([resource_json], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
 
   const link = document.createElement('a')
   link.href = url
-
-  if (resource_name == '') {
-    link.download = `db.json`
-  } else {
-    link.download = `${resource_name}.json`
-  }
+  link.download = `${resource_name}.json`
 
   document.body.appendChild(link)
   link.click()

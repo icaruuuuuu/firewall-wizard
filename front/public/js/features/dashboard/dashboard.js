@@ -136,7 +136,7 @@ search_input.oninput = (event) => {
 }
 
 download_btn.onclick = (event) => {
-  downloadResource()
+  downloadResource('db')
 }
 
 // Initialize dashboard

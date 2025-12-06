@@ -3,6 +3,9 @@
 @createdChainId={{createChain.response.body.id}}
 @createdLogId={{createLog.response.body.id}}
 
+### Get configuration (tables, chains and rules)
+GET {{server}}/db
+
 ### ──────────────────────────────────────────────────────────────────
 ###                               TABLES
 ### ──────────────────────────────────────────────────────────────────
