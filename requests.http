@@ -1,0 +1,40 @@
+@server=http://localhost:3000/api
+@createdLogId={{createLog.response.body.id}}
+
+### Create a log
+# @name createLog
+POST {{server}}/logs
+Content-Type: application/json
+
+{
+  "date": "2025-12-05",
+  "time": "19:55:01",
+  "source_ip": "10.25.50.164",
+  "source_port": "44444",
+  "dest_ip": "10.25.50.1",
+  "dest_port": "200",
+  "action": "Allow"
+}
+
+### Get all logs
+GET {{server}}/logs
+
+### Get log by ID
+GET {{server}}/logs/{{createdLogId}}
+
+### Update a log by ID
+PUT {{server}}/logs/{{createdLogId}}
+Content-Type: application/json
+
+{
+  "date": "2025-12-06",
+  "time": "20:55:01",
+  "source_ip": "10.25.50.164",
+  "source_port": "44444",
+  "dest_ip": "10.25.50.1",
+  "dest_port": "200",
+  "action": "Block"
+}
+
+### Remove a log by ID
+DELETE {{server}}/logs/{{createdLogId}}
