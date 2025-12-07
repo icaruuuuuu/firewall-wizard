@@ -1,11 +1,6 @@
 export { get, loadLine, downloadResource, isRegex, testPattern }
 
 import { getResource } from "../api/apiClient.js";
-// import DashboardService from '../../../../back/src/models/Dashboard.js'
-// import TableService from '../../../../back/src/models/Table.js'
-// import ChainService from '../../../../back/src/models/Chain.js'
-// // import RuleService from '../../../../back/src/models/Rule.js'
-// import LogService from '../../../../back/src/models/Log.js'
 
 async function get(arg = '', id = '') {
   try {
@@ -34,38 +29,6 @@ function loadLine(resource, resource_name, index, table_body_name, resource_keys
 
   table_body_name.appendChild(tr)
 }
-
-// function getResourceJSON(resource_name) {
-//   switch (resource_name) {
-//     case 'db': {
-//       const resource = DashboardService.readAllResources(resource_name)
-//       return resource
-//     }
-
-//     case 'tables': {
-//       const resource = TableService.readTableAll(resource_name)
-//       return resource
-//     }
-
-//     case 'chains': {
-//       const resource = ChainService.readChainAll(resource_name)
-//       return resource
-//     }
-
-//     // case 'rules': {
-//     //   const resource = RuleService.readRuleAll(resource_name)
-//     //   return resource
-//     // }
-
-//     case 'logs': {
-//       const resource = LogService.readLogAll(resource_name)
-//       return resource
-//     }
-
-//     default:
-//       throw new Error(`Resource ${resource_name} not found.`)
-//   }
-// }
 
 async function downloadResource(resource_name) {
   const resource = await getResource(resource_name)
