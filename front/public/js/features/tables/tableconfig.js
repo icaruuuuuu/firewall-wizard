@@ -1,3 +1,5 @@
+import { postResource } from '../../api/apiClient.js'
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('tableForm');
     if (form) {
@@ -76,20 +78,21 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
-function handleSubmit(e) {
-    e.preventDefault();
+async function handleSubmit(e) {
+	e.preventDefault();
 
-    const errors = validateForm();
+	const errors = validateForm();
 
-    if (errors.length > 0) {
-        showAlert(errors, 'error');
-        return;
-    }
+	if (errors.length > 0) {
+		showAlert(errors, 'error');
+		return;
+	}
 
-    const tableData = collectFormData();
+	const tableData = collectFormData();
+	const response = await postResource('tables', tableData);
 
-    showAlert(`Table "${tableData.name}" created successfully`);
+	showAlert(`Table "${tableData.name}" created successfully`);
 
-    document.getElementById('tableForm').reset();
+	document.getElementById('tableForm').reset();
 }
 
