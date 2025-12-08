@@ -1,6 +1,7 @@
 @server=http://localhost:3000/api
 @createdTableId={{createTable.response.body.id}}
 @createdChainId={{createChain.response.body.id}}
+@createdRuleId={{createRule.response.body.id}}
 @createdLogId={{createLog.response.body.id}}
 
 ### Get configuration (tables, chains and rules)
@@ -81,6 +82,60 @@ Content-Type: application/json
 
 ### Remove chain by ID
 DELETE {{server}}/chains/{{createdChainId}}
+
+### ──────────────────────────────────────────────────────────────────
+###                               RULES
+### ──────────────────────────────────────────────────────────────────
+
+### Create a rule
+# @name createRule
+POST {{server}}/rules
+Content-Type: application/json
+
+{
+  "chain_id": "c1",
+  "position": 1,
+  "description": "Permitir interface loopback",
+  "matches": [
+    {
+      "type": "interface",
+      "interface": "lo",
+      "direction": "input"
+    }
+  ],
+  "action": "accept",
+  "counter": true,
+  "enabled": true
+}
+
+### Get all rules
+GET {{server}}/rules
+
+### Get rule by ID
+GET {{server}}/rules/{{createdRuleId}}
+
+### Update rule by ID
+PUT {{server}}/rules/{{createdRuleId}}
+Content-Type: application/json
+
+{
+  "chain_id": "c1",
+  "position": 1,
+  "description": "Proibir interface loopback",
+  "matches": [
+    {
+      "type": "interface",
+      "interface": "lo",
+      "direction": "input"
+    }
+  ],
+  "action": "drop",
+  "counter": true,
+  "enabled": true
+}
+
+### Remove rule by ID
+DELETE {{server}}/rules/{{createdRuleId}}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                                LOGS

@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 
 import TableService from '../src/models/Table.js'
 import ChainService from '../src/models/Chain.js'
-// adicionar rules
+import RuleService from '../src/models/Rule.js'
 import LogService from '../src/models/Log.js'
 
 function up() {
@@ -18,6 +18,10 @@ function up() {
 
   for (const chain of seed.chains) {
     ChainService.createChain(chain)
+  }
+
+  for (const rule of seed.rules) {
+    RuleService.createRule(rule)
   }
 
   for (const log of seed.logs) {

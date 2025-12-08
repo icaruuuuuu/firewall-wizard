@@ -1,4 +1,4 @@
-export { postResource, getResource, updateResource, deleteResource }
+export { postResource, getResource, putResource, deleteResource }
 
 import { APIError, APINotFoundError } from "./error.js"
 
@@ -55,7 +55,7 @@ async function getResource(param, id = '') {
   }
 }
 
-async function updateResource(param, id, data) {
+async function putResource(param, id, data) {
   const resource = `${API_URL}/${param}/${id}`
   const options = {
     headers: {

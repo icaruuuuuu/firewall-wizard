@@ -9,22 +9,23 @@ import { fileURLToPath } from 'url'
 import { router_dashboard } from './routes/dashboardRoutes.js'
 import { router_tables } from './routes/tableRoutes.js'
 import { router_chains } from './routes/chainRoutes.js'
-// import { router_rules } from './routes/ruleRoutes.js'
+import { router_rules } from './routes/ruleRoutes.js'
 import { router_logs } from './routes/logRoutes.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const indexPath = path.join(__dirname, '..', '..', 'front', 'public');
+const index_path = path.join(__dirname, '..', '..', 'front', 'public');
 
 const app = express()
-app.use(cors())
+app.use(cors()) // Alterar: revisar segurança
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(express.static(indexPath))
+app.use(express.static(index_path))
 
 app.use('/api', router_dashboard)
 app.use('/api', router_tables)
 app.use('/api', router_chains)
+app.use('/api', router_rules)
 app.use('/api', router_logs)
 
 Seed.up()
