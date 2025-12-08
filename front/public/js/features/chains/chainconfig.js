@@ -1,3 +1,5 @@
+import { postResource } from '../../api/apiClient.js';
+
 // Variáveis globais
 
 let allTables = [];
@@ -83,7 +85,7 @@ function collectFormData() {
   };
 }
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
 
   const errors = validateForm();
@@ -93,6 +95,7 @@ function handleSubmit(e) {
   }
 
   const chainData = collectFormData();
+  const response = await postResource('chains', chainData);
 
   showAlert('✓ Chain criada com sucesso! Redirecionando...', 'success');  
 }
