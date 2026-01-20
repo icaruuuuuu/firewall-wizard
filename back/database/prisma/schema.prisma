@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Tables {
+  id          Int    @id @default(autoincrement())
+  name        String
+  family      String
+  description String
+}
+
+model Chains {
+  id          Int    @id @default(autoincrement())
+  // chave estrangeira table
+  name        String
+  type        String
+  hook        String
+  priority    Int
+  policy      String
+  description String
+}
+
+model Rules {
+  id          Int     @id @default(autoincrement())
+  // chave estrangeira chain
+  position    Int
+  description String
+  action      String
+  counter     Boolean
+  enabled     Boolean
+  set_target  String
+  nat_target  String
+  log_prefix  String
+  log_level   String
+}
+
+model Logs {
+  id          Int      @id
+  log_date    DateTime
+  log_time    DateTime
+  source_ip   String
+  source_port Int
+  dest_ip     String
+  dest_port   String
+  action      String
+}
