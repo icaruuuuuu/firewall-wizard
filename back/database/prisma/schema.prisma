@@ -11,47 +11,55 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  // url      = env("DATABASE_URL") Não é mais necessário a partir do Prisma 7
 }
 
 model Tables {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   family      String
-  description String
+  description String?
+  chains      Chains[]
 }
 
 model Chains {
-  id          Int    @id @default(autoincrement())
-  // chave estrangeira table
+  id          Int     @id @default(autoincrement())
   name        String
   type        String
   hook        String
   priority    Int
   policy      String
-  description String
+  description String?
+
+  table   Tables  @relation(fields: [tableId], references: [id])
+  tableId Int
+  rules   Rules[]
 }
 
 model Rules {
   id          Int     @id @default(autoincrement())
-  // chave estrangeira chain
   position    Int
-  description String
   action      String
   counter     Boolean
   enabled     Boolean
-  set_target  String
-  nat_target  String
-  log_prefix  String
-  log_level   String
+  setTarget   String
+  natTarget   String
+  logPrefix   String
+  logLevel    String
+  description String?
+
+  chain   Chains @relation(fields: [chainId], references: [id])
+  chainId Int
 }
 
 model Logs {
-  id          Int      @id
-  log_date    DateTime
-  log_time    DateTime
-  source_ip   String
-  source_port Int
-  dest_ip     String
-  dest_port   String
+  id          Int      @id @default(autoincrement())
+  // log_date    DateTime
+  // log_time    DateTime
+  logDatetime DateTime
+  sourceIp    String
+  sourcePort  Int
+  destIp      String
+  destPort    Int
   action      String
 }
