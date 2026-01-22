@@ -6,7 +6,6 @@ export default { createLog, readLogAll, readLogById, updateLog, removeLog }
 import prisma from '../lib/prisma.js'
 
 async function createLog({ sourceIp, sourcePort, destIp, destPort, action }) {
-
   const newLog = await prisma.logs.create({
     data: {
       sourceIp,
@@ -22,43 +21,45 @@ async function createLog({ sourceIp, sourcePort, destIp, destPort, action }) {
 
 async function readLogAll() {
   return await prisma.logs.findMany({
-    orderBy: { logDatetime: 'desc' }
+    orderBy: { datetime: 'desc' }
   })
 }
 
-function readLogById(id) {
-  return logs.find(l => l.id === id)
+async function readLogById(id) {
+  const logId = parseInt(id)
+  return await prisma.logs.findUnique({
+    where: { id: logId }
+  })
 }
 
-function updateLog({ id, date, time, source_ip, source_port, dest_ip, dest_port, action }) {
-  const log_index = logs.findIndex(l => l.id === id)
+async function updateLog({ id, datetime, sourceIp, sourcePort, destIp, destPort, action }) {
+  const logId = parseInt(id)
 
-  if (log_index === -1) {
-    return null
+  try {
+    return await prisma.logs.update({
+      where: { id: logId },
+      data: {
+        datetime,
+        sourceIp,
+        sourcePort,
+        destIp,
+        destPort,
+        action
+      }
+    })
+  } catch (error) {
+    if (error.code == 'P2025') return null
   }
-
-  const log = {
-    id,
-    date,
-    time,
-    source_ip,
-    source_port,
-    dest_ip,
-    dest_port,
-    action
-  }
-
-  logs[log_index] = log
-  return logs[log_index]
 }
 
-function removeLog(id) {
-  const log_index = logs.findIndex(l => l.id === id)
+async function removeLog(id) {
+  const logId = parseInt(id)
 
-  if (log_index === -1) {
-    return false
+  try {
+    await prisma.logs.delete({ where: { id: logId } })
+    return true
+
+  } catch (error) {
+    if (error.code == 'P2025') return false
   }
-
-  logs.splice(log_index, 1)
-  return true
 }

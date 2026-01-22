@@ -53,11 +53,11 @@ model Rules {
 }
 
 model Logs {
-  id          Int      @id @default(autoincrement())
-  logDatetime DateTime @default(now())
-  sourceIp    String
-  sourcePort  Int
-  destIp      String
-  destPort    Int
-  action      String
+  id         Int      @id @default(autoincrement())
+  datetime   DateTime @default(now())
+  sourceIp   String
+  sourcePort Int
+  destIp     String
+  destPort   Int
+  action     String
 }
