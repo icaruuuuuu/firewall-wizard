@@ -54,9 +54,7 @@ model Rules {
 
 model Logs {
   id          Int      @id @default(autoincrement())
-  // log_date    DateTime
-  // log_time    DateTime
-  logDatetime DateTime
+  logDatetime DateTime @default(now())
   sourceIp    String
   sourcePort  Int
   destIp      String

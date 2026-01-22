@@ -3,6 +3,7 @@
   "type": "module",
   "dependencies": {
     "@paralleldrive/cuid2": "^3.0.4",
+    "@prisma/client": "^7.3.0",
     "cors": "^2.8.5",
     "express": "^5.2.1",
     "morgan": "^1.10.1",

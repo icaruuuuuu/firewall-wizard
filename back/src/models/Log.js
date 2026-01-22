@@ -1,26 +1,29 @@
 export default { createLog, readLogAll, readLogById, updateLog, removeLog }
 
-import { createId } from '@paralleldrive/cuid2'
-import { logs } from '../../database/db.js'
+// import { createId } from '@paralleldrive/cuid2'
+// import { logs } from '../../database/db.js'
 
-function createLog({ date, time, source_ip, source_port, dest_ip, dest_port, action }) {
-  const new_log = {
-    id: createId(),
-    date,
-    time,
-    source_ip,
-    source_port,
-    dest_ip,
-    dest_port,
-    action
-  }
+import prisma from '../lib/prisma.js'
 
-  logs.push(new_log)
-  return new_log
+async function createLog({ sourceIp, sourcePort, destIp, destPort, action }) {
+
+  const newLog = await prisma.logs.create({
+    data: {
+      sourceIp,
+      sourcePort,
+      destIp,
+      destPort,
+      action
+    }
+  })
+
+  return newLog
 }
 
-function readLogAll() {
-  return logs
+async function readLogAll() {
+  return await prisma.logs.findMany({
+    orderBy: { logDatetime: 'desc' }
+  })
 }
 
 function readLogById(id) {
