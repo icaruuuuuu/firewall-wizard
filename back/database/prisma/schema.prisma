@@ -30,10 +30,9 @@ model Chains {
   priority    Int
   policy      String
   description String?
-
-  table   Tables  @relation(fields: [tableId], references: [id])
-  tableId Int
-  rules   Rules[]
+  table       Tables  @relation(fields: [tableId], references: [id])
+  tableId     Int
+  rules       Rules[]
 }
 
 model Rules {
@@ -47,10 +46,42 @@ model Rules {
   logPrefix   String
   logLevel    String
   description String?
-
-  chain   Chains @relation(fields: [chainId], references: [id])
-  chainId Int
+  chain       Chains  @relation(fields: [chainId], references: [id])
+  chainId     Int
 }
+
+// model Rules {
+//   id              Int      @id @default(autoincrement())
+//   // Relacionamento: Uma Rule pertence a uma Chain
+//   chainId         Int
+//   chain           Chains   @relation(fields: [chainId], references: [id])
+//   // Posição e Ação (Veredito)
+//   position        Int // Ordem de execução dentro da Chain
+//   action          String // "accept", "drop", "reject", "jump", "goto"
+//   // Para ações `jump` e `goto`, indica a Chain de destino
+//   targetChainId   Int?
+//   targetChain     Chains?  @relation("JumpTarget", fields: [targetChainId], references: [id])
+//   // Expressão de Match (principal)
+//   matchExpression String? // Ex: "tcp dport 22, ip saddr 10.0.0.0/24"
+//   // Campos opcionais derivados (para UI/filtros)
+//   sourceIp        String? // Ex: "192.168.1.0/24"
+//   destIp          String?
+//   sourcePort      Int?
+//   destPort        Int?
+//   protocol        String? // "tcp", "udp", "icmp"
+//   iif             String? // Interface de entrada (ex: "eth0")
+//   oif             String? // Interface de saída
+//   // Contador e Log
+//   enableCounter   Boolean  @default(false) // Contar pacotes/bytes?
+//   enableLog       Boolean  @default(false) // Registrar log no kernel?
+//   logPrefix       String? // Prefixo opcional da mensagem de log
+//   logLevel        String? // Nível de log: "emerg", "alert", etc.
+//   // Gerenciamento
+//   enabled         Boolean  @default(true) // Regra ativa?
+//   description     String?
+
+//   @@index([chainId, position]) // Índice para ordenação eficiente
+// }
 
 model Logs {
   id         Int      @id @default(autoincrement())

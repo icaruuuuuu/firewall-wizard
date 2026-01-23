@@ -1,53 +1,56 @@
 export default { createTable, readTableAll, readTableById, updateTable, removeTable }
 
-import { createId } from '@paralleldrive/cuid2'
-import { tables } from '../../database/db.js'
+// import { createId } from '@paralleldrive/cuid2'
+// import { tables } from '../../database/db.js'
 
-function createTable({ name, family, description }) {
-  const new_table = {
-    id: createId(),
-    name,
-    family,
-    description
-  }
+import prisma from '../lib/prisma.js'
 
-  tables.push(new_table)
-  return new_table
+async function createTable({ name, family, description = "" }) {
+  const newTable = await prisma.tables.create({
+    data: {
+      name,
+      family,
+      description
+    }
+  })
+
+  return newTable
 }
 
-function readTableAll() {
-  return tables
+async function readTableAll() {
+  return await prisma.tables.findMany()
 }
 
-function readTableById(id) {
-  return tables.find(t => t.id === id)
+async function readTableById(id) {
+  const tableId = parseInt(id)
+  return await prisma.tables.findUnique({ where: { id: tableId } })
 }
 
-function updateTable({ id, name, family, description }) {
-  const table_index = tables.findIndex(t => t.id === id)
+async function updateTable({ id, name, family, description }) {
+  const tableId = parseInt(id)
 
-  if (table_index === -1) {
-    return null
+  try {
+    return await prisma.tables.update({
+      where: { id: tableId },
+      data: {
+        name,
+        family,
+        description
+      }
+    })
+  } catch (error) {
+    if (error.code == 'P2025') return null
   }
-
-  const table = {
-    id,
-    name,
-    family,
-    description
-  }
-
-  tables[table_index] = table
-  return tables[table_index]
 }
 
-function removeTable(id) {
-  const table_index = tables.findIndex(t => t.id === id)
+async function removeTable(id) {
+  const tableId = parseInt(id)
 
-  if (table_index === -1) {
-    return false
+  try {
+    await prisma.tables.delete({ where: { id: tableId } })
+    return true
+
+  } catch (error) {
+    if (error.code == 'P2025') return false
   }
-
-  tables.splice(table_index, 1)
-  return true
 }

@@ -1,9 +1,17 @@
 export default { createRule, readRuleAll, readRuleById, updateRule, removeRule }
 
-import { createId } from '@paralleldrive/cuid2'
-import { rules } from '../../database/db.js'
+// import { createId } from '@paralleldrive/cuid2'
+// import { rules } from '../../database/db.js'
 
-function createRule({ chain_id, position, description, matches, action, counter, enabled }) {
+import prisma from '../lib/prisma.js'
+
+async function createRule({ chain_id, position, description, matches, action, counter, enabled }) {
+  const newRule = await prisma.rules.create({
+    data: {
+
+    }
+  })
+
   const rule = {
     id: createId(),
     chain_id,
@@ -19,15 +27,16 @@ function createRule({ chain_id, position, description, matches, action, counter,
   return rule
 }
 
-function readRuleAll() {
-  return rules
+async function readRuleAll() {
+  return await prisma.rules.findMany()
 }
 
-function readRuleById(id) {
-  return rules.find(r => r.id === id)
+async function readRuleById(id) {
+  const ruleId = parseInt(id)
+  return await prisma.rules.findUnique({ where: { id: ruleId } })
 }
 
-function updateRule({ id, chain_id, position, description, matches, action, counter, enabled }) {
+async function updateRule({ id, chain_id, position, description, matches, action, counter, enabled }) {
   const rule_index = rules.findIndex(r => r.id === id)
 
   if (rule_index === -1) {
@@ -49,13 +58,14 @@ function updateRule({ id, chain_id, position, description, matches, action, coun
   return rules[rule_index]
 }
 
-function removeRule(id) {
-  const rule_index = rules.findIndex(r => r.id === id)
+async function removeRule(id) {
+  const ruleId = parseInt(id)
 
-  if (rule_index === -1) {
-    return false
+  try {
+    await prisma.rules.delete({ where: { id: ruleId } })
+    return true
+
+  } catch (error) {
+    if (error.code == 'P2025') return false
   }
-
-  rules.splice(rule_index, 1)
-  return true
 }

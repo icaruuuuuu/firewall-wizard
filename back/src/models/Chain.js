@@ -1,73 +1,64 @@
 export default { createChain, readChainAll, readChainById, updateChain, removeChain }
 
-import { createId } from '@paralleldrive/cuid2'
-import { tables, chains } from '../../database/db.js'
+// import { createId } from '@paralleldrive/cuid2'
+// import { tables, chains } from '../../database/db.js'
 
-function createChain({ table_id, name, type, hook, priority, policy, description }) {
-  const new_chain = {
-    id: createId(),
-    table_id,
-    name,
-    type,
-    hook,
-    priority,
-    policy,
-    description
-  }
+import prisma from '../lib/prisma.js'
 
-  const is_tableId_valid = tables.find(t => t.id === table_id)
-  // Vincular a table name
-  // if (!is_tableId_valid) {
-  //   throw new Error('Invalid table ID.')
-  // }
+async function createChain({ tableId, name, type, hook, priority, policy, description = "" }) {
+  const newChain = await prisma.chains.create({
+    data: {
+      name,
+      type,
+      hook,
+      priority,
+      policy,
+      description,
+      tableId
+    }
+  })
 
-  chains.push(new_chain)
-  return new_chain
+  return newChain
 }
 
-function readChainAll() {
-  return chains
+async function readChainAll() {
+  return await prisma.chains.findMany()
 }
 
-function readChainById(id) {
-  return chains.find(c => c.id === id)
+async function readChainById(id) {
+  const ChainId = parseInt(id)
+  return await prisma.chains.findUnique({ where: { id: ChainId } })
 }
 
-function updateChain({ id, table_id, name, type, hook, priority, policy, description }) {
-  const chain_index = chains.findIndex(c => c.id === id)
+async function updateChain({ id, tableId, name, type, hook, priority, policy, description }) {
+  const chainId = parseInt(id)
 
-  if (chain_index === -1) {
-    return null
+  try {
+    return await prisma.chains.update({
+      where: { id: chainId },
+      data: {
+        name,
+        type,
+        hook,
+        priority,
+        policy,
+        description,
+        tableId
+      }
+    })
+  } catch (error) {
+    if (error.code == 'P2025') return null
   }
-
-  const chain = {
-    id,
-    table_id,
-    name,
-    type,
-    hook,
-    priority,
-    policy,
-    description
-  }
-
-  const is_tableId_valid = tables.find(t => t.id === table_id)
-  // Vincular a table name
-  // if (!is_tableId_valid) {
-  //   throw new Error('Invalid table ID.')
-  // }
-
-  chains[chain_index] = chain
-  return chains[chain_index]
 }
 
-function removeChain(id) {
-  const chain_index = chains.findIndex(c => c.id === id)
+async function removeChain(id) {
+  const chainId = parseInt(id)
 
-  if (chain_index === -1) {
-    return false
+  try {
+    await prisma.chains.delete({ where: { id: chainId } })
+    return true
+
+  } catch (error) {
+    if (error.code == 'P2025') return false
   }
-
-  chains.splice(chain_index, 1)
-  return true
 }
