@@ -5,26 +5,18 @@ export default { createRule, readRuleAll, readRuleById, updateRule, removeRule }
 
 import prisma from '../lib/prisma.js'
 
-async function createRule({ chain_id, position, description, matches, action, counter, enabled }) {
+async function createRule({ chainId, matchType, match, expression, statement }) {
   const newRule = await prisma.rules.create({
     data: {
-
+      matchType,
+      match,
+      expression,
+      statement,
+      chainId
     }
   })
 
-  const rule = {
-    id: createId(),
-    chain_id,
-    position,
-    description,
-    matches,
-    action,
-    counter,
-    enabled
-  }
-
-  rules.push(rule)
-  return rule
+  return newRule
 }
 
 async function readRuleAll() {
@@ -36,26 +28,23 @@ async function readRuleById(id) {
   return await prisma.rules.findUnique({ where: { id: ruleId } })
 }
 
-async function updateRule({ id, chain_id, position, description, matches, action, counter, enabled }) {
-  const rule_index = rules.findIndex(r => r.id === id)
+async function updateRule({ id, chainId, matchType, match, expression, statement }) {
+  const ruleId = parseInt(id)
 
-  if (rule_index === -1) {
-    return null
+  try {
+    return await prisma.rules.update({
+      where: { id: ruleId },
+      data: {
+        matchType,
+        match,
+        expression,
+        statement,
+        chainId
+      }
+    })
+  } catch (error) {
+    if (error.code == 'P2025') return null
   }
-
-  const rule = {
-    id,
-    chain_id,
-    position,
-    description,
-    matches,
-    action,
-    counter,
-    enabled
-  }
-
-  rules[rule_index] = rule
-  return rules[rule_index]
 }
 
 async function removeRule(id) {
