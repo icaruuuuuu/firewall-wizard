@@ -1,7 +1,7 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
-import Seed from '../database/seeders.js'
+// import Seed from '../database/seeders.js'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -28,7 +28,7 @@ app.use('/api', router_chains)
 app.use('/api', router_rules)
 app.use('/api', router_logs)
 
-Seed.up()
+// Seed.up()
 
 app.listen(3000, () => {
   console.log('Server listening on http://localhost:3000')

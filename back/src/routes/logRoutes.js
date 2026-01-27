@@ -7,13 +7,13 @@ const router_logs = Router()
 
 // Create
 router_logs.post('/logs', (req, res) => {
-  const { date, time, source_ip, source_port, dest_ip, dest_port, action } = req.body
+  const { sourceIp, sourcePort, destIp, destPort, action } = req.body
 
-  if (!date || !time || !source_ip || !source_port || !dest_ip || !dest_port || !action) {
-    return res.status(400).json({ error: 'Date, time, source IP, source port, destination IP, destination port and action are required.' })
+  if (!sourceIp || !sourcePort || !destIp || !destPort || !action) {
+    return res.status(400).json({ error: 'Source IP, source port, destination IP, destination port and action are required.' })
   }
 
-  const new_log = LogService.createLog({ date, time, source_ip, source_port, dest_ip, dest_port, action })
+  const new_log = LogService.createLog({ sourceIp, sourcePort, destIp, destPort, action })
   return res.status(201).json(new_log)
 })
 
@@ -38,13 +38,13 @@ router_logs.get('/logs/:id', (req, res) => {
 // Update
 router_logs.put('/logs/:id', (req, res) => {
   const { id } = req.params
-  const { date, time, source_ip, source_port, dest_ip, dest_port, action } = req.body
+  const { sourceIp, sourcePort, destIp, destPort, action } = req.body
 
-  if (!date || !time || !source_ip || !source_port || !dest_ip || !dest_port || !action) {
-    return res.status(400).json({ error: 'Date, time, source IP, source port, destination IP, destination port and action are required.' })
+  if (!sourceIp || !sourcePort || !destIp || !destPort || !action) {
+    return res.status(400).json({ error: 'Source IP, source port, destination IP, destination port and action are required.' })
   }
 
-  const changed_log = LogService.updateLog({ id, date, time, source_ip, source_port, dest_ip, dest_port, action })
+  const changed_log = LogService.updateLog({ id, sourceIp, sourcePort, destIp, destPort, action })
 
   if (!changed_log) {
     return res.status(404).json({ error: 'Log not found.' })

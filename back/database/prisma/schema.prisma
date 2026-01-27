@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  // url      = env("DATABASE_URL") Não é mais necessário a partir do Prisma 7
+  // url      = env("DATABASE_URL") // Não é mais necessário a partir do Prisma 7
 }
 
 model Tables {
@@ -36,13 +36,14 @@ model Chains {
 }
 
 model Rules {
-  id         Int    @id @default(autoincrement())
-  matchType  String
-  match      String
-  expression String
-  statement  String
-  chain      Chains @relation(fields: [chainId], references: [id])
-  chainId    Int
+  id          Int    @id @default(autoincrement())
+  matchType   String
+  match       String
+  expression  String
+  statement   String
+  description String
+  chain       Chains @relation(fields: [chainId], references: [id])
+  chainId     Int
 }
 
 model Logs {

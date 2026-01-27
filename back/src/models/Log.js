@@ -30,14 +30,13 @@ async function readLogById(id) {
   return await prisma.logs.findUnique({ where: { id: logId } })
 }
 
-async function updateLog({ id, datetime, sourceIp, sourcePort, destIp, destPort, action }) {
+async function updateLog({ id, sourceIp, sourcePort, destIp, destPort, action }) {
   const logId = parseInt(id)
 
   try {
     return await prisma.logs.update({
       where: { id: logId },
       data: {
-        datetime,
         sourceIp,
         sourcePort,
         destIp,
@@ -45,6 +44,7 @@ async function updateLog({ id, datetime, sourceIp, sourcePort, destIp, destPort,
         action
       }
     })
+
   } catch (error) {
     if (error.code == 'P2025') return null
   }

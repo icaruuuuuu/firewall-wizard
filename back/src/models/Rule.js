@@ -5,13 +5,14 @@ export default { createRule, readRuleAll, readRuleById, updateRule, removeRule }
 
 import prisma from '../lib/prisma.js'
 
-async function createRule({ chainId, matchType, match, expression, statement }) {
+async function createRule({ chainId, matchType, match, expression, statement, description = "-" }) {
   const newRule = await prisma.rules.create({
     data: {
       matchType,
       match,
       expression,
       statement,
+      description,
       chainId
     }
   })
@@ -28,7 +29,7 @@ async function readRuleById(id) {
   return await prisma.rules.findUnique({ where: { id: ruleId } })
 }
 
-async function updateRule({ id, chainId, matchType, match, expression, statement }) {
+async function updateRule({ id, chainId, matchType, match, expression, statement, description = "-" }) {
   const ruleId = parseInt(id)
 
   try {
@@ -39,6 +40,7 @@ async function updateRule({ id, chainId, matchType, match, expression, statement
         match,
         expression,
         statement,
+        description,
         chainId
       }
     })

@@ -5,7 +5,7 @@ export default { createTable, readTableAll, readTableById, updateTable, removeTa
 
 import prisma from '../lib/prisma.js'
 
-async function createTable({ name, family, description = "" }) {
+async function createTable({ name, family, description = "-" }) {
   const newTable = await prisma.tables.create({
     data: {
       name,
@@ -26,7 +26,7 @@ async function readTableById(id) {
   return await prisma.tables.findUnique({ where: { id: tableId } })
 }
 
-async function updateTable({ id, name, family, description }) {
+async function updateTable({ id, name, family, description = "-" }) {
   const tableId = parseInt(id)
 
   try {

@@ -7,13 +7,13 @@ const router_rules = Router()
 
 // Create
 router_rules.post('/rules', (req, res) => {
-  const { chain_id, position, description, matches, action, counter, enabled } = req.body
+  const { chainId, matchType, match, expression, statement, description } = req.body
 
-  if (!chain_id || !position || !description || !matches || !action || !counter || !enabled) {
-    return res.status(400).json({ error: 'Chain ID, position, description, matches, action, counter and enabled are required.' })
+  if (!chainId || !matchType || !match || !expression || !statement) {
+    return res.status(400).json({ error: 'Chain ID, matchType, match, expression and statement are required.' })
   }
 
-  const new_rule = RuleService.createRule({ chain_id, position, description, matches, action, counter, enabled })
+  const new_rule = RuleService.createRule({ chainId, matchType, match, expression, statement })
   return res.status(201).json(new_rule)
 })
 
@@ -38,13 +38,13 @@ router_rules.get('/rules/:id', (req, res) => {
 // Update
 router_rules.put('/rules/:id', (req, res) => {
   const { id } = req.params
-  const { chain_id, position, description, matches, action, counter, enabled } = req.body
+  const { chainId, matchType, match, expression, statement, description } = req.body
 
-  if (!chain_id || !position || !description || !matches || !action || !counter || !enabled) {
-    return res.status(400).json({ error: 'Chain ID, position, description, matches, action, counter and enabled are required.' })
+  if (!chainId || !matchType || !match || !expression || !statement) {
+    return res.status(400).json({ error: 'Chain ID, matchType, match, expression and statement are required.' })
   }
 
-  const changed_rule = RuleService.updateRule({ id, chain_id, position, description, matches, action, counter, enabled })
+  const changed_rule = RuleService.updateRule({ id, chainId, matchType, match, expression, statement })
 
   if (!changed_rule) {
     return res.status(404).json({ error: 'Rule not found.' })

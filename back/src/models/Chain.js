@@ -30,7 +30,7 @@ async function readChainById(id) {
   return await prisma.chains.findUnique({ where: { id: ChainId } })
 }
 
-async function updateChain({ id, tableId, name, type, hook, priority, policy, description }) {
+async function updateChain({ id, tableId, name, type, hook, priority, policy, description = "-" }) {
   const chainId = parseInt(id)
 
   try {
@@ -46,6 +46,7 @@ async function updateChain({ id, tableId, name, type, hook, priority, policy, de
         tableId
       }
     })
+
   } catch (error) {
     if (error.code == 'P2025') return null
   }

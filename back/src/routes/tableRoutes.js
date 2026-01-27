@@ -9,8 +9,8 @@ const router_tables = Router()
 router_tables.post('/tables', (req, res) => {
   const { name, family, description } = req.body
 
-  if (!name || !family || !description) {
-    return res.status(400).json({ error: 'Name, family and description are required.' })
+  if (!name || !family) {
+    return res.status(400).json({ error: 'Name and family are required.' })
   }
 
   const new_table = TableService.createTable({ name, family, description })
@@ -40,8 +40,8 @@ router_tables.put('/tables/:id', (req, res) => {
   const { id } = req.params
   const { name, family, description } = req.body
 
-  if (!name || !family || !description) {
-    return res.status(400).json({ error: 'Name, family and description are required.' })
+  if (!name || !family) {
+    return res.status(400).json({ error: 'Name and family are required.' })
   }
 
   const changed_table = TableService.updateTable({ id, name, family, description })

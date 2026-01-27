@@ -8,17 +8,17 @@ const router_chains = Router()
 // Create
 router_chains.post('/chains', (req, res) => {
   try {
-    const { table_id, name, type, hook, priority, policy, description } = req.body
+    const { tableId, name, type, hook, priority, policy, description } = req.body
 
-    if (!table_id || !name || !type || !hook || !priority || !policy || !description) {
+    if (!tableId || !name || !type || !hook || !priority || !policy) {
       return res.status(400).json({ error: 'Table ID, name, type, hook, priority, policy and description are required.' })
     }
 
-    const new_chain = ChainService.createChain({ table_id, name, type, hook, priority, policy, description })
+    const new_chain = ChainService.createChain({ tableId, name, type, hook, priority, policy, description })
     return res.status(201).json(new_chain)
 
-  } catch (e) {
-    return res.status(403).json({ error: e.message })
+  } catch (error) {
+    return res.status(403).json({ error: error.message })
   }
 })
 
@@ -44,13 +44,13 @@ router_chains.get('/chains/:id', (req, res) => {
 router_chains.put('/chains/:id', (req, res) => {
   try {
     const { id } = req.params
-    const { table_id, name, type, hook, priority, policy, description } = req.body
+    const { tableId, name, type, hook, priority, policy, description } = req.body
 
-    if (!table_id || !name || !type || !hook || !priority || !policy || !description) {
-      return res.status(400).json({ error: 'Table ID, name, type, hook, priority, policy and description are required.' })
+    if (!tableId || !name || !type || !hook || !priority || !policy) {
+      return res.status(400).json({ error: 'Table ID, name, type, hook, priority and policy are required.' })
     }
 
-    const changed_chain = ChainService.updateChain({ id, table_id, name, type, hook, priority, policy, description })
+    const changed_chain = ChainService.updateChain({ id, tableId, name, type, hook, priority, policy, description })
 
     if (!changed_chain) {
       return res.status(404).json({ error: 'Chain not found.' })
@@ -58,8 +58,8 @@ router_chains.put('/chains/:id', (req, res) => {
 
     return res.status(200).json(changed_chain)
 
-  } catch (e) {
-    return res.status(403).json({ error: e.message })
+  } catch (error) {
+    return res.status(403).json({ error: error.message })
   }
 })
 
