@@ -2,8 +2,11 @@ export { router_chains }
 
 import { Router } from 'express'
 import ChainService from '../models/Chain.js'
+import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_chains = Router()
+
+router_chains.use(authMiddleware)
 
 // Create
 router_chains.post('/chains', (req, res) => {

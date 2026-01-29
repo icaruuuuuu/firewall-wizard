@@ -11,6 +11,8 @@ import { router_tables } from './routes/tableRoutes.js'
 import { router_chains } from './routes/chainRoutes.js'
 import { router_rules } from './routes/ruleRoutes.js'
 import { router_logs } from './routes/logRoutes.js'
+import { router_users } from './routes/userRoutes.js'
+import { router_auth } from './routes/authRoutes.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -27,6 +29,8 @@ app.use('/api', router_tables)
 app.use('/api', router_chains)
 app.use('/api', router_rules)
 app.use('/api', router_logs)
+app.use('/api', router_users)
+app.use('/api', router_auth)
 
 // Seed.up()
 

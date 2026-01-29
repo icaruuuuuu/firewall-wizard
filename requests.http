@@ -178,3 +178,30 @@ Content-Type: application/json
 
 ### Remove log by ID
 DELETE {{server}}/logs/{{createdLogId}}
+
+### ──────────────────────────────────────────────────────────────────
+###                               USERS
+### ──────────────────────────────────────────────────────────────────
+
+### Signup (Cadastro de usuário)
+POST {{server}}/signup
+Content-Type: application/json
+
+{
+  "name": "Admin",
+  "email": "admin@firewallwizard.com",
+  "password": "123456"
+}
+
+### ──────────────────────────────────────────────────────────────────
+###                               AUTH
+### ──────────────────────────────────────────────────────────────────
+
+### Login
+POST {{server}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@firewallwizard.com",
+  "password": "123456"
+}

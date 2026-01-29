@@ -2,8 +2,11 @@ export { router_tables }
 
 import { Router } from 'express'
 import TableService from '../models/Table.js'
+import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_tables = Router()
+
+router_tables.use(authMiddleware)
 
 // Create
 router_tables.post('/tables', (req, res) => {

@@ -2,8 +2,11 @@ export { router_rules }
 
 import { Router } from 'express'
 import RuleService from '../models/Rule.js'
+import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_rules = Router()
+
+router_rules.use(authMiddleware)
 
 // Create
 router_rules.post('/rules', (req, res) => {

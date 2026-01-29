@@ -2,8 +2,11 @@ export { router_logs }
 
 import { Router } from 'express'
 import LogService from '../models/Log.js'
+import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_logs = Router()
+
+router_logs.use(authMiddleware)
 
 // Create
 router_logs.post('/logs', (req, res) => {
