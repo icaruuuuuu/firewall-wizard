@@ -19,7 +19,9 @@ router_tables.post('/tables', (req, res) => {
 
 // Read All
 router_tables.get('/tables', (req, res) => {
+  console.log('ENTRANDO ROTA')
   const tables = TableService.readTableAll()
+  console.log('SAINDO ROTA')
   return res.json(tables)
 })
 
