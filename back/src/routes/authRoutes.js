@@ -1,9 +1,8 @@
 import { Router } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../../database/generated/prisma/client.ts'
 
-const prisma = new PrismaClient()
 const router_auth = Router()
 
 // LOGIN

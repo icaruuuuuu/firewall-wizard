@@ -1,14 +1,14 @@
 import "dotenv/config"
 import { PrismaMariaDb } from "@prisma/adapter-mariadb"
 import { PrismaClient } from '../../database/generated/prisma/client.ts'
-import mysql from 'mysql2/promise'
+// import mysql from 'mysql2/promise'
 
 const adapter = new PrismaMariaDb({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  connectionLimit: 5
+  connectionLimit: process.env.DATABASE_CONNECTION_LIMIT
 })
 
 // const pool = mysql.createPool({
