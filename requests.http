@@ -26,10 +26,10 @@ Content-Type: application/json
 GET {{server}}/tables
 
 ### Get table by ID
-GET {{server}}/tables/{{createdTableId}}
+GET {{server}}/tables/2
 
 ### Update table by ID
-PUT {{server}}/tables/{{createdTableId}}
+PUT {{server}}/tables/3
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Remove table by ID
-DELETE {{server}}/tables/{{createdTableId}}
+DELETE {{server}}/tables/2
 
 ### ──────────────────────────────────────────────────────────────────
 ###                               CHAINS
