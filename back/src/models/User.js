@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt'
-import { PrismaClient } from '@prisma/client'
+export default { createUser }
 
-const prisma = new PrismaClient()
+import bcrypt from 'bcrypt'
+import prisma from '../lib/prisma.js'
 
 async function createUser({ name, email, password }) {
   // verifica se usuário já existe
@@ -28,4 +28,3 @@ async function createUser({ name, email, password }) {
   return user
 }
 
-export { createUser }

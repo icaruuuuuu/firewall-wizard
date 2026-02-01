@@ -4,7 +4,7 @@ import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_tables = Router()
 
-router_tables.use(authMiddleware)
+// router_tables.use(authMiddleware)
 
 // Create
 router_tables.post('/tables', async (req, res) => {

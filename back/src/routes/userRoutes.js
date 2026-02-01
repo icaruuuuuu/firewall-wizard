@@ -1,9 +1,8 @@
 import { Router } from 'express'
 import bcrypt from 'bcrypt'
-import { PrismaClient } from '../../database/generated/prisma/client.ts'
+import prisma from '../lib/prisma.js'
 
 const router_users = Router()
-const prisma = new PrismaClient()
 
 // CADASTRO DE USUÁRIO
 router_users.post('/signup', async (req, res) => {
