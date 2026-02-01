@@ -1,5 +1,3 @@
-export { router_logs }
-
 import { Router } from 'express'
 import LogService from '../models/Log.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
@@ -96,3 +94,5 @@ router_logs.delete('/logs/:id', async (req, res) => {
     return res.status(500).json({ error: error.message || 'Failed to delete log' })
   }
 })
+
+export { router_logs }

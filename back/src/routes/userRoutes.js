@@ -3,18 +3,17 @@ import bcrypt from 'bcrypt'
 import { PrismaClient } from '../../database/generated/prisma/client.ts'
 
 const router_users = Router()
+const prisma = new PrismaClient()
 
 // CADASTRO DE USUÁRIO
 router_users.post('/signup', async (req, res) => {
   const { name, email, password } = req.body
 
-  // validação básica
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Dados inválidos' })
   }
 
   try {
-    // verifica se já existe
     const userExists = await prisma.user.findUnique({
       where: { email }
     })
@@ -23,10 +22,8 @@ router_users.post('/signup', async (req, res) => {
       return res.status(400).json({ error: 'Usuário já cadastrado' })
     }
 
-    // criptografa a senha
     const passwordHash = await bcrypt.hash(password, 10)
 
-    // cria usuário
     const user = await prisma.user.create({
       data: {
         name,
@@ -35,7 +32,7 @@ router_users.post('/signup', async (req, res) => {
       }
     })
 
-    return res.status(200).json({
+    return res.status(201).json({
       message: 'Usuário cadastrado com sucesso',
       id: user.id,
       name: user.name,
@@ -43,7 +40,8 @@ router_users.post('/signup', async (req, res) => {
     })
 
   } catch (err) {
-    return res.status(400).json({ error: err.message })
+    console.error(err)
+    return res.status(500).json({ error: 'Erro interno do servidor' })
   }
 })
 

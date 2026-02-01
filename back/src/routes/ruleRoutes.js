@@ -1,5 +1,3 @@
-export { router_rules }
-
 import { Router } from 'express'
 import RuleService from '../models/Rule.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
@@ -96,3 +94,5 @@ router_rules.delete('/rules/:id', async (req, res) => {
     return res.status(500).json({ error: error.message || 'Failed to delete rule' })
   }
 })
+
+export { router_rules }

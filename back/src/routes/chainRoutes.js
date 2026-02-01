@@ -1,5 +1,3 @@
-export { router_chains }
-
 import { Router } from 'express'
 import ChainService from '../models/Chain.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
@@ -96,3 +94,5 @@ router_chains.delete('/chains/:id', async (req, res) => {
     return res.status(500).json({ error: error.message || 'Failed to delete chain' })
   }
 })
+
+export { router_chains }

@@ -1,12 +1,10 @@
-export { router_tables }
-
 import { Router } from 'express'
 import TableService from '../models/Table.js'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_tables = Router()
 
-// router_tables.use(authMiddleware)
+router_tables.use(authMiddleware)
 
 // Create
 router_tables.post('/tables', async (req, res) => {
@@ -96,3 +94,5 @@ router_tables.delete('/tables/:id', async (req, res) => {
     return res.status(500).json({ error: error.message || 'Failed to delete table' })
   }
 })
+
+export { router_tables }
