@@ -8,7 +8,7 @@ const search_input = document.getElementById('searchInput')
 const download_chains = document.getElementById('download-chains')
 
 const chains_json = await getResource('chains')
-const chains_keys = ['table_id', 'name', 'type', 'hook', 'priority', 'policy', 'description']
+const chains_keys = ['tableId', 'name', 'type', 'hook', 'priority', 'policy', 'description']
 
 function loadChainTable() {
     chain_body.innerHTML = ''

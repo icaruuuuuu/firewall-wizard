@@ -6,7 +6,7 @@ const log_filter = document.getElementById('log-filter')
 const download_log = document.getElementById('download-log')
 const log_count = document.getElementById('log-count')
 const logs_json = await getResource('logs') // pensar em otimização/praticidade: assim so atualiza o log no front ao carregar a pagina
-const log_keys = ['date', 'time', 'source_ip', 'source_port', 'dest_ip', 'dest_port', 'action']
+const log_keys = ['datetime', 'sourceIp', 'sourcePort', 'destIp', 'destPort', 'action']
 
 function loadLogTable(logs) {
   log_table_body.innerHTML = ''
@@ -20,7 +20,7 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
   log_table_body.innerHTML = ''
 
   switch (key) {
-    case 'date':
+    case 'datetime':
       for (const index in logs) {
         if (testPattern(logs[index].date, pattern)) {
           loadLine(logs, 'logs', index, log_table_body, log_keys)
@@ -28,15 +28,7 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
       }
       break
 
-    case 'time':
-      for (const index in logs) {
-        if (testPattern(logs[index].time, pattern)) {
-          loadLine(logs, 'logs', index, log_table_body, log_keys)
-        }
-      }
-      break
-
-    case 'source_ip':
+    case 'sourceIp':
       for (const index in logs) {
         if (testPattern(logs[index].source_ip, pattern)) {
           loadLine(logs, 'logs', index, log_table_body, log_keys)
@@ -44,7 +36,7 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
       }
       break
 
-    case 'source_port':
+    case 'sourcePort':
       for (const index in logs) {
         if (testPattern(logs[index].source_port, pattern)) {
           loadLine(logs, 'logs', index, log_table_body, log_keys)
@@ -52,7 +44,7 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
       }
       break
 
-    case 'dest_ip':
+    case 'destIp':
       for (const index in logs) {
         if (testPattern(logs[index].dest_ip, pattern)) {
           loadLine(logs, 'logs', index, log_table_body, log_keys)
@@ -60,7 +52,7 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
       }
       break
 
-    case 'dest_port':
+    case 'destPort':
       for (const index in logs) {
         if (testPattern(logs[index].dest_port, pattern)) {
           loadLine(logs, 'logs', index, log_table_body, log_keys)
@@ -79,12 +71,11 @@ function loadLogTableFilter(logs, pattern, key = 'all') {
     default:
       if (pattern != '' && key == 'all') {
         for (const index in logs) {
-          if (testPattern(logs[index].date, pattern) ||
-            testPattern(logs[index].time, pattern) ||
-            testPattern(logs[index].source_ip, pattern) ||
-            testPattern(logs[index].source_port, pattern) ||
-            testPattern(logs[index].dest_ip, pattern) ||
-            testPattern(logs[index].dest_port, pattern) ||
+          if (testPattern(logs[index].datetime, pattern) ||
+            testPattern(logs[index].sourceIp, pattern) ||
+            testPattern(logs[index].sourcePort, pattern) ||
+            testPattern(logs[index].destIp, pattern) ||
+            testPattern(logs[index].destPort, pattern) ||
             testPattern(logs[index].action, pattern)) {
             loadLine(logs, 'logs', index, log_table_body, log_keys)
           }

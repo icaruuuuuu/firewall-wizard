@@ -8,7 +8,7 @@ const search_input = document.getElementById('searchInput')
 const download_rules = document.getElementById('download-rules')
 
 const rules_json = await getResource('rules')
-const rules_keys = ['chain_id', 'action', 'description', 'enabled', 'matches']
+const rules_keys = ['chainId', 'matchType', 'match ', 'expression', 'statement', 'description']
 
 function rules_list_table() {
   rules_table.innerHTML = ''
