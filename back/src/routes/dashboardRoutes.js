@@ -4,9 +4,9 @@ import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_dashboard = Router()
 
-router_dashboard.use(authMiddleware)
+// router_dashboard.use(authMiddleware)
 
-router_dashboard.get('/db', async (req, res) => {
+router_dashboard.get('/db', authMiddleware, async (req, res) => {
   try {
     const db = await DashboardService.readAllResources()
     return res.json(db)

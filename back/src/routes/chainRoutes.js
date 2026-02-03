@@ -4,10 +4,10 @@ import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const router_chains = Router()
 
-router_chains.use(authMiddleware)
+// router_chains.use(authMiddleware)
 
 // Create
-router_chains.post('/chains', async (req, res) => {
+router_chains.post('/chains', authMiddleware, async (req, res) => {
   const { chainId, name, type, hook, priority, policy, description } = req.body
 
   if (!chainId || !name || !type || !hook || !priority || !policy) {
@@ -25,7 +25,7 @@ router_chains.post('/chains', async (req, res) => {
 })
 
 // Read All
-router_chains.get('/chains', async (req, res) => {
+router_chains.get('/chains', authMiddleware, async (req, res) => {
   try {
     const chains = await ChainService.readChainAll()
     return res.json(chains || [])  // inspecionar
@@ -37,7 +37,7 @@ router_chains.get('/chains', async (req, res) => {
 })
 
 // Read Single
-router_chains.get('/chains/:id', async (req, res) => {
+router_chains.get('/chains/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
 
   try {
@@ -55,7 +55,7 @@ router_chains.get('/chains/:id', async (req, res) => {
 })
 
 // Update
-router_chains.put('/chains/:id', async (req, res) => {
+router_chains.put('/chains/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
   const { chainId, name, type, hook, priority, policy, description } = req.body
 
@@ -78,7 +78,7 @@ router_chains.put('/chains/:id', async (req, res) => {
 })
 
 // Delete
-router_chains.delete('/chains/:id', async (req, res) => {
+router_chains.delete('/chains/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
 
   try {

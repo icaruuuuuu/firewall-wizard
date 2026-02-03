@@ -1,34 +1,52 @@
 const API = '/api'
 
-// LOGIN
+/* =======================
+   LOGIN
+======================= */
 const loginForm = document.getElementById('loginForm')
+
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
 
-    const email = email.value
-    const password = password.value
+    // pega os inputs corretamente
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
 
-    const res = await fetch(`${API}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    })
+    try {
+      const res = await fetch(`${API}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (!res.ok) {
-      alert(data.error)
-      return
+      if (!res.ok) {
+        alert(data.error || 'Erro ao fazer login')
+        return
+      }
+
+      // salva token
+      localStorage.setItem('token', data.token)
+
+      // redireciona para o sistema
+      window.location.href = '/'
+
+    } catch (err) {
+      console.error(err)
+      alert('Erro ao conectar com o servidor')
     }
-
-    localStorage.setItem('token', data.token)
-    window.location.href = '/'
   })
 }
 
-// CADASTRO
+/* =======================
+   CADASTRO
+======================= */
 const signupForm = document.getElementById('signupForm')
+
 if (signupForm) {
   signupForm.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -37,20 +55,28 @@ if (signupForm) {
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
 
-    const res = await fetch(`${API}/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
-    })
+    try {
+      const res = await fetch(`${API}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      })
 
-    const data = await res.json()
+      const data = await res.json()
 
-    if (!res.ok) {
-      alert(data.error)
-      return
+      if (!res.ok) {
+        alert(data.error || 'Erro ao cadastrar usuário')
+        return
+      }
+
+      alert('Conta criada com sucesso!')
+      window.location.href = '/login.html'
+
+    } catch (err) {
+      console.error(err)
+      alert('Erro ao conectar com o servidor')
     }
-
-    alert('Conta criada com sucesso!')
-    window.location.href = '/login.html'
   })
 }

@@ -7,7 +7,7 @@ const router_tables = Router()
 // router_tables.use(authMiddleware)
 
 // Create
-router_tables.post('/tables', async (req, res) => {
+router_tables.post('/tables', authMiddleware, async (req, res) => {
   const { name, family, description } = req.body
 
   if (!name || !family) {
@@ -25,7 +25,7 @@ router_tables.post('/tables', async (req, res) => {
 })
 
 // Read All
-router_tables.get('/tables', async (req, res) => {
+router_tables.get('/tables', authMiddleware, async (req, res) => {
   try {
     const tables = await TableService.readTableAll()
     return res.json(tables || [])  // inspecionar
@@ -37,7 +37,7 @@ router_tables.get('/tables', async (req, res) => {
 })
 
 // Read Single
-router_tables.get('/tables/:id', async (req, res) => {
+router_tables.get('/tables/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
 
   try {
@@ -55,7 +55,7 @@ router_tables.get('/tables/:id', async (req, res) => {
 })
 
 // Update
-router_tables.put('/tables/:id', async (req, res) => {
+router_tables.put('/tables/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
   const { name, family, description } = req.body
 
@@ -78,7 +78,7 @@ router_tables.put('/tables/:id', async (req, res) => {
 })
 
 // Delete
-router_tables.delete('/tables/:id', async (req, res) => {
+router_tables.delete('/tables/:id', authMiddleware, async (req, res) => {
   const { id } = req.params
 
   try {
