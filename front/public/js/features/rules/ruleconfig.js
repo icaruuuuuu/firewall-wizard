@@ -162,7 +162,7 @@ function collectFormData() {
   const finalExpression = expression || `${document.getElementById('match').value.trim()} ${statement}`;
 
   const formData = {
-    chainId: document.getElementById('chainId').value,
+    chainId: parseInt(document.getElementById('chainId').value),
     description: document.getElementById('description').value.trim(),
     matchType: document.getElementById('matchType').value,
     match: document.getElementById('match').value.trim(),
