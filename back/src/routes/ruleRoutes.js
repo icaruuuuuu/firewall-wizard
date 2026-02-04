@@ -8,7 +8,10 @@ const router_rules = Router()
 
 // Create
 router_rules.post('/rules', async (req, res) => {
-  const { chainId, matchType, match, expression, statement, description } = req.body
+  let { chainId, matchType, match, expression, statement, description } = req.body
+  matchType = "n/a"
+  match = "n/a"
+  console.log(req.body)
 
   if (!chainId || !matchType || !match || !expression || !statement) {
     return res.status(400).json({ error: 'Chain ID, matchType, match, expression and statement are required.' })
@@ -57,7 +60,9 @@ router_rules.get('/rules/:id', async (req, res) => {
 // Update
 router_rules.put('/rules/:id', async (req, res) => {
   const { id } = req.params
-  const { chainId, matchType, match, expression, statement, description } = req.body
+  let { chainId, matchType, match, expression, statement, description } = req.body
+  matchType = "n/a"
+  match = "n/a"
 
   if (!chainId || !matchType || !match || !expression || !statement) {
     return res.status(400).json({ error: 'Chain ID, matchType, match, expression and statement are required.' })

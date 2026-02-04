@@ -1,3 +1,4 @@
+// ruleconfig.js - VERSÃO CORRIGIDA
 import { postResource, getResource } from '../../api/apiClient.js';
 
 // Ensure DOM is ready
@@ -19,10 +20,11 @@ function setupEventListeners() {
     form.addEventListener('submit', handleSubmit);
   }
 
-  const matchTypeSelect = document.getElementById('matchType');
-  if (matchTypeSelect) {
-    matchTypeSelect.addEventListener('change', handleMatchTypeChange);
-  }
+  // REMOVIDO: Event listeners para matchType
+  // const matchTypeSelect = document.getElementById('matchType');
+  // if (matchTypeSelect) {
+  //   matchTypeSelect.addEventListener('change', handleMatchTypeChange);
+  // }
 
   const statementSelect = document.getElementById('statement');
   if (statementSelect) {
@@ -82,23 +84,8 @@ function populateChainSelect(chains) {
   }
 }
 
-function handleMatchTypeChange(e) {
-  const selectedType = e.target.value;
-
-  // Hide all match sections
-  const matchSections = document.querySelectorAll('.match-section');
-  matchSections.forEach(section => {
-    section.style.display = 'none';
-  });
-
-  // Show selected section
-  if (selectedType) {
-    const section = document.getElementById(`match-${selectedType}`);
-    if (section) {
-      section.style.display = 'block';
-    }
-  }
-}
+// REMOVIDO: Função handleMatchTypeChange não é mais necessária
+// function handleMatchTypeChange(e) { ... }
 
 function handleStatementChange(e) {
   const selectedStatement = e.target.value;
@@ -122,11 +109,10 @@ function validateForm() {
   const errors = [];
   const description = document.getElementById('description').value.trim();
   const chainId = document.getElementById('chainId').value;
-  const matchType = document.getElementById('matchType').value;
-  const match = document.getElementById('match').value.trim();
   const statement = document.getElementById('statement').value;
   const expression = document.getElementById('expression').value.trim();
 
+  // VALIDAÇÃO ATUALIZADA (removidos matchType e match)
   if (!description) {
     errors.push('Description is required');
   }
@@ -135,21 +121,14 @@ function validateForm() {
     errors.push('Chain is required');
   }
 
-  if (!matchType) {
-    errors.push('Match type is required');
-  }
-
-  if (!match) {
-    errors.push('Match expression is required');
-  }
-
   if (!statement) {
     errors.push('Statement is required');
   }
 
-  if (!expression) {
-    errors.push('Expression is required (complete nftables rule)');
-  }
+  // Expressão agora é opcional (pode ser gerada no backend)
+  // if (!expression) {
+  //   errors.push('Expression is required (complete nftables rule)');
+  // }
 
   return errors;
 }
@@ -158,17 +137,17 @@ function collectFormData() {
   const statement = document.getElementById('statement').value;
   const expression = document.getElementById('expression').value.trim();
 
-  // If expression is empty, generate one from match and statement
-  const finalExpression = expression || `${document.getElementById('match').value.trim()} ${statement}`;
-
+  // FormData simplificado - o backend deve gerar a expressão se necessário
   const formData = {
     chainId: parseInt(document.getElementById('chainId').value),
     description: document.getElementById('description').value.trim(),
-    matchType: document.getElementById('matchType').value,
-    match: document.getElementById('match').value.trim(),
-    statement: statement,
-    expression: finalExpression
+    statement: statement
   };
+
+  // Inclui expressão se fornecida
+  if (expression) {
+    formData.expression = expression;
+  }
 
   // Add optional statement-specific fields
   if (statement === 'dnat' || statement === 'snat') {
@@ -248,8 +227,12 @@ async function handleSubmit(e) {
 
     showAlert(`Rule "${ruleData.description}" created successfully`);
     document.getElementById('ruleForm').reset();
+    
+    // Reset statement-specific sections
+    document.querySelectorAll('.statement-section').forEach(section => {
+      section.style.display = 'none';
+    });
   } catch (error) {
     showAlert(`Error creating rule: ${error.message}`, 'error');
   }
 }
-
