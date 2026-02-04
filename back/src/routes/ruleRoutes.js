@@ -7,7 +7,7 @@ const router_rules = Router()
 // router_rules.use(authMiddleware)
 
 // Create
-router_rules.post('/rules', authMiddleware, async (req, res) => {
+router_rules.post('/rules', async (req, res) => {
   const { chainId, matchType, match, expression, statement, description } = req.body
 
   if (!chainId || !matchType || !match || !expression || !statement) {
@@ -25,7 +25,7 @@ router_rules.post('/rules', authMiddleware, async (req, res) => {
 })
 
 // Read All
-router_rules.get('/rules', authMiddleware, async (req, res) => {
+router_rules.get('/rules', async (req, res) => {
   try {
     const rules = await RuleService.readRuleAll()
     return res.json(rules || [])  // inspecionar
@@ -37,7 +37,7 @@ router_rules.get('/rules', authMiddleware, async (req, res) => {
 })
 
 // Read Single
-router_rules.get('/rules/:id', authMiddleware, async (req, res) => {
+router_rules.get('/rules/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -55,7 +55,7 @@ router_rules.get('/rules/:id', authMiddleware, async (req, res) => {
 })
 
 // Update
-router_rules.put('/rules/:id', authMiddleware, async (req, res) => {
+router_rules.put('/rules/:id', async (req, res) => {
   const { id } = req.params
   const { chainId, matchType, match, expression, statement, description } = req.body
 
@@ -78,7 +78,7 @@ router_rules.put('/rules/:id', authMiddleware, async (req, res) => {
 })
 
 // Delete
-router_rules.delete('/rules/:id', authMiddleware, async (req, res) => {
+router_rules.delete('/rules/:id', async (req, res) => {
   const { id } = req.params
 
   try {

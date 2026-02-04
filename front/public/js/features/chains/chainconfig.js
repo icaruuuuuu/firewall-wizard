@@ -1,18 +1,4 @@
-import { postResource } from '../../api/apiClient.js';
-
-// Variáveis globais
-
-let allTables = [];
-
-const form = document.getElementById('chainForm');
-const nameInput = document.getElementById('name');
-const descriptionInput = document.getElementById('description');
-const tableSelect = document.getElementById('table');
-const typeSelect = document.getElementById('type');
-const hookSelect = document.getElementById('hook');
-const priorityInput = document.getElementById('priority');
-const policySelect = document.getElementById('policy');
-const alertDiv = document.getElementById('alert');
+import { postResource, getResource } from '../../api/apiClient.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   loadTables();
@@ -20,53 +6,62 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventListeners() {
-  form?.addEventListener('submit', handleSubmit);
+  const form = document.getElementById('chainForm');
+  if (form) {
+    form.addEventListener('submit', handleSubmit);
+  }
 }
 
-function loadTables() {
-  allTables = getExampleTables();
-  populateTableSelect();
+async function loadTables() {
+  try {
+    const tables = await getResource('tables');
+    populateTableSelect(tables);
+  } catch (error) {
+    console.error('Error loading tables:', error);
+    showAlert('Error loading tables', 'error');
+  }
 }
 
-function getExampleTables() {
-  return [
-    { id: 't1', name: 'filter', family: 'inet', description: 'Tabela principal de filtragem' },
-    { id: 't2', name: 'nat', family: 'ip', description: 'Tabela para Network Address Translation' }
-  ];
-}
+function populateTableSelect(tables) {
+  const tableSelect = document.getElementById('table');
+  tableSelect.innerHTML = '<option value="">Select a table...</option>';
 
-function populateTableSelect() {
-  tableSelect.innerHTML = '<option value="">Selecione uma tabela...</option>';
-  allTables.forEach(table => {
-    const option = document.createElement('option');
-    option.value = table.id;
-    option.textContent = `${table.name} (${table.family})`;
-    tableSelect.appendChild(option);
-  });
+  if (Array.isArray(tables)) {
+    tables.forEach(table => {
+      const option = document.createElement('option');
+      option.value = table.id;
+      option.textContent = `${table.name} (${table.family})`;
+      tableSelect.appendChild(option);
+    });
+  }
 }
 
 function validateForm() {
   const errors = [];
+  const name = document.getElementById('name').value.trim();
+  const table = document.getElementById('table').value;
+  const type = document.getElementById('type').value;
+  const hook = document.getElementById('hook').value;
+  const priority = parseInt(document.getElementById('priority').value);
 
-  if (!nameInput.value.trim()) {
-    errors.push('Nome da chain é obrigatório');
+  if (!name) {
+    errors.push('Chain name is required');
   }
 
-  if (!tableSelect.value) {
-    errors.push('Tabela é obrigatória');
+  if (!table) {
+    errors.push('Table is required');
   }
 
-  if (!typeSelect.value) {
-    errors.push('Tipo é obrigatório');
+  if (!type) {
+    errors.push('Type is required');
   }
 
-  if (!hookSelect.value) {
-    errors.push('Hook é obrigatório');
+  if (!hook) {
+    errors.push('Hook is required');
   }
 
-  const priority = parseInt(priorityInput.value);
   if (isNaN(priority) || priority < -300 || priority > 300) {
-    errors.push('Prioridade deve estar entre -300 e 300');
+    errors.push('Priority must be between -300 and 300');
   }
 
   return errors;
@@ -74,15 +69,48 @@ function validateForm() {
 
 function collectFormData() {
   return {
-    id: `c${Date.now()}`,
-    name: nameInput.value.trim(),
-    description: descriptionInput.value.trim(),
-    table_id: tableSelect.value,
-    type: typeSelect.value,
-    hook: hookSelect.value,
-    priority: parseInt(priorityInput.value),
-    policy: policySelect.value || null
+    tableId: parseInt(document.getElementById('table').value),
+    name: document.getElementById('name').value.trim(),
+    description: document.getElementById('description').value.trim(),
+    type: document.getElementById('type').value,
+    hook: document.getElementById('hook').value,
+    priority: parseInt(document.getElementById('priority').value),
+    policy: document.getElementById('policy').value || 'accept'
   };
+}
+
+function showAlert(message, type = 'success') {
+  const alertDiv = document.getElementById('alert');
+
+  if (type === 'error' && Array.isArray(message)) {
+    alertDiv.innerHTML = `
+      <strong>❌ Couldn't validate:</strong>
+      <ul class="error-list">
+        ${message.map(msg => `<li>${escapeHtml(msg)}</li>`).join('')}
+      </ul>
+    `;
+  } else {
+    alertDiv.textContent = type === 'success' ? '✓ ' + message : '❌ ' + message;
+  }
+
+  alertDiv.className = `alert ${type} active`;
+
+  if (type === 'success') {
+    setTimeout(() => {
+      alertDiv.classList.remove('active');
+    }, 2000);
+  }
+}
+
+function escapeHtml(text) {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 async function handleSubmit(e) {
@@ -90,23 +118,18 @@ async function handleSubmit(e) {
 
   const errors = validateForm();
   if (errors.length > 0) {
-    showAlert(errors.join('<br>'), 'error');
+    showAlert(errors, 'error');
     return;
   }
 
-  const chainData = collectFormData();
-  const response = await postResource('chains', chainData);
+  try {
+    const chainData = collectFormData();
+    await postResource('chains', chainData);
 
-  showAlert('✓ Chain criada com sucesso! Redirecionando...', 'success');  
-}
-
-function showAlert(message, type) {
-  alertDiv.className = `alert ${type}`;
-  alertDiv.innerHTML = message;
-  alertDiv.style.display = 'block';
-  
-  setTimeout(() => {
-    alertDiv.style.display = 'none';
-  }, 2000);  
+    showAlert(`Chain "${chainData.name}" created successfully`);
+    document.getElementById('chainForm').reset();
+  } catch (error) {
+    showAlert(`Error creating chain: ${error.message}`, 'error');
+  }
 }
 

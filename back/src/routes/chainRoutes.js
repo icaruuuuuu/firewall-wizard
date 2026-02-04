@@ -7,15 +7,15 @@ const router_chains = Router()
 // router_chains.use(authMiddleware)
 
 // Create
-router_chains.post('/chains', authMiddleware, async (req, res) => {
-  const { chainId, name, type, hook, priority, policy, description } = req.body
+router_chains.post('/chains', async (req, res) => {
+  const { tableId, name, type, hook, priority, policy, description } = req.body
 
-  if (!chainId || !name || !type || !hook || !priority || !policy) {
-    return res.status(400).json({ error: 'Chain ID, name, type, hook, priority and policy are required.' })
+  if (!tableId || !name || !type || !hook || priority === undefined || !policy) {
+    return res.status(400).json({ error: 'Table ID, name, type, hook, priority and policy are required.' })
   }
 
   try {
-    const new_chain = await ChainService.createChain({ chainId, name, type, hook, priority, policy, description })
+    const new_chain = await ChainService.createChain({ tableId, name, type, hook, priority, policy, description })
     return res.status(201).json(new_chain)
 
   } catch (error) {
@@ -25,7 +25,7 @@ router_chains.post('/chains', authMiddleware, async (req, res) => {
 })
 
 // Read All
-router_chains.get('/chains', authMiddleware, async (req, res) => {
+router_chains.get('/chains', async (req, res) => {
   try {
     const chains = await ChainService.readChainAll()
     return res.json(chains || [])  // inspecionar
@@ -37,7 +37,7 @@ router_chains.get('/chains', authMiddleware, async (req, res) => {
 })
 
 // Read Single
-router_chains.get('/chains/:id', authMiddleware, async (req, res) => {
+router_chains.get('/chains/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -55,16 +55,16 @@ router_chains.get('/chains/:id', authMiddleware, async (req, res) => {
 })
 
 // Update
-router_chains.put('/chains/:id', authMiddleware, async (req, res) => {
+router_chains.put('/chains/:id', async (req, res) => {
   const { id } = req.params
-  const { chainId, name, type, hook, priority, policy, description } = req.body
+  const { tableId, name, type, hook, priority, policy, description } = req.body
 
-  if (!chainId || !name || !type || !hook || !priority || !policy) {
-    return res.status(400).json({ error: 'Chain ID, name, type, hook, priority and policy are required.' })
+  if (!tableId || !name || !type || !hook || priority === undefined || !policy) {
+    return res.status(400).json({ error: 'Table ID, name, type, hook, priority and policy are required.' })
   }
 
   try {
-    const changed_chain = await ChainService.updateChain({ id, chainId, name, type, hook, priority, policy, description })
+    const changed_chain = await ChainService.updateChain({ id, tableId, name, type, hook, priority, policy, description })
 
     if (!changed_chain) {
       return res.status(404).json({ error: 'Chain not found.' })
@@ -78,7 +78,7 @@ router_chains.put('/chains/:id', authMiddleware, async (req, res) => {
 })
 
 // Delete
-router_chains.delete('/chains/:id', authMiddleware, async (req, res) => {
+router_chains.delete('/chains/:id', async (req, res) => {
   const { id } = req.params
 
   try {

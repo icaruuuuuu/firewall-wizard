@@ -7,7 +7,7 @@ const router_logs = Router()
 // router_logs.use(authMiddleware)
 
 // Create
-router_logs.post('/logs', authMiddleware, async (req, res) => {
+router_logs.post('/logs', async (req, res) => {
   const { sourceIp, sourcePort, destIp, destPort, action } = req.body
 
   if (!sourceIp || !sourcePort || !destIp || !destPort || !action) {
@@ -25,7 +25,7 @@ router_logs.post('/logs', authMiddleware, async (req, res) => {
 })
 
 // Read All
-router_logs.get('/logs', authMiddleware, async (req, res) => {
+router_logs.get('/logs', async (req, res) => {
   try {
     const logs = await LogService.readLogAll()
     return res.json(logs || [])  // inspecionar
@@ -37,7 +37,7 @@ router_logs.get('/logs', authMiddleware, async (req, res) => {
 })
 
 // Read Single
-router_logs.get('/logs/:id', authMiddleware, async (req, res) => {
+router_logs.get('/logs/:id', async (req, res) => {
   const { id } = req.params
 
   try {
@@ -55,7 +55,7 @@ router_logs.get('/logs/:id', authMiddleware, async (req, res) => {
 })
 
 // Update
-router_logs.put('/logs/:id', authMiddleware, async (req, res) => {
+router_logs.put('/logs/:id', async (req, res) => {
   const { id } = req.params
   const { sourceIp, sourcePort, destIp, destPort, action } = req.body
 
@@ -78,7 +78,7 @@ router_logs.put('/logs/:id', authMiddleware, async (req, res) => {
 })
 
 // Delete
-router_logs.delete('/logs/:id', authMiddleware, async (req, res) => {
+router_logs.delete('/logs/:id', async (req, res) => {
   const { id } = req.params
 
   try {

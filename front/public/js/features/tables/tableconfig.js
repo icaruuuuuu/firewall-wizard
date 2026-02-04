@@ -37,16 +37,15 @@ function validateForm() {
 // Coletar dados do formulário
 function collectFormData() {
     return {
-        id: 't' + Date.now(),
         name: document.getElementById('name').value.trim(),
-        family: document.getElementById('family').value,
-        description: document.getElementById('description').value.trim()
+        description: document.getElementById('description').value.trim(),
+        family: document.getElementById('family').value
     };
 }
 
 function showAlert(message, type = 'success') {
     const alertBox = document.getElementById('alertBox');
-    
+
     if (type === 'error' && Array.isArray(message)) {
         alertBox.innerHTML = `
             <strong>❌ Couldn't validate:</strong>
@@ -57,7 +56,7 @@ function showAlert(message, type = 'success') {
     } else {
         alertBox.textContent = type === 'success' ? '✓ ' + message : '❌ ' + message;
     }
-    
+
     alertBox.className = `alert ${type} active`;
 
     if (type === 'success') {
@@ -79,20 +78,23 @@ function escapeHtml(text) {
 }
 
 async function handleSubmit(e) {
-	e.preventDefault();
+    e.preventDefault();
 
-	const errors = validateForm();
+    const errors = validateForm();
 
-	if (errors.length > 0) {
-		showAlert(errors, 'error');
-		return;
-	}
+    if (errors.length > 0) {
+        showAlert(errors, 'error');
+        return;
+    }
 
-	const tableData = collectFormData();
-	const response = await postResource('tables', tableData);
+    try {
+        const tableData = collectFormData();
+        await postResource('tables', tableData);
 
-	showAlert(`Table "${tableData.name}" created successfully`);
-
-	document.getElementById('tableForm').reset();
+        showAlert(`Table "${tableData.name}" created successfully`);
+        document.getElementById('tableForm').reset();
+    } catch (error) {
+        showAlert(`Error creating table: ${error.message}`, 'error');
+    }
 }
 
