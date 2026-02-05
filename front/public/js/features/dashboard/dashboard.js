@@ -146,8 +146,13 @@ apply_btn.onclick = async (event) => {
   }
 }
 
-remove_btn.onclick = (event) => {
-  console.log('Remove configuration clicked')
+remove_btn.onclick = async (event) => {
+  try {
+    const data = await getResource('reset')
+    console.log('Configuration removed successfully:', data)
+  } catch (error) {
+    console.error('Error removing configuration:', error)
+  }
 }
 
 // Initialize dashboard
