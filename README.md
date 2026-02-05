@@ -1,93 +1,133 @@
-# 🔥 Firewall Wizard 
+# Firewall Wizard
 
-Um painel web completo para **gerenciamento, visualização e análise** de firewalls baseados em **nftables**, incluindo dashboard em tempo real, listagem de regras, tabelas, chains, logs e busca avançada com regex.
+Uma plataforma web completa para gerenciamento centralizado de firewalls baseados em **nftables**. Oferece dashboard em tempo real, visualização de configurações de firewall e análise avançada de logs com suporte a busca por expressões regulares.
 
----
+## Sobre o Projeto
 
-## 📘 Sobre o Projeto
+O **Firewall Wizard** é uma aplicação web moderna desenvolvida para simplificar a administração de firewalls em ambientes Linux. Fornece uma interface intuitiva para gerenciar tables, chains e rules do nftables, além de monitorar logs e status em tempo real.
 
-O **Firewall Wizard** é uma interface moderna e intuitiva desenvolvida para facilitar a administração de firewalls utilizando **nftables**.
+A plataforma foi desenvolvida como projeto acadêmico de Desenvolvimento Web, com foco em usabilidade e funcionalidade para administradores de sistemas.
 
-Ele permite visualizar a estrutura completa do firewall, monitorar seu estado, manipular regras e analisar logs — tudo de forma clara, rápida e acessível tanto para iniciantes quanto para administradores experientes.
+## Características Principais
 
----
+### Dashboard
+- Visão geral do estado do firewall
+- Contadores em tempo real (rules, tables, chains)
+- Indicadores de status e saúde
 
-## ✨ Funcionalidades Principais
+### Gerenciamento de Firewall
+- **Tables**: Visualização e gerenciamento de tabelas
+- **Chains**: Listagem e configuração de chains
+- **Rules**: Edição e manipulação de regras com interface intuitiva
 
-### 🧭 Dashboard Completo
-- Contagem total de **rules**
-- Número de **tables**
-- Número de **chains**
-- Indicadores de uso e status
+### Análise e Monitoramento
+- **Logs**: Visualização centralizada de logs do firewall
+- **Busca Avançada**: Filtros com suporte a Expressões Regulares (Regex)
+- **Autenticação**: Sistema seguro de login com JWT
 
-### 📚 Listagens Detalhadas
-- Tabelas (**tables**)
-- Correntes (**chains**)
-- Regras (**rules**)
+### Interface
+- Design responsivo e profissional
+- Navegação simplificada
+- Temas e layouts otimizados para diferentes resoluções
 
-### 🔍 Busca Avançada
-- Filtro poderoso utilizando **Expressões Regulares (Regex)**  
-  Ideal para localizar regras específicas em ambientes grandes.
-
-### 📜 Logs Integrados
-- Visualização otimizada dos logs do firewall
-- Atualização dinâmica
-
-### 🖥️ Interface Moderna
-- Layout inspirado em painéis de firewall profissionais
-- Navegação simples e responsiva
-
----
-
-## 🛠️ Tecnologias Utilizadas
+## Stack Tecnológico
 
 ### Frontend
-- **HTML5**
-- **CSS3**
-- **JavaScript**
+- HTML5
+- CSS3
+- JavaScript (vanilla)
 
 ### Backend
-- **Node.js**
-- **Express**
+- Node.js
+- Express.js
+- Morgan (logging)
+- CORS
 
-### Firewall
-- **nftables** via CLI
-- **JSON** para estrutura interna de regras
+### Banco de Dados
+- MySQL 8.3
+- Prisma ORM
+- MariaDB Adapter
 
----
+### Infraestrutura
+- Docker & Docker Compose
+- nftables (CLI)
 
-## 📦 Instalação
+### Autenticação e Segurança
+- JWT (JSON Web Tokens)
+- Bcrypt (hash de senhas)
 
-### ✔️ Pré-requisitos
-- Linux com suporte a **nftables**
-- **Node.js**
-- **npm**
-- **json-server**
+## Estrutura do Projeto
 
----
+```
+firewall-wizard/
+├── back/                          # Backend (Node.js)
+│   ├── src/
+│   │   ├── index.js              # Entrada principal
+│   │   ├── fw-daemon.js          # Daemon do firewall
+│   │   ├── lib/                  # Utilidades
+│   │   ├── middlewares/          # Middlewares Express
+│   │   ├── models/               # Modelos de dados
+│   │   └── routes/               # Rotas da API
+│   └── database/
+│       ├── db.js                 # Configuração do BD
+│       ├── seeders.js            # Seeders
+│       └── prisma/
+│           ├── schema.prisma     # Schema Prisma
+│           └── migrations/       # Migrações
+├── front/                         # Frontend
+│   └── public/
+│       ├── index.html            # Página principal
+│       ├── login.html            # Página de login
+│       ├── signup.html           # Página de registro
+│       ├── assets/               # CSS e imagens
+│       ├── js/                   # JavaScript
+│       └── pages/                # Componentes HTML
+├── docker-compose.yml            # Orquestração
+└── package.json                  # Dependências
 
-## ▶️ Como Executar?
-
-### Modo Local
-
-```bash
-cd firewall-wizard/back
-
-npx json-server db.json
 ```
 
-O servidor JSON mock será iniciado e fornecerá os dados necessários para o painel.
+## Pré-requisitos
 
----
+- Linux com suporte a **nftables**
+- **Node.js** (v18+)
+- **npm**
+- **Docker** e **Docker Compose**
+- **MySQL** 8.3 (ou via Docker)
 
-## 👥 Equipe
+## Como Executar
+
+> A ser preenchido
+
+## API Endpoints
+
+A API está disponível em `/api` com os seguintes endpoints principais:
+
+- `/api/dashboard` - Dashboard
+- `/api/tables` - Gerenciamento de tabelas
+- `/api/chains` - Gerenciamento de chains
+- `/api/rules` - Gerenciamento de regras
+- `/api/logs` - Visualização de logs
+- `/api/auth` - Autenticação (login/signup)
+- `/api/users` - Gerenciamento de usuários
+- `/api/submit` - Aplicar mudanças no arquivo de configuração nftables.
+
+## Autores
 
 - Bruno de Farias Andrade
 - Ícaro Machado da Silva
 - Pedro Henrique Rodrigues Alves
 
-## 🙏 Agradecimentos
+## Orientador
 
-- Ao GRANDE E ÚNICO Professor Luiz Carlos Rodrigues Chaves, pela orientação e dedicação.
-- Às autoridades idealizadoras e desenvolvedoras do Firewall Wizard.
-- À Turma de Desenvolvimento Web 2025.2, pelo apoio e colaboração.
+Prof. Luiz Carlos Rodrigues Chaves
+
+## Agradecimentos
+
+- Turma de Desenvolvimento Web 2025.2
+- Instituição de Ensino
+- Comunidade de software livre
+
+## Licença
+
+Projeto acadêmico - Direitos reservados.

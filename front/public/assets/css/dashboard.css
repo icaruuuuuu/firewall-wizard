@@ -179,6 +179,14 @@ tr:hover {
   background: #5b21b6;
 }
 
+.delete-btn {
+  background: #dc2626;
+}
+
+.delete-btn:hover {
+  background: #b91c1c;
+}
+
 .empty-state {
   text-align: center;
   padding: 30px;

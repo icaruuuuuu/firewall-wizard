@@ -1,4 +1,5 @@
 import { get, loadLine, testPattern, downloadResource } from '../../utils/lib.js'
+import { getResource } from '../../api/apiClient.js'
 
 const tables_json = await get('tables')
 const chains_json = await get('chains')
@@ -23,7 +24,8 @@ const rules_total = document.getElementById('total-rules')
 
 const blocked_packets = document.getElementById('blocked-packets')
 const search_input = document.getElementById('search-input')
-const download_btn = document.getElementById('download-btn')
+const apply_btn = document.getElementById('apply-btn')
+const remove_btn = document.getElementById('remove-btn')
 
 function loadDashboardData(tables, chains, rules) {
   tables_body.innerHTML = ''
@@ -135,8 +137,17 @@ search_input.oninput = (event) => {
   rules_count.innerText = rules_body.childElementCount
 }
 
-download_btn.onclick = (event) => {
-  downloadResource('db')
+apply_btn.onclick = async (event) => {
+  try {
+    const data = await getResource('submit')
+    console.log('Configuration applied successfully:', data)
+  } catch (error) {
+    console.error('Error applying configuration:', error)
+  }
+}
+
+remove_btn.onclick = (event) => {
+  console.log('Remove configuration clicked')
 }
 
 // Initialize dashboard
