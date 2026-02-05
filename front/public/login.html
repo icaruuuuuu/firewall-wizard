@@ -4,22 +4,25 @@
   <meta charset="UTF-8">
   <title>Firewall Wizard | Login</title>
   <link rel="stylesheet" href="assets/css/elements.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 
-<body class="flex center column">
+<body class="auth-page">
 
-  <h2>🔥 Firewall Wizard</h2>
+  <div class="auth-card">
+    <h2>🔥 Firewall Wizard</h2>
+    <p class="lead">Acesse sua conta para gerenciar regras e logs do firewall.</p>
 
-  <form id="loginForm">
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Senha" required>
-    <button type="submit">Entrar</button>
-  </form>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button class="auth-btn" type="submit">Entrar</button>
+    </form>
 
-  <p>
-    Não tem conta?
-    <a href="signup.html">Criar conta</a>
-  </p>
+    <div class="auth-footer">
+      <p>Não tem conta? <a href="signup.html">Criar conta</a></p>
+    </div>
+  </div>
 
   <script src="js/auth.js"></script>
 </body>

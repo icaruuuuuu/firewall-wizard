@@ -1,0 +1,79 @@
+body.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a 0%, #0b1220 50%, #0f172a 100%);
+  color: #e6eef8;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.auth-card {
+  width: 360px;
+  max-width: calc(100% - 32px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin: 0 0 18px 0;
+  font-size: 20px;
+  letter-spacing: -0.2px;
+}
+
+.auth-card p.lead {
+  margin: 0 0 18px 0;
+  color: rgba(230,238,248,0.8);
+  font-size: 13px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #e6eef8;
+  font-size: 14px;
+  outline: none;
+}
+
+.auth-card input::placeholder {
+  color: rgba(230,238,248,0.5);
+}
+
+.auth-btn {
+  background: linear-gradient(90deg,#6d28d9,#4f46e5);
+  border: none;
+  color: white;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(79,70,229,0.18);
+}
+
+.auth-btn:active { transform: translateY(1px); }
+
+.auth-footer {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(230,238,248,0.8);
+}
+
+.auth-footer a { color: #93c5fd; text-decoration: none; font-weight: 600; }
+
+@media (max-width: 420px) {
+  .auth-card { padding: 20px; border-radius: 12px; }
+}

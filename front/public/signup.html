@@ -4,23 +4,26 @@
   <meta charset="UTF-8">
   <title>Firewall Wizard | Cadastro</title>
   <link rel="stylesheet" href="assets/css/elements.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 
-<body class="flex center column">
+<body class="auth-page">
 
-  <h2>🧙 Criar Conta</h2>
+  <div class="auth-card">
+    <h2>🧙 Criar Conta</h2>
+    <p class="lead">Crie sua conta e comece a gerenciar seu firewall.</p>
 
-  <form id="signupForm">
-    <input type="text" id="name" placeholder="Nome" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Senha" required>
-    <button type="submit">Cadastrar</button>
-  </form>
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Nome" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Senha" required>
+      <button class="auth-btn" type="submit">Cadastrar</button>
+    </form>
 
-  <p>
-    Já tem conta?
-    <a href="login.html">Voltar para login</a>
-  </p>
+    <div class="auth-footer">
+      <p>Já tem conta? <a href="login.html">Voltar para login</a></p>
+    </div>
+  </div>
 
   <script src="js/auth.js"></script>
 </body>
