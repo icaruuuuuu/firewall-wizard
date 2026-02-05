@@ -1,5 +1,5 @@
 export function build(config, level = 0, parentId = 0) {
-  const INDENT = "  ";
+  const INDENT = "\t";
   
   if (!config || !Array.isArray(config) || config.length < 3) {
     return "";
@@ -21,7 +21,7 @@ export function build(config, level = 0, parentId = 0) {
             INDENT.repeat(level) + `${chain.name} {\n` +
             INDENT.repeat(level + 1) +
             `type ${chain.type} hook ${chain.hook} ` +
-            `priority ${chain.priority}; policy ${chain.policy};\n\n` +
+            `priority ${chain.priority}; policy ${chain.policy};\n` +
             build(config, 2, chain.id) +
             INDENT.repeat(level) + "}\n";
         }
