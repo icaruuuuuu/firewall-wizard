@@ -8,7 +8,7 @@ export function build(config, level = 0, parentId = 0) {
   switch (level) {
     case 0: // Tabelas
       return config[0].map(table => 
-        `table ${table.name} {\n` +
+        `table ${table.family} ${table.name} {\n` +
         build(config, 1, table.id) +
         "}\n\n"
       ).join('');
@@ -18,7 +18,7 @@ export function build(config, level = 0, parentId = 0) {
       for (const chain of config[1]) {
         if (chain.tableId === parentId) {
           chainsOutput += 
-            INDENT.repeat(level) + `${chain.name} {\n` +
+            INDENT.repeat(level) + `chain ${chain.name} {\n` +
             INDENT.repeat(level + 1) +
             `type ${chain.type} hook ${chain.hook} ` +
             `priority ${chain.priority}; policy ${chain.policy};\n` +
