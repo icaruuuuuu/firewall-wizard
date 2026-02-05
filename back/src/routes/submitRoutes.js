@@ -11,7 +11,7 @@ router_submit.get('/submit', async (req, res) => {
 
 	const TEMP = '/tmp'
 	const data = await All.readAll()
-	const config = build(data)
+	const config = "#!/usr/sbin/nft -f\n\nflush ruleset\n\n" + build(data)
 	
 	const file = path.join(TEMP, 'app.conf')
 	fs.writeFile(file, config, (error) => {
