@@ -1,12 +1,41 @@
 const API = '/api'
 
-// if already logged in, redirect to dashboard
-if (localStorage.getItem('token')) {
-  // keep on non-root pages only if explicitly needed; otherwise go to dashboard
-  if (location.pathname.endsWith('/login.html') || location.pathname.endsWith('/signup.html')) {
+// Se não está logado e está tentando acessar página protegida, redireciona para login
+function checkAuth() {
+  const token = localStorage.getItem('token')
+  const isAuthPage = location.pathname.endsWith('/login.html') || location.pathname.endsWith('/signup.html')
+
+  // Se não tem token e não está na página de auth, vai para login
+  if (!token && !isAuthPage) {
+    window.location.href = '/login.html'
+    return
+  }
+
+  // Se tem token e está na página de auth, vai para dashboard
+  if (token && isAuthPage) {
     window.location.href = '/'
+    return
   }
 }
+
+// Função auxiliar para fazer requisições com token
+async function fetchWithToken(url, options = {}) {
+  const token = localStorage.getItem('token')
+
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers
+  }
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  return fetch(url, { ...options, headers })
+}
+
+// Executar verificação de autenticação
+checkAuth()
 
 /* =======================
    LOGIN
@@ -17,7 +46,6 @@ if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
 
-    // pega os inputs corretamente
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
 
@@ -38,18 +66,23 @@ if (loginForm) {
 
       if (!res.ok) {
         alert(data.error || 'Erro ao fazer login')
+        submitBtn.disabled = false
+        submitBtn.innerText = 'Entrar'
         return
       }
 
-      // salva token
+      // Salva token e dados do usuário
       localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
 
-      // redireciona para o sistema
+      // Redireciona para o dashboard
       window.location.href = '/'
 
     } catch (err) {
       console.error(err)
       alert('Erro ao conectar com o servidor')
+      submitBtn.disabled = false
+      submitBtn.innerText = 'Entrar'
     }
   })
 }
@@ -66,6 +99,12 @@ if (signupForm) {
     const name = document.getElementById('name').value
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
+
+    // Validações básicas
+    if (password.length < 6) {
+      alert('Senha deve ter pelo menos 6 caracteres')
+      return
+    }
 
     const submitBtn = signupForm.querySelector('button[type="submit"]')
     submitBtn.disabled = true
@@ -89,9 +128,10 @@ if (signupForm) {
         return
       }
 
-      // se o servidor retornou token, salvar e redirecionar ao dashboard
+      // Se o servidor retornou token, salva e redireciona ao dashboard
       if (data.token) {
         localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
         window.location.href = '/'
         return
       }
@@ -102,6 +142,20 @@ if (signupForm) {
     } catch (err) {
       console.error(err)
       alert('Erro ao conectar com o servidor')
+      submitBtn.disabled = false
+      submitBtn.innerText = 'Cadastrar'
     }
   })
 }
+
+/* =======================
+   LOGOUT
+======================= */
+function logout() {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  window.location.href = '/login.html'
+}
+
+// Expor função de logout globalmente
+window.logout = logout

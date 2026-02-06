@@ -3,9 +3,32 @@
 @createdChainId={{createChain.response.body.id}}
 @createdRuleId={{createRule.response.body.id}}
 @createdLogId={{createLog.response.body.id}}
+@token={{signup.response.body.token}}
 
-### Get configuration (tables, chains and rules)
-GET {{server}}/db
+### ──────────────────────────────────────────────────────────────────
+###                         AUTENTICAÇÃO
+### ──────────────────────────────────────────────────────────────────
+
+### Cadastro de novo usuário
+# @name signup
+POST {{server}}/signup
+Content-Type: application/json
+
+{
+  "name": "Admin User",
+  "email": "admin@firewall.com",
+  "password": "senha123456"
+}
+
+### Login com usuário existente
+# @name login
+POST {{server}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@firewall.com",
+  "password": "senha123456"
+}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                               TABLES
@@ -15,6 +38,7 @@ GET {{server}}/db
 # @name createTable
 POST {{server}}/tables
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "filter",
@@ -24,13 +48,16 @@ Content-Type: application/json
 
 ### Get all tables
 GET {{server}}/tables
+Authorization: Bearer {{token}}
 
 ### Get table by ID
 GET {{server}}/tables/2
+Authorization: Bearer {{token}}
 
 ### Update table by ID
 PUT {{server}}/tables/3
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "filter",
@@ -40,6 +67,7 @@ Content-Type: application/json
 
 ### Remove table by ID
 DELETE {{server}}/tables/2
+Authorization: Bearer {{token}}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                               CHAINS
@@ -48,6 +76,7 @@ DELETE {{server}}/tables/2
 ### Create a chain
 # @name createChain
 POST {{server}}/chains
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -62,12 +91,15 @@ Content-Type: application/json
 
 ### Get all chains
 GET {{server}}/chains
+Authorization: Bearer {{token}}
 
 ### Get chain by ID
 GET {{server}}/chains/{{createdChainId}}
+Authorization: Bearer {{token}}
 
 ### Update chain by ID
 PUT {{server}}/chains/{{createdChainId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -82,6 +114,7 @@ Content-Type: application/json
 
 ### Remove chain by ID
 DELETE {{server}}/chains/{{createdChainId}}
+Authorization: Bearer {{token}}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                               RULES
@@ -90,6 +123,7 @@ DELETE {{server}}/chains/{{createdChainId}}
 ### Create a rule
 # @name createRule
 POST {{server}}/rules
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -110,12 +144,15 @@ Content-Type: application/json
 
 ### Get all rules
 GET {{server}}/rules
+Authorization: Bearer {{token}}
 
 ### Get rule by ID
 GET {{server}}/rules/{{createdRuleId}}
+Authorization: Bearer {{token}}
 
 ### Update rule by ID
 PUT {{server}}/rules/{{createdRuleId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -136,6 +173,7 @@ Content-Type: application/json
 
 ### Remove rule by ID
 DELETE {{server}}/rules/{{createdRuleId}}
+Authorization: Bearer {{token}}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                                LOGS
@@ -144,6 +182,7 @@ DELETE {{server}}/rules/{{createdRuleId}}
 ### Create log
 # @name createLog
 POST {{server}}/logs
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -158,12 +197,15 @@ Content-Type: application/json
 
 ### Get all logs
 GET {{server}}/logs
+Authorization: Bearer {{token}}
 
 ### Get log by ID
 GET {{server}}/logs/{{createdLogId}}
+Authorization: Bearer {{token}}
 
 ### Update log by ID
 PUT {{server}}/logs/{{createdLogId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -178,6 +220,7 @@ Content-Type: application/json
 
 ### Remove log by ID
 DELETE {{server}}/logs/{{createdLogId}}
+Authorization: Bearer {{token}}
 
 ### ──────────────────────────────────────────────────────────────────
 ###                               USERS

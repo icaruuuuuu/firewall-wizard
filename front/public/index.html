@@ -10,6 +10,61 @@
 	<link rel="stylesheet" href="assets/css/text-config.css">
 	<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/metropolis-4">
 	<link rel="icon" type="image/png" href="assets/imgs/Firewall_Wizard_Hat_NoBackground.png">
+	<style>
+		.user-menu {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 1rem;
+			border-top: 1px solid #ddd;
+			margin-top: auto;
+		}
+
+		.user-info {
+			flex: 1;
+			overflow: hidden;
+		}
+
+		.user-name {
+			font-weight: bold;
+			font-size: 0.9rem;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.user-email {
+			font-size: 0.75rem;
+			color: #666;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.logout-btn {
+			padding: 0.5rem 1rem;
+			background-color: #e74c3c;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 0.85rem;
+			transition: background-color 0.3s;
+		}
+
+		.logout-btn:hover {
+			background-color: #c0392b;
+		}
+
+		.sidebar {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.nav-content {
+			flex: 1;
+		}
+	</style>
 </head>
 
 <body>
@@ -28,9 +83,42 @@
 			<a href="pages/config/lists/rulelist.html" target="navs">Rules</a>
 			<a href="pages/logs/logs.html" target="navs">Logs</a>
 		</nav>
+
+		<div class="user-menu" id="userMenu">
+			<div class="user-info">
+				<div class="user-name" id="userName">Usuário</div>
+				<div class="user-email" id="userEmail">user@example.com</div>
+			</div>
+			<button class="logout-btn" onclick="logout()">Sair</button>
+		</div>
 	</div>
 
+	<script src="js/auth.js"></script>
 	<script>
+		// Carregar informações do usuário
+		function loadUserInfo() {
+			const userMenu = document.getElementById('userMenu')
+			const user = localStorage.getItem('user')
+			if (!user) {
+				// mostrar links de login / signup quando não autenticado
+				userMenu.innerHTML = `
+					<div style="padding:0.75rem">
+						<a href="/login.html">Entrar</a> · <a href="/signup.html">Criar conta</a>
+					</div>`
+				return
+			}
+			try {
+				const userData = JSON.parse(user)
+				document.getElementById('userName').textContent = userData.name || 'Usuário'
+				document.getElementById('userEmail').textContent = userData.email || 'user@example.com'
+			} catch (e) {
+				console.error('Erro ao carregar dados do usuário:', e)
+			}
+		}
+
+		// Executar ao carregar a página
+		loadUserInfo()
+
 		const sidebar = document.querySelector('.sidebar');
 		const outter = document.getElementById('outter-tog');
 		const overlay = document.querySelector('.sidebar-overlay');

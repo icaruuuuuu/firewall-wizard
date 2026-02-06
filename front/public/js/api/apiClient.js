@@ -4,17 +4,39 @@ import { APIError, APINotFoundError } from "./error.js"
 
 const API_URL = `http://localhost:3000/api`
 
+// Função auxiliar para obter headers com token
+function getHeaders(additionalHeaders = {}) {
+  const headers = {
+    'Content-Type': 'application/json',
+    ...additionalHeaders
+  }
+
+  const token = localStorage.getItem('token')
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+
+  return headers
+}
+
 async function postResource(param, data) {
   const resource = `${API_URL}/${param}`
   const options = {
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: getHeaders(),
     method: 'post',
     body: JSON.stringify(data)
   }
 
   const response = await fetch(resource, options)
+
+  // Se receber 401, token expirou, redireciona para login
+  if (response.status === 401) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login.html'
+    return
+  }
+
   if (!response.ok) {
     throw new APIError(`POST to ${param} failed with status ${response.status}`, response.status, param)
   }
@@ -26,7 +48,20 @@ async function postResource(param, data) {
 async function getResource(param, id = '') {
   try {
     const resource = `${API_URL}/${param}/${id}`
-    const response = await fetch(resource)
+    const options = {
+      headers: getHeaders(),
+      method: 'get'
+    }
+
+    const response = await fetch(resource, options)
+
+    // Se receber 401, token expirou, redireciona para login
+    if (response.status === 401) {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      window.location.href = '/login.html'
+      return
+    }
 
     if (!response.ok) {
       if (response.status === 403) {
@@ -58,14 +93,21 @@ async function getResource(param, id = '') {
 async function putResource(param, id, data) {
   const resource = `${API_URL}/${param}/${id}`
   const options = {
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: getHeaders(),
     method: 'put',
     body: JSON.stringify(data)
   }
 
   const response = await fetch(resource, options)
+
+  // Se receber 401, token expirou, redireciona para login
+  if (response.status === 401) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login.html'
+    return
+  }
+
   if (!response.ok) {
     throw new APIError(`PUT to ${param}/${id} failed with status ${response.status}`, response.status, `${param}/${id}`)
   }
@@ -77,10 +119,20 @@ async function putResource(param, id, data) {
 async function deleteResource(param, id) {
   const resource = `${API_URL}/${id}`
   const options = {
+    headers: getHeaders(),
     method: 'delete'
   }
 
   const response = await fetch(resource, options)
+
+  // Se receber 401, token expirou, redireciona para login
+  if (response.status === 401) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login.html'
+    return
+  }
+
   if (!response.ok) {
     throw new APIError(`DELETE to ${param}/${id} failed with status ${response.status}`, response.status, `${param}/${id}`)
   }
