@@ -97,7 +97,55 @@ firewall-wizard/
 
 ## Como Executar
 
-> A ser preenchido
+Siga os passos abaixo a partir da raiz do projeto (`firewall-wizard`). Cada comando deve ser executado no terminal, na ordem indicada.
+
+1. Clone o repositório e entre na pasta do projeto
+
+```bash
+git clone https://github.com/icaruuuuuu/firewall-wizard.git
+cd firewall-wizard
+```
+
+2. Instale as dependências do projeto
+
+```bash
+npm install
+```
+
+3. Suba os serviços necessários via Docker (MySQL)
+
+```bash
+docker compose up -d
+```
+
+4. Gere e aplique migrations do Prisma
+
+> Aguarde o banco de dados estar pronto antes de executar os comandos abaixo.
+
+```bash
+cd back/database
+npx prisma generate
+npx prisma migrate deploy
+cd -
+```
+
+5. Inicie o daemon do firewall (pode exigir permissões de root)
+
+```bash
+sudo node back/src/fw-daemon.js
+```
+
+6. Em um novo terminal, inicie o servidor da API (a partir da raiz do projeto)
+
+```bash
+node back/src/index.js
+```
+
+Observações rápidas:
+- Se estiver usando Docker para o banco, verifique os logs com `docker compose logs` caso as migrations falhem.
+- O `fw-daemon.js` interage com o sistema (nftables) e pode requerer permissões elevadas.
+- Para desenvolvimento local, pare e suba o `docker compose` novamente se alterar configurações do banco.
+
 
 ## API Endpoints
 
